@@ -6,9 +6,9 @@ const Orders = (state = initialState, action) => {
         case 'ADDORDER':
             return state
         case 'DELETORDER':
-            return state.filter((data)=> data.order_ID !== action.payload)
+            return state.filter((data)=> data.ID !== action.payload)
         case 'UPDATEORDER':
-            return state.map((data)=> data.order_ID === action.payload.order_ID?action.payload:data)
+            return state.map((data)=> data.id === action.payload.id?action.payload:data)
         default:
             return state
     }

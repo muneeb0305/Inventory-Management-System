@@ -7,17 +7,18 @@ import { ArchiveBoxXMarkIcon, BanknotesIcon, CalendarDaysIcon, ClipboardDocument
 import AreaChartComponent from '../components/Charts/AreaChartComponent'
 import RadialBarChartComponent from '../components/Charts/RadialBarChartComponent'
 import LineChartComponent from '../components/Charts/ProfitLossChart'
-import Table from '../components/Table/Table'
-import RecentOrderData from '../data/RecentOrderData'
+import Table from '../components/Table/OrderTable'
 import Profit_Loss_Data from '../data/Profit_Loss_Data'
 import TotalOrderData from '../data/TotalOrderData'
 import CancelOrderData from '../data/CancelOrderData'
 import ClientOrderData from '../data/ClientOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
+import { useSelector } from 'react-redux'
 
 export default function Dashboard() {
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Status", "Amount"]
+  const recent = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').slice(0,5))
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>
@@ -146,7 +147,7 @@ export default function Dashboard() {
               <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
               <h2 className='text-xl pl-3'>Recent Orders</h2>
             </div>
-            <Table tableData={RecentOrderData} tableHeader={Headers} />
+            <Table color="bg-red-500" tableData={recent} tableHeader={Headers} />
           </div>
         </div>
       </div>

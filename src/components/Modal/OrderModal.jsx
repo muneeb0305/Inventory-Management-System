@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { DeleteOrder } from '../../actions';
+import { Link } from 'react-router-dom';
 export default function Modal({ID}) {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function Modal({ID}) {
   }
   return (
     <>
-      {/* <Link to={"/addSalary"}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link> */}
+      <Link to={`/Order_Details/update_order/${ID}`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
       <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
       {isOpen &&
         <div className="fixed inset-0 z-50 overflow-y-auto">

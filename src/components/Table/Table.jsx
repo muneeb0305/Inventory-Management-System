@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/OrderModal';
 export default function Table(props) {
   const tableData = props.tableData;
   

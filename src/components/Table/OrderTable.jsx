@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/OrderModal';
 export default function OrderTable({ tableData, tableHeader, color }) {
 
     return (
@@ -25,7 +25,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                             {tableData.map((row, index) => (
                                                 <tr key={index} className="border-b hover:bg-gray-50 text-center">
                                                     <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        {row.order_ID}
+                                                        {row.id}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                                                         {row.date}
@@ -43,7 +43,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         {row.amount}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                                                        <Modal ID={row.order_ID} />
+                                                        <Modal ID={row.id} />
                                                     </td>
                                                 </tr>
                                             ))}
