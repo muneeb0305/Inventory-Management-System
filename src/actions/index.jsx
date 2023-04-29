@@ -17,3 +17,23 @@ export const UpdateItem =(data)=>{
         payload: data
     }
 }
+
+//Orders
+export const AddOrder =(data)=>{
+    return {
+        type: 'ADDORDER',
+        payload: data
+    }
+}
+export const DeleteOrder =(ID)=>{
+    return {
+        type: 'DELETORDER',
+        payload: ID
+    }
+}
+export const UpdateOrder =(data)=>{
+    return {
+        type: 'UPDATEORDER',
+        payload: data
+    }
+}
