@@ -7,8 +7,8 @@ export default function Modal({ID}) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-  const DeleteRow = (ID) => {
-    dispatch(DeleteOrder(ID))
+  const DeleteRow = (id) => {
+    dispatch(DeleteOrder(id))
     closeModal()
   }
   return (

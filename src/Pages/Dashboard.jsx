@@ -18,22 +18,45 @@ import { useSelector } from 'react-redux'
 
 export default function Dashboard() {
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Status", "Amount"]
-  const recent = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').slice(0,5))
+  const recent = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').slice(0, 5))
+  const orderPlaced = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').length)
+  const orderPending = useSelector((state) => state.Orders.filter((data) => data.status !== 'Order Placed' && data.status !== 'Order Delivered').length)
+  const orderDelivered = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Delivered').length)
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>
         <div className='container mx-auto px-5'>
           <h1 className='text-4xl font-medium py-7'>Dashboard</h1>
           <div className='flex flex-wrap justify-center gap-5'>
-            {DashboardCardData.map(({ title, value, icon, color }) => (
-              <DashboardCard
-                key={title}
-                color={color}
-                icon={icon}
-                title={title}
-                value={value}
-              />
-            ))}
+            {
+              DashboardCardData.map(({ title, icon, color }) => {
+                if (title === 'Order Placed') {
+                  return (<DashboardCard
+                    key={title}
+                    color={color}
+                    icon={icon}
+                    title={title}
+                    value={orderPlaced}
+                  />)
+                }
+                else if (title === 'Pending Orders') {
+                  return (<DashboardCard
+                    key={title}
+                    color={color}
+                    icon={icon}
+                    title={title}
+                    value={orderPending}
+                  />)
+                }
+                return (<DashboardCard
+                  key={title}
+                  color={color}
+                  icon={icon}
+                  title={title}
+                  value={orderDelivered}
+                />)
+              })
+            }
           </div>
           <div className='mt-10 mb-5 md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
             <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
@@ -113,7 +136,7 @@ export default function Dashboard() {
                 </div>
                 <Select />
               </div>
-              <BarChart data={TotalOrderData}/>
+              <BarChart data={TotalOrderData} />
             </div>
             <div className='bg-white border-2 w-full  p-5 shadow-lg overflow-hidden'>
               <div className='flex align-middle justify-between mb-10'>
@@ -129,8 +152,8 @@ export default function Dashboard() {
           <div className='mt-10 mb-5 md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
             <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
               <div className='flex align-middle  mb-10'>
-                  <HandThumbUpIcon className="h-7 w-7  text-green-500" />
-                  <h2 className='text-xl pl-3'>Customer Satisfaction</h2>
+                <HandThumbUpIcon className="h-7 w-7  text-green-500" />
+                <h2 className='text-xl pl-3'>Customer Satisfaction</h2>
               </div>
               <SaleAreaChart data={CustomerSatisfactionData} />
             </div>
