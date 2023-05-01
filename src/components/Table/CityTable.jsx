@@ -9,7 +9,7 @@ export default function Table() {
   const CitiesObject = [...UniqueCity].reduce((arr, city) => {
     let TotalAmount = 0;
     const Clients = Orders.filter((order) => order.city === city).map((data) => data.customer_Name);
-    const Product = Orders.filter((order) => order.city === city).length;
+    const Product = Orders.filter((order) => order.city === city).map((data) => data.quantity);
     const UniqueClients = new Set(Clients).size
     const AmountArray = Orders
       .filter((data) => data.city === city)

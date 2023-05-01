@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 export default function SaleDetails() {
   let TotalAmount = 0;
   const TotalOrders = useSelector((state) => state.Orders.length)
-  const ProductSold = useSelector((state) => state.Orders.map((data) => data.product).length)
+  const ProductSold = useSelector((state) => state.Orders.map((data) => data.quantity))
   const Clients = useSelector((state) => state.Orders.map((data) => data.customer_Name))
   const AmountArray = useSelector((state) => state.Orders.map((data) => data.amount))
   const TotalClients = new Set(Clients).size
@@ -27,7 +27,7 @@ export default function SaleDetails() {
         <div className='container mx-auto px-5'>
           <h1 className='text-4xl font-medium py-7'>Sale Overview</h1>
           <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            {SaleCardData.map(({ textColor, bgColor, title, value, icon, color }) => {
+            {SaleCardData.map(({ textColor, bgColor, title,icon }) => {
               if (title === 'Total Clients') {
                 return (
                   <SaleCard

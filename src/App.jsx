@@ -4,26 +4,15 @@ import Customer from './Customer/SideBarRoutes'
 import Layout from './Login/Layout'
 
 function App() {
-  const [Token, setToken] = useState()
-  const [Role, setRole] = useState()
-  useEffect(() => {
-    setToken(JSON.parse(localStorage.getItem('token')))
-    setRole(JSON.parse(localStorage.getItem('User')))
-  }, [Token, Role])
+  const token = JSON.parse(localStorage.getItem('token'));
+  const userRole = JSON.parse(localStorage.getItem('User'));
 
-  if (Token) {
-    if (Role === "Admin") {
-      return <Admin />
-    }
-    else {
-      return <Customer />
-
-    }
-  }
-  else if (!Token) {
-    return (
-      <Layout/>
-    );
+  if (token && userRole === 'Admin') {
+    return <Admin />;
+  } else if (token && userRole === 'Customer') {
+    return <Customer />;
+  } else {
+    return <Layout />;
   }
 }
 

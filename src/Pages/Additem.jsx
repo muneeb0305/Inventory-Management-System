@@ -9,6 +9,7 @@ export default function Additem() {
     const isID = !!id
     const dispatch = useDispatch()
     const updatedData = useSelector((state) => state.Inventory.find((data) => data.id === Number(id)))
+    console.log(updatedData)
     const ID_Counter = Date.now();
     const [Form, setForm] = useState({
         id: '',

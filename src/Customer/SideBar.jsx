@@ -1,12 +1,13 @@
 import { useState } from "react";
-// import logo from '../assets/company_logo.png'
+import logo from '../components/assets/logo.png'
 import control from '../components/assets/control.png'
 import { NavLink } from 'react-router-dom';
-import { HomeIcon } from "@heroicons/react/24/solid";
+import { ClipboardDocumentIcon, HomeIcon } from "@heroicons/react/24/solid";
 const SideBar = ({ children }) => {
   const [open, setOpen] = useState(false);
   const Menus = [
     { title: "Dashboard", icon: <HomeIcon className="w-6 h-6" />, path: '/' },
+    { title: "View Orders", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/view_orders' },
   ];
 
   return (
@@ -16,22 +17,20 @@ const SideBar = ({ children }) => {
           } bg-blue-900 p-5 min-h-screen pt-8 relative duration-300`}
       >
         <div>
-
-
           <img
             src={control} alt=""
             className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
            border-2 rounded-full  ${!open && "rotate-180"}`}
             onClick={() => setOpen(!open)}
           />
-          {/* <div className="flex gap-x-4 items-center">
+          <div className="flex gap-x-4 items-center justify-center">
           <img
             src={logo} alt=""
-            className={`cursor-pointer duration-500 ${
+            className={`cursor-pointer duration-500 w-40  ${
               open && "rotate-[360deg]"
             }`}
           />
-        </div> */}
+        </div>
           <ul className="pt-6 ">
             {Menus.map((Menu, index) => (
               <NavLink to={Menu.path} key={index}  >

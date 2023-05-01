@@ -11,7 +11,6 @@ export default function CustomerDashboard() {
   const orderPlaced = orderState.filter((data) =>data.customer_id===UserState.id &&data.status === 'Order Placed').length
   const orderPending = orderState.filter((data) => data.customer_id===UserState.id &&data.status !== 'Order Placed' && data.status !== 'Order Delivered').length
   const orderDelivered = orderState.filter((data) =>data.customer_id===UserState.id && data.status === 'Order Delivered').length
-  console.log(orderDelivered)
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>

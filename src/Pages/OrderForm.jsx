@@ -14,7 +14,6 @@ export default function OrderForm() {
     const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
     const updatedData = useSelector((state) => state.Orders.find((data) => data.order_id === Number(id)))
     const stock = useSelector((state) => state.Inventory)
-    console.log(updatedData)
     const ID_Counter = Date.now();
     const [Form, setForm] = useState({
         order_id: null,
@@ -22,6 +21,7 @@ export default function OrderForm() {
         customer_id: Userinfo.id ,
         date: '',
         product: '',
+        quantity: '',
         address: '',
         city: '',
         status: '',
@@ -39,13 +39,14 @@ export default function OrderForm() {
         else {
             const AddForm = { ...Form, order_id: ID_Counter, status: 'Order Placed' }
             dispatch(AddOrder(AddForm))
-            dispatch(OrderItem(Form.product,1))
+            dispatch(OrderItem(Form.product,Form.quantity))
         }
         setForm({
             order_id: null,
             customer_id: Userinfo.id ,
             customer_Name: '',
             date: '',
+            quantity:'',
             product: '',
             address: '',
             city: '',
@@ -61,6 +62,7 @@ export default function OrderForm() {
                 customer_id: updatedData.customer_id ,
                 customer_Name: updatedData.customer_Name,
                 date: updatedData.date,
+                quantity: updatedData.quantity,
                 product: updatedData.product,
                 address: updatedData.address,
                 city: updatedData.city,
@@ -118,8 +120,12 @@ export default function OrderForm() {
                                     </select>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="amount" value={Form.amount=stock.find((data) => data.Item_name === Form.product)?.priceOut || ''} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
+                                    <input type="text" name="amount" value={Form.amount=stock.find((data) => data.Item_name === Form.product)?.priceOut*Form.quantity || ''} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
                                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Amount</label>
+                                </div>
+                                <div className="relative z-0 w-full mb-6 group">
+                                    <input type="number" name="quantity" value={Form.quantity} onChange={handleChange} min={1} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Quantity</label>
                                 </div>
                             </div>
                             {

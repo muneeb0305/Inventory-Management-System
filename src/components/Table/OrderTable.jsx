@@ -37,10 +37,13 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         {row.product}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
+                                                        {row.quantity}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                                                         <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{row.status}</span>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
-                                                        {row.amount}
+                                                        Rs: {row.amount}/-
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
                                                         <Modal ID={row.order_id} />

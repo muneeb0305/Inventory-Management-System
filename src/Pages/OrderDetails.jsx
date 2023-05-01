@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export default function OrderDetails() {
   const [openTab, setOpenTab] = React.useState(1);
-  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Status", "Amount"]
+  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const OrderDeliveredData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Delivered'))
   const OrderPackagedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Packaged'))
   const OrderPickedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Picked'))
