@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { AddOrder, UpdateOrder, OrderItem } from '../actions/index';
+import { AddOrder, UpdateOrder, CountDecrease } from '../actions/index';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function OrderForm() {
     const { id } = useParams()
+    const [UserInfo, setUserInfo] = useState(null)
     const UserState = useSelector((state) => state.User)
-    const Userinfo = UserState.find((data) => data.token === JSON.parse(localStorage.getItem('token')))
+    const getInfo = async (Userstate) => {
+        const response = await Userstate.find((data) => data.token === JSON.parse(localStorage.getItem('token')))
+        setUserInfo(response)
+    }
+    useEffect(() => {
+        UserState && getInfo(UserState)
+    }, [UserState])
+    console.log(UserInfo)
     const navigate = useNavigate()
     const isID = !!id
     const dispatch = useDispatch()
@@ -18,7 +26,7 @@ export default function OrderForm() {
     const [Form, setForm] = useState({
         order_id: null,
         customer_Name: '',
-        customer_id: Userinfo.id ,
+        customer_id: '',
         date: '',
         product: '',
         quantity: '',
@@ -30,6 +38,7 @@ export default function OrderForm() {
     const handleChange = (e) => {
         setForm({ ...Form, [e.target.name]: e.target.value })
     };
+    console.log(Form)
     const handleSubmit = (e) => {
         e.preventDefault()
         if (isID) {
@@ -39,14 +48,14 @@ export default function OrderForm() {
         else {
             const AddForm = { ...Form, order_id: ID_Counter, status: 'Order Placed' }
             dispatch(AddOrder(AddForm))
-            dispatch(OrderItem(Form.product,Form.quantity))
+            dispatch(CountDecrease(Form.product, Form.quantity))
         }
         setForm({
             order_id: null,
-            customer_id: Userinfo.id ,
+            customer_id: '',
             customer_Name: '',
             date: '',
-            quantity:'',
+            quantity: '',
             product: '',
             address: '',
             city: '',
@@ -59,7 +68,7 @@ export default function OrderForm() {
         if (isID) {
             setForm({
                 order_id: updatedData.order_id,
-                customer_id: updatedData.customer_id ,
+                customer_id: updatedData.customer_id,
                 customer_Name: updatedData.customer_Name,
                 date: updatedData.date,
                 quantity: updatedData.quantity,
@@ -79,9 +88,13 @@ export default function OrderForm() {
                     <h1 className="text-4xl font-medium py-7">{isID ? "Update" : "Add"} Order</h1>
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form onSubmit={handleSubmit}>
-                            <div className="grid md:grid-cols-2 md:gap-6">
+                            <div className="grid md:grid-cols-3 md:gap-6">
                                 <div className="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="customer_Name" value={Userinfo.type==='Customer'?Form.customer_Name=Userinfo.customer_Name:Form.customer_Name} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled required />
+                                    <input type="number" name="customer_id" value={UserInfo && UserInfo.type === 'Customer' ? Form.customer_id = UserInfo.id : Form.customer_id} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled required />
+                                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer ID</label>
+                                </div>
+                                <div className="relative z-0 w-full mb-6 group">
+                                    <input type="text" name="customer_Name" value={UserInfo && UserInfo.type === 'Customer' ? Form.customer_Name = UserInfo.customer_Name : Form.customer_Name} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled required />
                                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer Name</label>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group">
@@ -120,7 +133,7 @@ export default function OrderForm() {
                                     </select>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="amount" value={Form.amount=stock.find((data) => data.Item_name === Form.product)?.priceOut*Form.quantity || ''} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
+                                    <input type="text" name="amount" value={Form.amount = stock.find((data) => data.Item_name === Form.product)?.priceOut * Form.quantity || ''} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
                                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Amount</label>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group">

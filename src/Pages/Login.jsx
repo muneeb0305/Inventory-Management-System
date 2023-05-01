@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Login } from '../actions/index';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 export default function LoginPage() {
-    const token = useSelector((state)=>state.User.map((user)=>user.token))
+    const token = useSelector((state) => state.User.map((user) => user.token))
     const User = ['Admin', 'Customer']
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useDispatch()
     const [Form, setForm] = useState({
         email: '',
@@ -15,17 +16,16 @@ export default function LoginPage() {
     const handleChange = (e) => {
         setForm({ ...Form, [e.target.name]: e.target.value })
     }
-    const handleSubmit =(e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(Login({...Form}))
-        let flag=''
+        dispatch(Login({ ...Form }))
+        let flag = ''
         token.forEach(element => {
-            if(element===JSON.parse(localStorage.getItem("token")))
-            {
+            if (element === JSON.parse(localStorage.getItem("token"))) {
                 return flag = true
             }
         });
-        if (flag){
+        if (flag) {
             window.location.assign('/');
             // navigate('/')
         }
@@ -45,7 +45,7 @@ export default function LoginPage() {
                         </h3>
                         <form className="w-full flex flex-col justify-center" onSubmit={handleSubmit} autoComplete='off'>
                             <div className="mb-4">
-                                <input type="email" name='email' value={Form.email}  onChange={handleChange} placeholder="Email" className="w-full p-3 rounded border placeholder-gray-400 focus:outline-none focus:border-blue-600" />
+                                <input type="email" name='email' value={Form.email} onChange={handleChange} placeholder="Email" className="w-full p-3 rounded border placeholder-gray-400 focus:outline-none focus:border-blue-600" />
                             </div>
                             <div className="mb-4">
                                 <input type="password" autoComplete='off' name='password' value={Form.password} onChange={handleChange} placeholder="Password" className="w-full p-3 rounded border placeholder-gray-400 focus:outline-none focus:border-blue-600" />

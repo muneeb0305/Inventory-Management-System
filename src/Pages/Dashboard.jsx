@@ -17,7 +17,7 @@ import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import { useSelector } from 'react-redux'
 
 export default function Dashboard() {
-  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Status", "Amount"]
+  const Headers = ["Order ID", "Date", "Customer Name", "Product","Quantity", "Status", "Amount"]
   const recent = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').slice(0, 5))
   const orderPlaced = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').length)
   const orderPending = useSelector((state) => state.Orders.filter((data) => data.status !== 'Order Placed' && data.status !== 'Order Delivered').length)

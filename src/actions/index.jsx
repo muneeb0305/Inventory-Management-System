@@ -32,9 +32,15 @@ export const UpdateItem =(data)=>{
         payload: data
     }
 }
-export const OrderItem =(Item_name, itemCount)=>{
+export const CountDecrease =(Item_name, itemCount)=>{
     return {
-        type: 'ORDERITEM',
+        type: 'QUANTITY_COUNT_DECREASE',
+        payload: {Item_name, itemCount}
+    }
+}
+export const CountIncrease =(Item_name, itemCount)=>{
+    return {
+        type: 'QUANTITY_COUNT_INCREASE',
         payload: {Item_name, itemCount}
     }
 }

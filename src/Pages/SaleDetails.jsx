@@ -13,8 +13,10 @@ import { useSelector } from 'react-redux';
 
 export default function SaleDetails() {
   let TotalAmount = 0;
+  let ProductSoldCount= 0
+  useSelector((state) => state.Orders.map((data) => ProductSoldCount+=Number(data.quantity)))
   const TotalOrders = useSelector((state) => state.Orders.length)
-  const ProductSold = useSelector((state) => state.Orders.map((data) => data.quantity))
+  console.log(ProductSoldCount)
   const Clients = useSelector((state) => state.Orders.map((data) => data.customer_Name))
   const AmountArray = useSelector((state) => state.Orders.map((data) => data.amount))
   const TotalClients = new Set(Clients).size
@@ -68,7 +70,7 @@ export default function SaleDetails() {
                   bgColor={bgColor}
                   icon={icon}
                   title={title}
-                  value={ProductSold}
+                  value={ProductSoldCount}
                 />)
             })}
           </div>

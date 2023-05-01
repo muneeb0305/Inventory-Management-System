@@ -8,21 +8,21 @@ export default function Table() {
 
   const CitiesObject = [...UniqueCity].reduce((arr, city) => {
     let TotalAmount = 0;
+    let ProductSoldCount=0
+    Orders.filter((order) => order.city === city).map((data) => ProductSoldCount+=Number(data.quantity));
     const Clients = Orders.filter((order) => order.city === city).map((data) => data.customer_Name);
-    const Product = Orders.filter((order) => order.city === city).map((data) => data.quantity);
     const UniqueClients = new Set(Clients).size
     const AmountArray = Orders
       .filter((data) => data.city === city)
       .map((data) => data.amount);
-      AmountArray.forEach(amount => {
-        TotalAmount += Number(amount);
-      }
+    AmountArray.forEach(amount => {
+      TotalAmount += Number(amount);
+    }
     );
-    console.log(TotalAmount)
     arr.push({
       City: city,
       Clients: UniqueClients,
-      'Product Sold': Product,
+      'Product Sold': ProductSoldCount,
       Sale: TotalAmount
     });
 
@@ -64,9 +64,11 @@ export default function Table() {
                       ))}
                     </tbody>
                   ) : (
-                    <tr>
-                      <td colSpan={tableHeader.length} className="text-center text-sm text-gray-400 pt-4">No Data Found</td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td colSpan={tableHeader.length} className="text-center text-sm text-gray-400 pt-4">No Data Found</td>
+                      </tr>
+                    </tbody>
                   )}
                 </table>
               </div>

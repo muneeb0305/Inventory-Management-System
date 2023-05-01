@@ -46,7 +46,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         Rs: {row.amount}/-
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                                                        <Modal ID={row.order_id} />
+                                                        <Modal ID={row.order_id} Product={row.product} Quantity={row.quantity} />
                                                     </td>
                                                 </tr>
                                             ))}
