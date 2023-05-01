@@ -8,18 +8,21 @@ export default function Table() {
 
   const CitiesObject = [...UniqueCity].reduce((arr, city) => {
     let TotalAmount = 0;
-    const Clients = Orders.filter((order) => order.city === city).length;
+    const Clients = Orders.filter((order) => order.city === city).map((data) => data.customer_Name);
+    const Product = Orders.filter((order) => order.city === city).length;
+    const UniqueClients = new Set(Clients).size
     const AmountArray = Orders
       .filter((data) => data.city === city)
       .map((data) => data.amount);
-    for (let i = 0; i < AmountArray.length; i++) {
-      TotalAmount += AmountArray[i];
-    }
-
+      AmountArray.forEach(amount => {
+        TotalAmount += Number(amount);
+      }
+    );
+    console.log(TotalAmount)
     arr.push({
       City: city,
-      Clients: Clients,
-      'Product Sold': Clients,
+      Clients: UniqueClients,
+      'Product Sold': Product,
       Sale: TotalAmount
     });
 
@@ -45,7 +48,7 @@ export default function Table() {
                     <tbody>
                       {CitiesObject.map((data, index) => (
                         <tr key={index} className="border-b hover:bg-gray-50 text-center">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
+                          <td className="font-medium px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                             {data.City}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">

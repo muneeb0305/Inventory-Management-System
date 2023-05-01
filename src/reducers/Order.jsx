@@ -1,14 +1,14 @@
-import OrderPickedData from "../data/Orders"
+// import OrderPickedData from "../data/Orders"
 
-const initialState = OrderPickedData
+const initialState = []
 const Orders = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case 'ADDORDER':
-            return state
+            return [...state, action.payload]
         case 'DELETORDER':
-            return state.filter((data)=> data.id !== action.payload)
+            return state.filter((data) => data.order_id !== action.payload)
         case 'UPDATEORDER':
-            return state.map((data)=> data.id === action.payload.id?action.payload:data)
+            return state.map((data) => data.id === action.payload.id ? action.payload : data)
         default:
             return state
     }

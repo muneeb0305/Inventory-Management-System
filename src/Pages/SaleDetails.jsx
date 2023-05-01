@@ -19,7 +19,7 @@ export default function SaleDetails() {
   const AmountArray = useSelector((state) => state.Orders.map((data) => data.amount))
   const TotalClients = new Set(Clients).size
   for (let i = 0; i < AmountArray.length; i++) {
-    TotalAmount += AmountArray[i]
+    TotalAmount += Number(AmountArray[i])
   }
   return (
     <section>

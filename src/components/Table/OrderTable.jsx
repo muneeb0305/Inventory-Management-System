@@ -25,7 +25,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                             {tableData.map((row, index) => (
                                                 <tr key={index} className="border-b hover:bg-gray-50 text-center">
                                                     <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        {row.id}
+                                                        {row.order_id}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                                                         {row.date}
@@ -43,15 +43,17 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         {row.amount}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                                                        <Modal ID={row.id} />
+                                                        <Modal ID={row.order_id} />
                                                     </td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     ) : (
-                                        <tr>
-                                            <td colSpan={tableHeader.length} className="text-center text-sm text-gray-400 pt-4">No Data Found</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <td colSpan={tableHeader.length} className="text-center text-sm text-gray-400 pt-4">No Data Found</td>
+                                            </tr>
+                                        </tbody>
                                     )}
                                 </table>
                             </div>

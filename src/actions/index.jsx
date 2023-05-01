@@ -1,3 +1,18 @@
+//User
+export const Login =(data)=>{
+    return {
+        type: 'LOGIN',
+        payload: data
+    }
+}
+export const Registration =(data)=>{
+    return {
+        type: 'REGISTRATION',
+        payload: data
+    }
+}
+
+
 //inventory
 export const AddItems =(data)=>{
     return {
@@ -15,6 +30,12 @@ export const UpdateItem =(data)=>{
     return {
         type: 'UPDATEITEM',
         payload: data
+    }
+}
+export const OrderItem =(Item_name, itemCount)=>{
+    return {
+        type: 'ORDERITEM',
+        payload: {Item_name, itemCount}
     }
 }
 

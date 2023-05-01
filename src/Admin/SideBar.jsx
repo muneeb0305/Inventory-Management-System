@@ -1,12 +1,12 @@
 import { useState } from "react";
 // import logo from '../assets/company_logo.png'
-import control from '../assets/control.png'
+import control from '../components/assets/control.png'
 import { NavLink } from 'react-router-dom';
 import { BuildingStorefrontIcon, ChartBarIcon, ClipboardDocumentIcon, HomeIcon } from "@heroicons/react/24/solid";
 const SideBar = ({children}) => {
   const [open, setOpen] = useState(false);
   const Menus = [
-    { title: "Dashboard", icon:<HomeIcon className="w-6 h-6"/>, path:'/Dashboard' },
+    { title: "Dashboard", icon:<HomeIcon className="w-6 h-6"/>, path:'/' },
     { title: "Order Details", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/Order_Details' },
     { title: "Sale Details", icon: <ChartBarIcon className="w-6 h-6"/>, path:'/Sale_Details' },
     { title: "Inventory", icon: <BuildingStorefrontIcon className="w-6 h-6"/>, path:'/Inventory' },

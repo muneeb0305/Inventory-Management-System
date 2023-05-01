@@ -1,4 +1,6 @@
-const initialState= []
+import InventoryData from "../data/InventoryData"
+
+const initialState= InventoryData
 const Inventory = (state = initialState, action)=>{
     switch(action.type){
         case 'ADDITEM':
@@ -7,6 +9,13 @@ const Inventory = (state = initialState, action)=>{
             return state.filter((data)=> data.id !== action.payload)
         case 'UPDATEITEM':
             return state.map((data)=> data.id === action.payload.id?action.payload:data)
+        case 'ORDERITEM':
+            return  state.map((item)=>{
+                if(item.Item_name === action.payload.Item_name){
+                    return {...item, stock: item.stock - action.payload.itemCount}
+                }
+                return item
+            } )
         default:
             return state
     }
