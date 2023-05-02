@@ -14,12 +14,11 @@ import { useSelector } from 'react-redux';
 export default function SaleDetails() {
   let TotalAmount = 0;
   let ProductSoldCount= 0
+  let TotalClients=0
   useSelector((state) => state.Orders.map((data) => ProductSoldCount+=Number(data.quantity)))
   const TotalOrders = useSelector((state) => state.Orders.length)
-  console.log(ProductSoldCount)
-  const Clients = useSelector((state) => state.Orders.map((data) => data.customer_Name))
+  useSelector((state) => state.User.map((data) => data.type==="Customer"?TotalClients++:data))
   const AmountArray = useSelector((state) => state.Orders.map((data) => data.amount))
-  const TotalClients = new Set(Clients).size
   for (let i = 0; i < AmountArray.length; i++) {
     TotalAmount += Number(AmountArray[i])
   }

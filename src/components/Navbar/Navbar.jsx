@@ -1,11 +1,14 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { useDispatch } from 'react-redux'
+import { Logout } from '../../actions'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar() {
+  const dispatch = useDispatch()
   return (
     <Disclosure as="nav" className="bg-white border-8">
 
@@ -66,7 +69,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <a
                             href="/"
-                            onClick={()=>localStorage.clear()} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            onClick={()=>dispatch(Logout())} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
                           </a>

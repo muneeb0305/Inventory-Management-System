@@ -11,6 +11,11 @@ export const Registration =(data)=>{
         payload: data
     }
 }
+export const Logout =()=>{
+    return {
+        type: 'LOGOUT',
+    }
+}
 
 
 //inventory

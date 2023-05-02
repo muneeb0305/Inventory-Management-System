@@ -1,6 +1,6 @@
 import React from 'react'
-import Admin from './Admin/SideBarRoutes'
-import Customer from './Customer/SideBarRoutes'
+import AdminRoutes from './Admin/AdminRoutes'
+import Customer from './Customer/CustomerRoutes'
 import Layout from './Login/Layout'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   const userRole = JSON.parse(localStorage.getItem('User'));
 
   if (token && userRole === 'Admin') {
-    return <Admin />;
+    return <AdminRoutes />;
   } else if (token && userRole === 'Customer') {
     return <Customer />;
   } else {
