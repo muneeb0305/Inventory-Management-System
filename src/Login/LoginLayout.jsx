@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import LoginPage from '../Pages/Login'
-import Registration from '../Pages/Registrations'
+import LoginPage from './Login'
+import Registration from './Registrations'
 
 export default function Layout() {
   return (
