@@ -13,8 +13,8 @@ export default function Modal({ ID }) {
   }
   return (
     <>
-      <Link to={`/Inventory/update_Item/${ID}`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-      <Link to={`/Inventory/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+      <Link to={`update_Item/${ID}`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+      <Link to={`${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
       <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
       {isOpen &&
         <div className="fixed inset-0 z-50 overflow-y-auto">

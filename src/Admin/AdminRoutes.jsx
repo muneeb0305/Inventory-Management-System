@@ -14,7 +14,7 @@ function SideBarRoutes() {
     <>
       <SideBar>
         <Navbar />
-        <Routes>
+        <Routes >
           <Route path="/" element={<Dashboard/>} />
           <Route path="/Order_Details" element={<OrderDetails />} />
           <Route path="/Order_Details/update_order/:id" element={<OrderForm />} />

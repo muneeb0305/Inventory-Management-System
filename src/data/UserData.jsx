@@ -4,7 +4,7 @@ const UserData = [
         email: 'Muneeb@contour.com',
         password: '12345678',
         type: 'Admin',
-        token: 1682935848110
+        token: 1682935848110,
     }
 ]
 export default UserData

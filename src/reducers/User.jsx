@@ -18,7 +18,7 @@ const Users = (state = initialState, action) => {
         case 'LOGOUT':
             localStorage.clear()
             return state;
-            
+
         case 'REGISTRATION':
             const { id, customer_Name, email, password, type } = action.payload;
             const newUser = {

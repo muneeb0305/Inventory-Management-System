@@ -6,8 +6,8 @@ import { ClipboardDocumentIcon, HomeIcon } from "@heroicons/react/24/solid";
 const SideBar = ({ children }) => {
   const [open, setOpen] = useState(false);
   const Menus = [
-    { title: "Dashboard", icon: <HomeIcon className="w-6 h-6" />, path: '/' },
-    { title: "View Orders", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/view_orders' },
+    { title: "Dashboard", icon: <HomeIcon className="w-6 h-6" />, path: '/Customer' },
+    { title: "View Orders", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/Customer/view_orders' },
   ];
 
   return (

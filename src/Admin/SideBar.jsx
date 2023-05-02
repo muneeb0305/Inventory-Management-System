@@ -6,10 +6,10 @@ import { BuildingStorefrontIcon, ChartBarIcon, ClipboardDocumentIcon, HomeIcon }
 const SideBar = ({children}) => {
   const [open, setOpen] = useState(false);
   const Menus = [
-    { title: "Dashboard", icon:<HomeIcon className="w-6 h-6"/>, path:'/' },
-    { title: "Order Details", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/Order_Details' },
-    { title: "Sale Details", icon: <ChartBarIcon className="w-6 h-6"/>, path:'/Sale_Details' },
-    { title: "Inventory", icon: <BuildingStorefrontIcon className="w-6 h-6"/>, path:'/Inventory' },
+    { title: "Dashboard", icon:<HomeIcon className="w-6 h-6"/>, path:'/Admin' },
+    { title: "Order Details", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/Admin/Order_Details' },
+    { title: "Sale Details", icon: <ChartBarIcon className="w-6 h-6"/>, path:'/Admin/Sale_Details' },
+    { title: "Inventory", icon: <BuildingStorefrontIcon className="w-6 h-6"/>, path:'/Admin/Inventory' },
   ];
 
   return (

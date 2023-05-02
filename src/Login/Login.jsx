@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Login } from '../actions/index';
+import { useDispatch } from 'react-redux'
+import { Login} from '../actions/index';
 import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 export default function LoginPage() {
-    const token = useSelector((state) => state.User.map((user) => user.token))
     const User = ['Admin', 'Customer']
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [Form, setForm] = useState({
         email: '',
@@ -17,20 +16,20 @@ export default function LoginPage() {
         setForm({ ...Form, [e.target.name]: e.target.value })
     }
     const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(Login({ ...Form }))
-        let flag = ''
-        token.forEach(element => {
-            if (element === JSON.parse(localStorage.getItem("token"))) {
-                return flag = true
+        e.preventDefault();
+        dispatch(Login({ ...Form }));
+        const tokenFromStorage = JSON.parse(localStorage.getItem('token'));
+        const userRole = JSON.parse(localStorage.getItem('User'));
+        if (tokenFromStorage) {
+            if (userRole === 'Admin') {
+                navigate('/Admin');
+            } else if (userRole === 'Customer') {
+                navigate('/Customer');
             }
-        });
-        if (flag) {
-            window.location.assign('/');
-            // navigate('/')
+        } else {
+            alert('User Not Found');
         }
-        else alert("User Not Found")
-    }
+    };
     return (
         <section>
             <div className="bg-blue-100 h-screen w-full flex justify-center items-center">
