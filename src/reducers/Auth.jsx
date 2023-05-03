@@ -9,7 +9,7 @@ const Auth = (state = initialState, action) => {
         case 'LOGINSUCESS':
             return { ...state, isAuthenticate: true, isLogged: true, token: action.payload.token, role: action.payload.role }
         case 'LOGOUT':
-            localStorage.clear()
+            sessionStorage.clear()
             return state = initialState;
         default:
             return state

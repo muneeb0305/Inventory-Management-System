@@ -8,7 +8,7 @@ export default function OrderForm() {
     const [UserInfo, setUserInfo] = useState(null)
     const UserState = useSelector((state) => state.User)
     const getInfo = async (Userstate) => {
-        const response = await Userstate.find((data) => data.token === JSON.parse(localStorage.getItem('token')))
+        const response = await Userstate.find((data) => data.token === JSON.parse(sessionStorage.getItem('token')))
         setUserInfo(response)
     }
     useEffect(() => {

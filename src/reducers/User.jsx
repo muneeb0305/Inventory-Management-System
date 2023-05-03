@@ -9,8 +9,8 @@ const Users = (state = initialState, action) => {
                 const password = user.password
                 const type = user.type
                 if (user.token && email === action.payload.email && password === action.payload.password && type === action.payload.type) {
-                    localStorage.setItem("token", user.token);
-                    localStorage.setItem("User", JSON.stringify(user.type));
+                    sessionStorage.setItem("token", user.token);
+                    sessionStorage.setItem("User", JSON.stringify(user.type));
                     return state
                 }
                 return state

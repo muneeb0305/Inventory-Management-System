@@ -6,18 +6,18 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { LoginSuccess } from '../actions';
 export default function Authentication() {
-    const navigate = useNavigate()
-    const _Token = JSON.parse(localStorage.getItem('token'));
-    const _Role = JSON.parse(localStorage.getItem('User'));
+    const _Token = JSON.parse(sessionStorage.getItem('token'));
+    const _Role = JSON.parse(sessionStorage.getItem('User'));
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     useEffect(() => {
         if (_Token && _Role) {
             dispatch(LoginSuccess(_Token, _Role))
             navigate(`/${_Role}`)
         }
-        else if (!_Token) { localStorage.clear() }
-
-    }, [dispatch, _Token, _Role, navigate])
+        else if (!_Token) { sessionStorage.clear() }
+ // eslint-disable-next-line
+    }, [dispatch, _Token, _Role])
 
     return (
         <Routes>

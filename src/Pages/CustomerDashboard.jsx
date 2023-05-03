@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 export default function CustomerDashboard() {
 
   const orderState = useSelector((state) => state.Orders)
-  const UserState = useSelector((state) => state.User.find((user)=>user.token===JSON.parse(localStorage.getItem('token'))))
+  const UserState = useSelector((state) => state.User.find((user)=>user.token===JSON.parse(sessionStorage.getItem('token'))))
   const orderPlaced = orderState.filter((data) =>data.customer_id===UserState.id &&data.status === 'Order Placed').length
   const orderPending = orderState.filter((data) => data.customer_id===UserState.id &&data.status !== 'Order Placed' && data.status !== 'Order Delivered').length
   const orderDelivered = orderState.filter((data) =>data.customer_id===UserState.id && data.status === 'Order Delivered').length

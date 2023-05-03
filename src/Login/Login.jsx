@@ -18,8 +18,8 @@ export default function LoginPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(UserAuthenticate({ ...Form }));
-        const tokenFromStorage = JSON.parse(localStorage.getItem('token'));
-        const userRole = JSON.parse(localStorage.getItem('User'));
+        const tokenFromStorage = JSON.parse(sessionStorage.getItem('token'));
+        const userRole = JSON.parse(sessionStorage.getItem('User'));
         if (tokenFromStorage) {
             dispatch(LoginSuccess(tokenFromStorage,userRole))
             if (userRole === 'Admin') {

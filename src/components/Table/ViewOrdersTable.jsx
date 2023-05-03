@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 export default function ViewOrderTable() {
     const tableHeader = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
     const orderState = useSelector((state) => state.Orders)
-    const UserState = useSelector((state) => state.User.find((user) => user.token === JSON.parse(localStorage.getItem('token'))))
+    const UserState = useSelector((state) => state.User.find((user) => user.token === JSON.parse(sessionStorage.getItem('token'))))
     const tableData = orderState.filter((data) => data.customer_id === UserState.id)
     let color = ''
     return (

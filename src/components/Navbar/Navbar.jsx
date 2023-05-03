@@ -11,7 +11,7 @@ function classNames(...classes) {
 export default function Navbar() {
   const dispatch = useDispatch()
   const handleLogout = () => {
-    localStorage.clear()
+    sessionStorage.clear()
     dispatch(Logout())
   }
   return (
