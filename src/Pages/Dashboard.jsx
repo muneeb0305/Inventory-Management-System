@@ -17,31 +17,11 @@ import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import { useSelector } from 'react-redux'
 
 export default function Dashboard() {
-  // let item1=0
-  // let item2=0
-  // let item3=0
-
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const recent = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').slice(0, 5))
   const orderPlaced = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').length)
   const orderPending = useSelector((state) => state.Orders.filter((data) => data.status !== 'Order Placed' && data.status !== 'Order Delivered').length)
   const orderDelivered = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Delivered').length)
-  // const TopSelling = useSelector((state) => state.Orders)
-  // for (let index = 0; index < TopSelling.length; index++) {
-  //   console.log(TopSelling[index].quantity)
-  //   let quantity = TopSelling[index].quantity;
-  //     let olditem1=item1;
-  //     let olditem2=item2;
-  //     item1 = quantity 
-  //     if(item2<item1){
-  //       item2 = item1
-  //     }  
-  //     else if(item3<item2)  
-  //     {item3 = item2}
-  // }
-  // console.log(item2 +"item2")
-  // console.log(item1 +"item1")
-  // console.log(item3 +"item3")
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>
