@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Login} from '../actions/index';
+import { LoginSuccess, UserAuthenticate} from '../actions/index';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 export default function LoginPage() {
@@ -17,10 +17,11 @@ export default function LoginPage() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(Login({ ...Form }));
+        dispatch(UserAuthenticate({ ...Form }));
         const tokenFromStorage = JSON.parse(localStorage.getItem('token'));
         const userRole = JSON.parse(localStorage.getItem('User'));
         if (tokenFromStorage) {
+            dispatch(LoginSuccess(tokenFromStorage,userRole))
             if (userRole === 'Admin') {
                 navigate('/Admin');
             } else if (userRole === 'Customer') {

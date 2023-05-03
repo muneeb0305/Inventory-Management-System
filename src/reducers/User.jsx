@@ -3,7 +3,7 @@ import UserData from "../data/UserData";
 const initialState = UserData
 const Users = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN':
+        case 'USERAUTHENTICATE':
             return state.filter((user) => {
                 const email = user.email
                 const password = user.password
@@ -15,9 +15,6 @@ const Users = (state = initialState, action) => {
                 }
                 return state
             })
-        case 'LOGOUT':
-            localStorage.clear()
-            return state;
 
         case 'REGISTRATION':
             const { id, customer_Name, email, password, type } = action.payload;
