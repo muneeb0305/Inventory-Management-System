@@ -43,7 +43,7 @@ export default function OrderForm() {
         e.preventDefault()
         if (isID) {
             dispatch(UpdateOrder({ ...Form }));
-            navigate('/Order_Details')
+            navigate('/Admin/Order_Details')
         }
         else {
             const AddForm = { ...Form, order_id: ID_Counter, status: 'Order Placed' }
