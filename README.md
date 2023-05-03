@@ -19,16 +19,25 @@ License
 This is the Inventory Management System where Admin can manage the inventory items and orders of different users and user can placed order and see their order status. 
 ## Features
 Register Customer
+
 Role based Authorization
-##Customer
+
+## Customer
 Add Order
-##Admin
+
+## Admin
 Update Order
+
 Delete Order
+
 Add Inventory Item
+
 Update Inventory Item
+
 Delete Inventory Item
+
 City based Orders delivered and Clients
+
 View Sales, Produc Sold, Customers
 
 ## Technologies
