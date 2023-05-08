@@ -4,6 +4,7 @@ const Orders = require('./Orders/orders')
 const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
 const app = express()
 const PORT = 8080
+app.use(express.json())
 mongoose.connect(url)
     .then(
         () => {
