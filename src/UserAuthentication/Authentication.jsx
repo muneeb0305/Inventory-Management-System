@@ -16,7 +16,7 @@ export default function Authentication() {
             navigate(`/${_Role}`)
         }
         else if (!_Token) { sessionStorage.clear() }
- // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [dispatch, _Token, _Role])
 
     return (
