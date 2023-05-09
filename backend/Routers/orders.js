@@ -39,6 +39,7 @@ router.put('/add', (req, res, next) => {
         })
         .catch((error) => next(error));
 })
+/*Order Details*/
 router.get('/details', (req, res, next) => {
     orderDetails()
         .then((data) => {

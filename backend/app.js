@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express')
 const Order = require('./Routers/orders')
+const Sale = require('./Routers/sale')
 const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
 const app = express()
 const PORT = 8080
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/order', Order)
+app.use('/sale', Sale)
 
 //Error Handling
 app.use('/', (req,res)=>{
