@@ -1,31 +1,23 @@
 const Orders = require('../Models/OrderModel')
 
-const totalSale = () => {
+const saleCard = () => {
     let sale = 0
-    return Orders.find({ status: 'Order Delivered' })
-        .then((orders) => {
-            orders.map((order) => {
+    let items = 0
+    return Promise.all([
+        Orders.find({ status: 'Order Delivered' }),
+        Orders.find().countDocuments()
+    ])
+        .then(([Orders, totalOrders]) => {
+            console.log(totalOrders)
+            Orders.map((order) => {
                 sale += order.amount
+                items += order.quantity
             })
-            return { TotalSale: sale }
-        })
-        .catch(err => { throw err })
-}
-const totalOrders = () => {
-    return Orders.find().countDocuments()
-        .then((orders) => {
-            return { TotalOrders: orders }
-        })
-        .catch(err => { throw err })
-}
-const productSold = () => {
-    let item = 0
-    return Orders.find({ status: 'Order Delivered' })
-        .then((orders) => {
-            orders.map((order) => {
-                item += order.quantity
-            })
-            return { ProductSold: item }
+            return {
+                TotalSale: sale,
+                TotalOrders: totalOrders,
+                ProductSold: items
+            }
         })
         .catch(err => { throw err })
 }
@@ -41,7 +33,7 @@ const saleTable = () => {
                 orders.filter((data) => data.city === city).map((order) => totalAmount += order.amount)
                 const Client = orders.filter((data) => data.city === city).map((order) => order.customer_id)
                 console.log(Client)
-                const UniqueClient = new Set(Client.map((id)=>id.toString())).size
+                const UniqueClient = new Set(Client.map((id) => id.toString())).size
                 console.log(UniqueClient)
                 arr.push({
                     City: city,
@@ -57,4 +49,4 @@ const saleTable = () => {
         .catch(err => { throw err })
 }
 
-module.exports = { totalSale, totalOrders, productSold, saleTable }
+module.exports = { saleCard, saleTable }
