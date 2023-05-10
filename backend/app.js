@@ -3,6 +3,8 @@ const express = require('express')
 const Order = require('./Routers/orders')
 const Sale = require('./Routers/sale')
 const Inventory = require('./Routers/inventory')
+const User = require('./Routers/user');
+const auth = require('./Middleware/auth');
 const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
 const app = express()
 const PORT = 8080
@@ -13,13 +15,14 @@ mongoose.connect(url)
     }, (e) => { console.log(`Connection Error: ${e.message}`) }
     )
 
-app.get('/', (req, res) => {
+app.get('/',auth, (req, res) => {
     res.send('Welcome to Inventory Management System')
 })
 
-app.use('/order', Order)
-app.use('/sale', Sale)
-app.use('/inventory', Inventory)
+app.use('/order', auth, Order)
+app.use('/sale', auth, Sale)
+app.use('/inventory', auth, Inventory)
+app.use('/user', User)
 
 //Error Handling
 app.use('/', (req, res) => {
