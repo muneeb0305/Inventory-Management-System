@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express')
 const Order = require('./Routers/orders')
 const Sale = require('./Routers/sale')
+const Inventory = require('./Routers/inventory')
 const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
 const app = express()
 const PORT = 8080
@@ -18,12 +19,13 @@ app.get('/', (req, res) => {
 
 app.use('/order', Order)
 app.use('/sale', Sale)
+app.use('/inventory', Inventory)
 
 //Error Handling
-app.use('/', (req,res)=>{
+app.use('/', (req, res) => {
     res.status(404).send('API not Found')
 })
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
     console.error(error);
     res.status(error.statusCode).send(error.message);
 });

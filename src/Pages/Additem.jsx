@@ -48,7 +48,7 @@ export default function Additem() {
             stock: '',
             image: null,
         })
-        navigate('/Inventory')
+        navigate('/Admin/Inventory')
     }
     useEffect(() => {
         if (isID) {

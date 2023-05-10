@@ -28,7 +28,6 @@ const recentOrder = () => {
 const deleteOrder = (id) => {
     return Orders.findById(id)
         .then((idFound) => {
-            console.log(idFound)
             if (!idFound) {
                 const error = new Error('Data not found');
                 error.statusCode = 404;
