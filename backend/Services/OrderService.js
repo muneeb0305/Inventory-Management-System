@@ -1,4 +1,5 @@
 const Orders = require('../Models/OrderModel')
+const Inventory = require('../Models/InventoryModel')
 
 const adminOrderCard = () => {
     return Promise.all([
@@ -34,9 +35,16 @@ const deleteOrder = (id) => {
                 throw error;
             }
             else {
-                return Orders.deleteOne({ _id: id })
-                    .then(() => { console.log("Deleted") })
-                    .catch((error) => { throw error })
+                return Inventory.findOne({ itemName: idFound.product })
+                    .then((item) => {
+                        item.stock += idFound.quantity
+                        Promise.all([
+                            Orders.deleteOne({ _id: id }),
+                            item.save()
+                        ])
+                            .then(() => { console.log("Item Updated and order Deleted") })
+                            .catch((error) => { throw error })
+                    })
             }
         }).catch((error) => { throw error })
 };
@@ -45,20 +53,42 @@ const addOrder = (req) => {
     const { customer_id, customer_Name, product, quantity, address, city, amount } = req.body;
     const bodyValidation = Object.keys(req.body).length
     if (bodyValidation === 7) {
-        const newOrder = new Orders({
-            customer_id,
-            customer_Name,
-            product,
-            quantity,
-            address,
-            city,
-            amount,
-            status: 'Order Placed',
-            date: Date.now()
-        })
-        return newOrder.save()
-            .then(() => console.log("Order Saved"))
-            .catch((error) => { throw error })
+        return Inventory.findOne({ itemName: product })
+            .then((item) => {
+                if (!item) {
+                    const error = new Error('Item Not Found');
+                    error.statusCode = 400;
+                    throw error;
+                }
+                else if (item.stock < quantity) {
+                    const error = new Error('Insufficient Stock');
+                    error.statusCode = 400;
+                    throw error;
+                }
+                else {
+                    item.stock -= quantity
+                    const newOrder = new Orders({
+                        customer_id,
+                        customer_Name,
+                        product,
+                        quantity,
+                        address,
+                        city,
+                        amount,
+                        status: 'Order Placed',
+                        date: Date.now()
+                    })
+                    Promise.all([
+                        newOrder.save(),
+                        item.save()
+                    ])
+                        .then(() => console.log("Item Updated & Order Saved"))
+                        .catch((error) => { throw error })
+                }
+            })
+            .catch((err) => {
+                throw err;
+            })
     } else {
         const error = new Error('Kindly send valid data');
         error.statusCode = 400;
@@ -69,7 +99,6 @@ const updateOrder = (req) => {
     const id = req.params.id
     const update = req.body
     const bodyValidation = Object.keys(req.body).length
-
     if (bodyValidation === 7) {
         return Orders.findById(id)
             .then((idFound) => {
@@ -78,10 +107,63 @@ const updateOrder = (req) => {
                     error.statusCode = 404;
                     throw error;
                 }
-                update.date = Date.now()
-                return Orders.findByIdAndUpdate(id, update)
-                    .then(() => console.log("Order Updated"))
-                    .catch(err => { throw err })
+                return Inventory.findOne({ itemName: update.product })
+                    .then((item) => {
+                        if (!item) {
+                            const error = new Error('Item Not Found');
+                            error.statusCode = 400;
+                            throw error;
+                        }
+                        else if (item.stock < update.quantity) {
+                            const error = new Error('Insufficient Stock');
+                            error.statusCode = 400;
+                            throw error;
+                        }
+                        else {
+                            if (idFound.quantity != update.quantity) {
+                                if (idFound.quantity > update.quantity) {
+                                    const quantity = idFound.quantity - update.quantity
+                                    item.stock += quantity
+                                    update.date = Date.now()
+                                    Promise.all([
+                                        Orders.findByIdAndUpdate(id, update),
+                                        item.save()
+                                    ])
+                                        .then(() => console.log("Item and Order Updated"))
+                                        .catch(err => { throw err })
+                                }
+                                else if (idFound.quantity < update.quantity) {
+                                    const quantity = idFound.quantity - update.quantity
+                                    item.stock += quantity
+                                    update.date = Date.now()
+                                    Promise.all([
+                                        Orders.findByIdAndUpdate(id, update),
+                                        item.save()
+                                    ])
+                                        .then(() => console.log("Item and Order Updated"))
+                                        .catch(err => { throw err })
+                                }
+                                else {
+                                    update.date = Date.now()
+
+                                    return Orders.findByIdAndUpdate(id, update)
+                                        .then(() => console.log("Item and Order Updated"))
+                                        .catch(err => {
+                                            throw er
+                                        })
+                                }
+                            }
+                            else {
+                                update.date = Date.now()
+                                Promise.all([
+                                    Orders.findByIdAndUpdate(id, update),
+                                    item.save()
+                                ])
+                                    .then(() => console.log("Order Updated"))
+                                    .catch(err => { throw err })
+                            }
+                        }
+                    })
 
             }).catch((err) => { throw err; })
     }
