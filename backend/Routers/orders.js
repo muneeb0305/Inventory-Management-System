@@ -21,8 +21,8 @@ router.get('/customer_cards', (req, res, next) => {
 /* Customer Order */
 router.get('/customer_order', (req, res, next) => {
     CustomerorderDetails(req)
-        .then((cardData) => {
-            res.status(200).send(cardData)
+        .then((orders) => {
+            res.status(200).send(orders)
         })
         .catch((err) => next(err))
 })

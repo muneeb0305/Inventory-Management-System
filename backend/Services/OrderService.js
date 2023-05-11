@@ -248,28 +248,9 @@ const CustomerorderDetails = (req) => {
             userId = decoded.ID;
         }
     });
-    let orderPlaced
-    let orderReceived
-    let orderPicked
-    let orderPackaged
-    let orderShipped
-    let orderDelivered
     return Orders.find({ customer_id: userId })
         .then((data) => {
-            orderPlaced = data.filter((data) => data.status === 'Order Placed')
-            orderReceived = data.filter((data) => data.status === 'Order Received')
-            orderPicked = data.filter((data) => data.status === 'Order Picked')
-            orderPackaged = data.filter((data) => data.status === 'Order Packaged')
-            orderShipped = data.filter((data) => data.status === 'Order Shipped')
-            orderDelivered = data.filter((data) => data.status === 'Order Delivered')
-            return {
-                orderPlaced: orderPlaced,
-                orderReceived: orderReceived,
-                orderPicked: orderPicked,
-                orderPackaged: orderPackaged,
-                orderShipped: orderShipped,
-                orderDelivered: orderDelivered
-            }
+            return data
         })
         .catch(err => { throw err })
 }
