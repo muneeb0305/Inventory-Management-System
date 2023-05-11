@@ -1,19 +1,22 @@
 const Orders = require('../Models/OrderModel')
+const User = require('../Models/UserModel')
 
 const saleCard = () => {
     let sale = 0
     let items = 0
+    let users = 0
     return Promise.all([
         Orders.find({ status: 'Order Delivered' }),
+        User.find({ type: "Customer" }).countDocuments(),
         Orders.find().countDocuments()
     ])
-        .then(([Orders, totalOrders]) => {
-            console.log(totalOrders)
+        .then(([Orders, Customers, totalOrders]) => {
             Orders.map((order) => {
                 sale += order.amount
                 items += order.quantity
             })
             return {
+                TotalUsers: Customers,
                 TotalSale: sale,
                 TotalOrders: totalOrders,
                 ProductSold: items
@@ -32,16 +35,13 @@ const saleTable = () => {
                 orders.filter((data) => data.city === city).map((order) => productSold += order.quantity)
                 orders.filter((data) => data.city === city).map((order) => totalAmount += order.amount)
                 const Client = orders.filter((data) => data.city === city).map((order) => order.customer_id)
-                console.log(Client)
                 const UniqueClient = new Set(Client.map((id) => id.toString())).size
-                console.log(UniqueClient)
                 arr.push({
                     City: city,
                     Clients: UniqueClient,
                     ProductSold: productSold,
                     Sale: totalAmount
                 })
-                console.log(orders)
                 return arr
             }, [])
             return CityObject

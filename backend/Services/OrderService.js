@@ -1,5 +1,8 @@
 const Orders = require('../Models/OrderModel')
-const Inventory = require('../Models/InventoryModel')
+const Inventory = require('../Models/InventoryModel');
+const User = require('../Models/UserModel');
+const jwt = require('jsonwebtoken')
+const SecretKey = 'MERNdeveloper'
 
 const adminOrderCard = () => {
     return Promise.all([
@@ -14,7 +17,7 @@ const adminOrderCard = () => {
                 'OrderDelivered': orderDelivered,
             };
         })
-        .catch(() => { throw error });
+        .catch((error) => { throw error });
 };
 
 const recentOrder = () => {
@@ -50,9 +53,12 @@ const deleteOrder = (id) => {
 };
 
 const addOrder = (req) => {
-    const { customer_id, customer_Name, product, quantity, address, city, amount } = req.body;
+    const { product, quantity, address, city, amount } = req.body;
+    const authHeader = req.header('Authorization');
+    const token = authHeader && authHeader.split(' ')[1];
     const bodyValidation = Object.keys(req.body).length
-    if (bodyValidation === 7) {
+    let userID;
+    if (bodyValidation === 5) {
         return Inventory.findOne({ itemName: product })
             .then((item) => {
                 if (!item) {
@@ -66,24 +72,34 @@ const addOrder = (req) => {
                     throw error;
                 }
                 else {
-                    item.stock -= quantity
-                    const newOrder = new Orders({
-                        customer_id,
-                        customer_Name,
-                        product,
-                        quantity,
-                        address,
-                        city,
-                        amount,
-                        status: 'Order Placed',
-                        date: Date.now()
-                    })
-                    Promise.all([
-                        newOrder.save(),
-                        item.save()
-                    ])
-                        .then(() => console.log("Item Updated & Order Saved"))
-                        .catch((error) => { throw error })
+                    jwt.verify(token, SecretKey, (err, decoded) => {
+                        if (err) {
+                          throw err
+                        } else {
+                          userID = decoded.ID;
+                        }
+                      });
+                    return User.findById(userID)
+                        .then((user) => {
+                            item.stock -= quantity
+                            const newOrder = new Orders({
+                                customer_id: userID,
+                                customer_Name: user.name,
+                                product,
+                                quantity,
+                                address,
+                                city,
+                                amount,
+                                status: 'Order Placed',
+                                date: Date.now()
+                            })
+                            Promise.all([
+                                newOrder.save(),
+                                item.save()
+                            ])
+                                .then(() => console.log("Item Updated & Order Saved"))
+                                .catch((error) => { throw error })
+                        })
                 }
             })
             .catch((err) => {

@@ -4,7 +4,7 @@ const { recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDe
 
 /* Admin Card */
 router.get('/admin_cards', (req, res, next) => {
-    adminOrderCard()
+    adminOrderCard(next)
         .then((cardData) => {
             res.status(200).send(cardData)
         })

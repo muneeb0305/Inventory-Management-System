@@ -5,6 +5,7 @@ const Sale = require('./Routers/sale')
 const Inventory = require('./Routers/inventory')
 const User = require('./Routers/user');
 const auth = require('./Middleware/auth');
+const errorHandler = require('./Middleware/errorHandler');
 const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
 const app = express()
 const PORT = 8080
@@ -15,23 +16,22 @@ mongoose.connect(url)
     }, (e) => { console.log(`Connection Error: ${e.message}`) }
     )
 
-app.get('/',auth, (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to Inventory Management System')
 })
 
+app.use('/user', User)
 app.use('/order', auth, Order)
 app.use('/sale', auth, Sale)
 app.use('/inventory', auth, Inventory)
-app.use('/user', User)
 
-//Error Handling
+//If API not Found
 app.use('/', (req, res) => {
     res.status(404).send('API not Found')
 })
-app.use((error, req, res) => {
-    console.error(error);
-    res.status(error.statusCode).send(error.message);
-});
+
+//Error Handling
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http:localhost:${PORT}`)

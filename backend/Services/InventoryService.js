@@ -4,18 +4,27 @@ const addItem = (req) => {
     const { itemName, brand, priceIn, priceOut, category, stock, image } = req.body
     const bodyValidation = Object.keys(req.body).length
     if (bodyValidation === 7) {
-        const item = new Inventory({
-            itemName,
-            brand,
-            priceIn,
-            priceOut,
-            category,
-            stock,
-            image
-        })
-        return item.save()
-            .then(() => console.log("Item Added in Inventory"))
-            .catch((err) => { throw err })
+        return Inventory.findOne({ itemName: itemName })
+            .then((items) => {
+                if (items) {
+                    const error = new Error('Item already exist');
+                    error.statusCode = 400;
+                    throw error;
+                }
+                const item = new Inventory({
+                    itemName,
+                    brand,
+                    priceIn,
+                    priceOut,
+                    category,
+                    stock,
+                    image
+                })
+                return item.save()
+                    .then(() => console.log("Item Added in Inventory"))
+                    .catch((err) => { throw err })
+            })
+            .catch(err => { throw err })
     }
     else {
         const error = new Error('Kindly send valid data');
@@ -53,10 +62,19 @@ const updateItem = (req) => {
                     error.statusCode = 404;
                     throw error;
                 }
-                return Inventory.findByIdAndUpdate(id, update)
-                    .then(() => console.log("Item Updated"))
-                    .catch(err => { throw err })
-
+                return Inventory.findOne({ itemName: update.itemName })
+                    .then((item) => {
+                        if (item.itemName!= idFound.itemName) {
+                            const error = new Error('Item already exist');
+                            error.statusCode = 400;
+                            throw error;
+                        }
+                        else if (item.itemName === idFound.itemName) {
+                            return Inventory.findByIdAndUpdate(id, update)
+                                .then(() => console.log("Item Updated"))
+                                .catch(err => { throw err })
+                        }
+                    })
             }).catch((err) => { throw err; })
     }
     else {
@@ -68,16 +86,16 @@ const updateItem = (req) => {
 
 const viewItems = () => {
     return Inventory.find().select(['itemName', 'brand', 'priceIn', 'priceOut', 'category', 'stock'])
-    .then((items)=>{
-        return items
-    })
-    .catch((err)=>{throw err})
+        .then((items) => {
+            return items
+        })
+        .catch((err) => { throw err })
 }
 const viewItemsbyID = (id) => {
     return Inventory.findById(id).select(['itemName', 'brand', 'priceIn', 'priceOut', 'category', 'stock'])
-    .then((items)=>{
-        return items
-    })
-    .catch((err)=>{throw err})
+        .then((items) => {
+            return items
+        })
+        .catch((err) => { throw err })
 }
 module.exports = { addItem, deleteItem, updateItem, viewItems, viewItemsbyID }

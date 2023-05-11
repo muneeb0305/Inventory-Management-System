@@ -14,6 +14,11 @@ const addUser = (req) => {
                     error.statusCode = 403;
                     throw error;
                 }
+                else if (password.length < 8) {
+                    const error = new Error('Password should be atleast 8 digit');
+                    error.statusCode = 403;
+                    throw error;
+                }
                 return bcrypt.genSalt(10)
                     .then((salt) => {
                         return bcrypt.hash(password, salt)
@@ -68,7 +73,7 @@ const login = (req) => {
                                     throw error;
                                 }
                                 else {
-                                    const token = jwt.sign({ ID: user.id, User: user.name, Role: user.type }, SecretKey, { expiresIn: 1800 });
+                                    const token = jwt.sign({ ID: user.id, Role: user.type }, SecretKey, { expiresIn: 1800 });
                                     return { Authorization: token }
                                 }
                             }).catch(err => { throw err })
