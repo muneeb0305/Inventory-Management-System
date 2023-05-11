@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const SecretKey = 'MERNdeveloper'
 
 const auth = (req, res, next) => {
-    // Get the user from the jwt token and add id to req object
     const authHeader = req.header('Authorization');
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) {

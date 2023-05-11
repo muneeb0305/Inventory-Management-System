@@ -6,6 +6,7 @@ const Inventory = require('./Routers/inventory')
 const User = require('./Routers/user');
 const auth = require('./Middleware/auth');
 const errorHandler = require('./Middleware/errorHandler');
+const notFound = require('./Middleware/notFound');
 const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
 const app = express()
 const PORT = 8080
@@ -26,9 +27,7 @@ app.use('/sale', auth, Sale)
 app.use('/inventory', auth, Inventory)
 
 //If API not Found
-app.use('/', (req, res) => {
-    res.status(404).send('API not Found')
-})
+app.use('/', notFound)
 
 //Error Handling
 app.use(errorHandler);

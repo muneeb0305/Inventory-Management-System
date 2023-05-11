@@ -1,5 +1,5 @@
 const express = require('express')
-const {addItem, deleteItem, updateItem, viewItems, viewItemsbyID} = require('../Services/InventoryService')
+const { addItem, deleteItem, updateItem, viewItems, viewItemsbyID } = require('../Services/InventoryService')
 const router = express.Router()
 
 /* Add Item */

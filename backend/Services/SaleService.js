@@ -4,7 +4,6 @@ const User = require('../Models/UserModel')
 const saleCard = () => {
     let sale = 0
     let items = 0
-    let users = 0
     return Promise.all([
         Orders.find({ status: 'Order Delivered' }),
         User.find({ type: "Customer" }).countDocuments(),

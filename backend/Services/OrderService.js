@@ -19,6 +19,33 @@ const adminOrderCard = () => {
         })
         .catch((error) => { throw error });
 };
+const customerCard = (req) => {
+    const authHeader = req.header('Authorization');
+    const token = authHeader && authHeader.split(' ')[1];
+    let userId;
+    jwt.verify(token, SecretKey, (err, decoded) => {
+        if (err) {
+            throw err;
+        } else {
+            userId = decoded.ID;
+        }
+    });
+    let orderPlaced
+    let orderPending
+    let orderDelivered
+    return Orders.find({ customer_id: userId })
+        .then((orders) => {
+            orderPlaced = orders.filter((data) => data.status === "Order Placed").length
+            orderPending = orders.filter((data) => data.status != "Order Placed" && data.status != "Order Delivered").length
+            orderDelivered = orders.filter((data) => data.status === "Order Delivered").length
+            return {
+                'OrderPlaced': orderPlaced,
+                'OrderPending': orderPending,
+                'OrderDelivered': orderDelivered,
+            };
+        })
+        .catch((error) => { throw error });
+};
 
 const recentOrder = () => {
     return Orders.find({ status: 'Order Placed' })
@@ -74,11 +101,11 @@ const addOrder = (req) => {
                 else {
                     jwt.verify(token, SecretKey, (err, decoded) => {
                         if (err) {
-                          throw err
+                            throw err
                         } else {
-                          userID = decoded.ID;
+                            userID = decoded.ID;
                         }
-                      });
+                    });
                     return User.findById(userID)
                         .then((user) => {
                             item.stock -= quantity
@@ -210,4 +237,41 @@ const orderDetails = () => {
         })
         .catch(err => { throw err })
 }
-module.exports = { recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails };
+const CustomerorderDetails = (req) => {
+    const authHeader = req.header('Authorization');
+    const token = authHeader && authHeader.split(' ')[1];
+    let userId;
+    jwt.verify(token, SecretKey, (err, decoded) => {
+        if (err) {
+            throw err;
+        } else {
+            userId = decoded.ID;
+        }
+    });
+    let orderPlaced
+    let orderReceived
+    let orderPicked
+    let orderPackaged
+    let orderShipped
+    let orderDelivered
+    return Orders.find({ customer_id: userId })
+        .then((data) => {
+            orderPlaced = data.filter((data) => data.status === 'Order Placed')
+            orderReceived = data.filter((data) => data.status === 'Order Received')
+            orderPicked = data.filter((data) => data.status === 'Order Picked')
+            orderPackaged = data.filter((data) => data.status === 'Order Packaged')
+            orderShipped = data.filter((data) => data.status === 'Order Shipped')
+            orderDelivered = data.filter((data) => data.status === 'Order Delivered')
+            return {
+                orderPlaced: orderPlaced,
+                orderReceived: orderReceived,
+                orderPicked: orderPicked,
+                orderPackaged: orderPackaged,
+                orderShipped: orderShipped,
+                orderDelivered: orderDelivered
+            }
+        })
+        .catch(err => { throw err })
+}
+
+module.exports = { CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard };

@@ -64,7 +64,7 @@ const updateItem = (req) => {
                 }
                 return Inventory.findOne({ itemName: update.itemName })
                     .then((item) => {
-                        if (item.itemName!= idFound.itemName) {
+                        if (item.itemName != idFound.itemName) {
                             const error = new Error('Item already exist');
                             error.statusCode = 400;
                             throw error;

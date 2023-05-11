@@ -1,10 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const { recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails } = require('../Services/OrderService')
+const { CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard } = require('../Services/OrderService')
 
 /* Admin Card */
 router.get('/admin_cards', (req, res, next) => {
-    adminOrderCard(next)
+    adminOrderCard()
+        .then((cardData) => {
+            res.status(200).send(cardData)
+        })
+        .catch((err) => next(err))
+})
+/* Customer Card */
+router.get('/customer_cards', (req, res, next) => {
+    customerCard(req)
+        .then((cardData) => {
+            res.status(200).send(cardData)
+        })
+        .catch((err) => next(err))
+})
+/* Customer Order */
+router.get('/customer_order', (req, res, next) => {
+    CustomerorderDetails(req)
         .then((cardData) => {
             res.status(200).send(cardData)
         })
