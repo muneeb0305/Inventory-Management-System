@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardCard from '../components/cards/DashboardCard'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from './OrderForm'
-import { useSelector } from 'react-redux'
+import Orders from '../Services/Orders'
 
 export default function CustomerDashboard() {
+  const [Data, setData] = useState(0)
+  useEffect(() => {
+    Orders.customerCard()
+      .then((data) => setData(data))
+      .catch((err) => { throw err })
+  }, [])
 
-  const orderState = useSelector((state) => state.Orders)
-  const UserState = useSelector((state) => state.User.find((user)=>user.token===JSON.parse(sessionStorage.getItem('token'))))
-  const orderPlaced = orderState.filter((data) =>data.customer_id===UserState.id &&data.status === 'Order Placed').length
-  const orderPending = orderState.filter((data) => data.customer_id===UserState.id &&data.status !== 'Order Placed' && data.status !== 'Order Delivered').length
-  const orderDelivered = orderState.filter((data) =>data.customer_id===UserState.id && data.status === 'Order Delivered').length
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>
@@ -25,7 +26,7 @@ export default function CustomerDashboard() {
                     color={color}
                     icon={icon}
                     title={title}
-                    value={orderPlaced}
+                    value={Data.OrderPlaced}
                   />)
                 }
                 else if (title === 'Pending Orders') {
@@ -34,7 +35,7 @@ export default function CustomerDashboard() {
                     color={color}
                     icon={icon}
                     title={title}
-                    value={orderPending}
+                    value={Data.OrderPending}
                   />)
                 }
                 return (<DashboardCard
@@ -42,12 +43,12 @@ export default function CustomerDashboard() {
                   color={color}
                   icon={icon}
                   title={title}
-                  value={orderDelivered}
+                  value={Data.OrderDelivered}
                 />)
               })
             }
           </div>
-          <OrderForm/>
+          <OrderForm />
         </div>
       </div>
     </section>

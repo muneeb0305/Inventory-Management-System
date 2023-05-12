@@ -1,34 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-export default function Table() {
+export default function Table({ tableData }) {
   const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
-  const Orders = useSelector((state) => state.Orders.map((data) => data));
-  const CityNames = Orders.map((data) => data.city);
-  const UniqueCity = new Set(CityNames);
-
-  const CitiesObject = [...UniqueCity].reduce((arr, city) => {
-    let TotalAmount = 0;
-    let ProductSoldCount=0
-    Orders.filter((order) => order.city === city).map((data) => ProductSoldCount+=Number(data.quantity));
-    const Clients = Orders.filter((order) => order.city === city).map((data) => data.customer_Name);
-    const UniqueClients = new Set(Clients).size
-    const AmountArray = Orders
-      .filter((data) => data.city === city)
-      .map((data) => data.amount);
-    AmountArray.forEach(amount => {
-      TotalAmount += Number(amount);
-    }
-    );
-    arr.push({
-      City: city,
-      Clients: UniqueClients,
-      'Product Sold': ProductSoldCount,
-      Sale: TotalAmount
-    });
-
-    return arr;
-  }, []);
-
   return (
     <section >
       <div className='w-full'>
@@ -44,9 +16,9 @@ export default function Table() {
                       ))}
                     </tr>
                   </thead>
-                  {CitiesObject.length ? (
+                  {tableData && tableData.length ? (
                     <tbody>
-                      {CitiesObject.map((data, index) => (
+                      {tableData.map((data, index) => (
                         <tr key={index} className="border-b hover:bg-gray-50 text-center">
                           <td className="font-medium px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                             {data.City}
@@ -55,7 +27,7 @@ export default function Table() {
                             {data.Clients}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
-                            {data['Product Sold']}
+                            {data.ProductSold}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                             Rs: {data.Sale}/-

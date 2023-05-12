@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardCard from '../components/cards/DashboardCard'
 import DashboardCardData from '../data/DashboardCardData'
 import BarChart from '../components/Charts/BarChartComponent'
@@ -14,14 +14,21 @@ import CancelOrderData from '../data/CancelOrderData'
 import ClientOrderData from '../data/ClientOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
-import { useSelector } from 'react-redux'
+import Orders from '../Services/Orders'
 
 export default function Dashboard() {
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-  const recent = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').slice(0, 5))
-  const orderPlaced = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed').length)
-  const orderPending = useSelector((state) => state.Orders.filter((data) => data.status !== 'Order Placed' && data.status !== 'Order Delivered').length)
-  const orderDelivered = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Delivered').length)
+  const [Data, setData] = useState(0)
+  const [recentOrders, setrecentOrders] = useState()
+  useEffect(() => {
+    Orders.getAdminCardData()
+      .then((data) => setData(data))
+      .catch((err) => { console.log(err) })
+      Orders.getRecentOrders()
+      .then((data) => setrecentOrders(data))
+      .catch((err) => { console.log(err) })
+  }, [])
+
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>
@@ -36,7 +43,7 @@ export default function Dashboard() {
                     color={color}
                     icon={icon}
                     title={title}
-                    value={orderPlaced}
+                    value={Data.OrderPlaced}
                   />)
                 }
                 else if (title === 'Pending Orders') {
@@ -45,7 +52,7 @@ export default function Dashboard() {
                     color={color}
                     icon={icon}
                     title={title}
-                    value={orderPending}
+                    value={Data.OrderPending}
                   />)
                 }
                 return (<DashboardCard
@@ -53,7 +60,7 @@ export default function Dashboard() {
                   color={color}
                   icon={icon}
                   title={title}
-                  value={orderDelivered}
+                  value={Data.OrderDelivered}
                 />)
               })
             }
@@ -170,7 +177,7 @@ export default function Dashboard() {
               <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
               <h2 className='text-xl pl-3'>Recent Orders</h2>
             </div>
-            <Table color="bg-red-500" tableData={recent} tableHeader={Headers} />
+            <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
           </div>
         </div>
       </div>

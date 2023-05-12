@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { CountIncrease, DeleteOrder } from '../../actions';
 import { Link } from 'react-router-dom';
-export default function Modal({ID,Product, Quantity}) {
-  const dispatch = useDispatch()
+import Orders from '../../Services/Orders';
+
+export default function Modal({ ID }) {
+
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const DeleteRow = (id) => {
-    dispatch(DeleteOrder(id))
-    dispatch(CountIncrease(Product, Number(Quantity)))
+    Orders.deleteOrder(id)
     closeModal()
   }
   return (

@@ -1,7 +1,6 @@
 import React from 'react'
 import Modal from '../Modal/OrderModal';
 export default function OrderTable({ tableData, tableHeader, color }) {
-
     return (
         <section >
             <div className='w-full'>
@@ -20,15 +19,15 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                             </th>
                                         </tr>
                                     </thead>
-                                    {tableData.length ? (
+                                    {tableData && tableData.length ? (
                                         <tbody>
                                             {tableData.map((row, index) => (
                                                 <tr key={index} className="border-b hover:bg-gray-50 text-center">
                                                     <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        {row.order_id}
+                                                        {index + 1}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
-                                                        {row.date}
+                                                        {new Date(row.date).toLocaleDateString()}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                                                         {row.customer_Name}
@@ -46,7 +45,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         Rs: {row.amount}/-
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                                                        <Modal ID={row.order_id} Product={row.product} Quantity={row.quantity} />
+                                                        <Modal ID={row._id} />
                                                     </td>
                                                 </tr>
                                             ))}

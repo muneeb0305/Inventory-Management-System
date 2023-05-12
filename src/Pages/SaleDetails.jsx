@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SaleCard from '../components/cards/SaleCard'
 import SaleCardData from '../data/SaleCardData'
 import SaleBarChart from '../components/Charts/SaleBarChart';
@@ -9,26 +9,29 @@ import CityTable from '../components/Table/CityTable';
 import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
-import { useSelector } from 'react-redux';
+import Sale from '../Services/Sale';
 
 export default function SaleDetails() {
-  let TotalAmount = 0;
-  let ProductSoldCount= 0
-  let TotalClients=0
-  useSelector((state) => state.Orders.map((data) => ProductSoldCount+=Number(data.quantity)))
-  const TotalOrders = useSelector((state) => state.Orders.length)
-  useSelector((state) => state.User.map((data) => data.type==="Customer"?TotalClients++:data))
-  const AmountArray = useSelector((state) => state.Orders.map((data) => data.amount))
-  for (let i = 0; i < AmountArray.length; i++) {
-    TotalAmount += Number(AmountArray[i])
-  }
+
+  const [Data, setData] = useState(0)
+  const [CityOrders, setCityOrders] = useState([])
+  
+  useEffect(() => {
+    Sale.getSaleCardData()
+      .then((data) => setData(data))
+      .catch(err => { throw err })
+    Sale.getCityOrders()
+      .then((data) => setCityOrders(data))
+      .catch(err => { throw err })
+  }, [])
+
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4'>
         <div className='container mx-auto px-5'>
           <h1 className='text-4xl font-medium py-7'>Sale Overview</h1>
           <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            {SaleCardData.map(({ textColor, bgColor, title,icon }) => {
+            {SaleCardData.map(({ textColor, bgColor, title, icon }) => {
               if (title === 'Total Clients') {
                 return (
                   <SaleCard
@@ -37,7 +40,7 @@ export default function SaleDetails() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={TotalClients}
+                    value={Data.TotalUsers}
                   />)
               }
               else if (title === 'Total Sales') {
@@ -48,7 +51,7 @@ export default function SaleDetails() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={'Rs: ' + TotalAmount + "/-"}
+                    value={'Rs: ' + Data.TotalSale + "/-"}
                   />)
               }
               else if (title === 'Total Orders') {
@@ -59,7 +62,7 @@ export default function SaleDetails() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={TotalOrders}
+                    value={Data.TotalOrders}
                   />)
               }
               return (
@@ -69,7 +72,7 @@ export default function SaleDetails() {
                   bgColor={bgColor}
                   icon={icon}
                   title={title}
-                  value={ProductSoldCount}
+                  value={Data.ProductSold}
                 />)
             })}
           </div>
@@ -93,7 +96,7 @@ export default function SaleDetails() {
                 <DocumentIcon className="h-7 w-7  text-blue-500" />
                 <h2 className='text-xl pl-3'>Sales By Cities</h2>
               </div>
-              <CityTable />
+              <CityTable tableData={CityOrders} />
             </div>
           </div>
         </div>

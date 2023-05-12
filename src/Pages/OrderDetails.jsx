@@ -1,18 +1,17 @@
 import { CheckCircleIcon, ClipboardDocumentCheckIcon, DocumentCheckIcon, GiftIcon, ShoppingCartIcon, TruckIcon } from "@heroicons/react/24/solid";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../components/Table/OrderTable";
-import { useSelector } from "react-redux";
+import Orders from "../Services/Orders";
 
 export default function OrderDetails() {
   const [openTab, setOpenTab] = React.useState(1);
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-  const OrderDeliveredData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Delivered'))
-  const OrderPackagedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Packaged'))
-  const OrderPickedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Picked'))
-  const OrderPlacedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Placed'))
-  const OrderReceivedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Received'))
-  const OrderShippedData = useSelector((state) => state.Orders.filter((data) => data.status === 'Order Shipped'))
-
+  const [Data, setData] = useState([])
+  useEffect(() => {
+    Orders.getOrderDetails()
+      .then((data) => setData(data))
+      .catch(err => { throw err })
+  }, [])
   return (
     <section>
       <div className='bg-gray-50 min-h-screen'>
@@ -79,32 +78,32 @@ export default function OrderDetails() {
                   <div className="tab-content tab-space">
                     <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                       <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Table color="bg-red-500" tableData={OrderPlacedData} tableHeader={Headers} />
+                        <Table color="bg-red-500" tableData={Data.orderPlaced} tableHeader={Headers} />
                       </div>
                     </div>
                     <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                       <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Table color="bg-green-500" tableData={OrderReceivedData} tableHeader={Headers} />
+                        <Table color="bg-green-500" tableData={Data.orderReceived} tableHeader={Headers} />
                       </div>
                     </div>
                     <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                       <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Table color="bg-purple-500" tableData={OrderPickedData} tableHeader={Headers} />
+                        <Table color="bg-purple-500" tableData={Data.orderPicked} tableHeader={Headers} />
                       </div>
                     </div>
                     <div className={openTab === 4 ? "block" : "hidden"} id="link3">
                       <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Table color="bg-orange-500" tableData={OrderPackagedData} tableHeader={Headers} />
+                        <Table color="bg-orange-500" tableData={Data.orderPackaged} tableHeader={Headers} />
                       </div>.
                     </div>
                     <div className={openTab === 5 ? "block" : "hidden"} id="link3">
                       <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Table color="bg-green-500" tableData={OrderShippedData} tableHeader={Headers} />
+                        <Table color="bg-green-500" tableData={Data.orderShipped} tableHeader={Headers} />
                       </div>
                     </div>
                     <div className={openTab === 6 ? "block" : "hidden"} id="link3">
                       <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Table color="bg-green-500" tableData={OrderDeliveredData} tableHeader={Headers} />
+                        <Table color="bg-green-500" tableData={Data.orderDelivered} tableHeader={Headers} />
                       </div>
                     </div>
                   </div>

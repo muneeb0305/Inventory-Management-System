@@ -142,7 +142,7 @@ const updateOrder = (req) => {
     const id = req.params.id
     const update = req.body
     const bodyValidation = Object.keys(req.body).length
-    if (bodyValidation === 7) {
+    if (bodyValidation === 8) {
         return Orders.findById(id)
             .then((idFound) => {
                 if (!idFound) {
@@ -210,12 +210,16 @@ const updateOrder = (req) => {
 
             }).catch((err) => { throw err; })
     }
-    else {
-        const error = new Error('Kindly send valid data');
-        error.statusCode = 400;
-        throw error;
-    }
 }
+const orderById = (req) => {
+    const id = req.params.id
+    return Orders.findById(id)
+        .then((order) => {
+            return order
+        }).catch((err) => { throw err; })
+}
+
+
 const orderDetails = () => {
     return Promise.all(([
         Orders.find({ status: 'Order Placed' }),
@@ -255,4 +259,4 @@ const CustomerorderDetails = (req) => {
         .catch(err => { throw err })
 }
 
-module.exports = { CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard };
+module.exports = {orderById, CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard };

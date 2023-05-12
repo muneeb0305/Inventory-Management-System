@@ -1,17 +1,20 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import Orders from '../../Services/Orders'
 export default function ViewOrderTable() {
-    const tableHeader = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-    const orderState = useSelector((state) => state.Orders)
-    const UserState = useSelector((state) => state.User.find((user) => user.token === JSON.parse(sessionStorage.getItem('token'))))
-    const tableData = orderState.filter((data) => data.customer_id === UserState.id)
+    const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
+    const [Data, setData] = useState([])
+    useEffect(() => {
+        Orders.customerOrder()
+            .then((data) => setData(data))
+            .catch(err => { throw err })
+    }, [])
+
     let color = ''
     return (
         <section >
             <div className='bg-gray-100 min-h-screen pb-4'>
                 <div className='container mx-auto px-5'>
                     <h1 className='text-4xl font-medium py-7'>Your Orders</h1>
-
                     <div className='w-full'>
                         <div className="p-4">
                             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -25,15 +28,15 @@ export default function ViewOrderTable() {
                                                     ))}
                                                 </tr>
                                             </thead>
-                                            {tableData.length ? (
+                                            {Data && Data.length ? (
                                                 <tbody>
-                                                    {tableData.map((row, index) => (
+                                                    {Data.map((row, index) => (
                                                         <tr key={index} className="border-b hover:bg-gray-50 text-center">
                                                             <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                                {row.order_id}
+                                                                {index + 1}
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
-                                                                {row.date}
+                                                                {new Date(row.date).toLocaleDateString()}
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                                                                 {row.customer_Name}

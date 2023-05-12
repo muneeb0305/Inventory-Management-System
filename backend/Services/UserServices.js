@@ -74,7 +74,7 @@ const login = (req) => {
                                 }
                                 else {
                                     const token = jwt.sign({ ID: user.id, Role: user.type }, SecretKey, { expiresIn: 1800 });
-                                    return { Authorization: token }
+                                    return { Authorization: `Bearer ${token}` }
                                 }
                             }).catch(err => { throw err })
                     } catch (err) {
