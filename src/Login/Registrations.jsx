@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Registration } from '../actions';
+import Login from '../Services/Login';
+import Swal from 'sweetalert2';
 
 export default function RegistrationForm() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+    })
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const ID_Counter = Date.now();
     const [Form, setForm] = useState({
-        id: null,
-        customer_Name: '',
+        name: '',
         email: '',
         password: '',
-        retype_password:'',
-        type: 'Customer',
+        retype_password: '',
     })
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,22 +26,34 @@ export default function RegistrationForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(Form.password===Form.retype_password){
-            dispatch(Registration({...Form, id:ID_Counter}))
-            alert("Customer Added")
-            navigate('/')
+        if (Form.password === Form.retype_password) {
+            Login.addUser({ ...Form })
+                .then(() => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Customer Added'
+                    })
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 2000);
+                    setForm({
+                        id: '',
+                        name: '',
+                        email: '',
+                        password: '',
+                        retype_password: '',
+                    })
+                })
+                .catch((err) => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err
+                    })
+                })
         }
-        else{
+        else {
             alert("Password Not Matched")
         }
-        setForm({
-            id: '',
-            customer_Name: '',
-            email: '',
-            password: '',
-            retype_password:'',
-            type: 'Customer',
-        })
     }
     return (
         <section>
@@ -49,7 +64,7 @@ export default function RegistrationForm() {
                         <form onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <div className="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="customer_Name" value={Form.customer_Name} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                    <input type="text" name="name" value={Form.name} onChange={handleChange} minLength={8} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer Name</label>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group">

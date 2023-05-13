@@ -83,55 +83,53 @@ const addOrder = (req) => {
     const { product, quantity, address, city, amount } = req.body;
     const authHeader = req.header('Authorization');
     const token = authHeader && authHeader.split(' ')[1];
-
     let userID;
-
-        return Inventory.findOne({ itemName: product })
-            .then((item) => {
-                if (!item) {
-                    const error = new Error('Item Not Found');
-                    error.statusCode = 400;
-                    throw error;
-                }
-                else if (item.stock < quantity) {
-                    const error = new Error('Insufficient Stock');
-                    error.statusCode = 400;
-                    throw error;
-                }
-                else {
-                    jwt.verify(token, SecretKey, (err, decoded) => {
-                        if (err) {
-                            throw err
-                        } else {
-                            userID = decoded.ID;
-                        }
-                    });
-                    return User.findById(userID)
-                        .then((user) => {
-                            item.stock -= quantity
-                            const newOrder = new Orders({
-                                customer_id: userID,
-                                customer_Name: user.name,
-                                product,
-                                quantity,
-                                address,
-                                city,
-                                amount,
-                                status: 'Order Placed',
-                                date: Date.now()
-                            })
-                            Promise.all([
-                                newOrder.save(),
-                                item.save()
-                            ])
-                                .then(() => console.log("Item Updated & Order Saved"))
-                                .catch((error) => { throw error })
+    return Inventory.findOne({ itemName: product })
+        .then((item) => {
+            if (!item) {
+                const error = new Error('Item Not Found');
+                error.statusCode = 400;
+                throw error;
+            }
+            else if (item.stock < quantity) {
+                const error = new Error('Insufficient Stock');
+                error.statusCode = 400;
+                throw error;
+            }
+            else {
+                jwt.verify(token, SecretKey, (err, decoded) => {
+                    if (err) {
+                        throw err
+                    } else {
+                        userID = decoded.ID;
+                    }
+                });
+                return User.findById(userID)
+                    .then((user) => {
+                        item.stock -= quantity
+                        const newOrder = new Orders({
+                            customer_id: userID,
+                            customer_Name: user.name,
+                            product,
+                            quantity,
+                            address,
+                            city,
+                            amount,
+                            status: 'Order Placed',
+                            date: Date.now()
                         })
-                }
-            })
-            .catch((err) => {
-                throw err;
-            })
+                        Promise.all([
+                            newOrder.save(),
+                            item.save()
+                        ])
+                            .then(() => console.log("Item Updated & Order Saved"))
+                            .catch((error) => { throw error })
+                    })
+            }
+        })
+        .catch((err) => {
+            throw err;
+        })
 }
 const updateOrder = (req) => {
     const id = req.params.id
@@ -149,11 +147,6 @@ const updateOrder = (req) => {
                     .then((item) => {
                         if (!item) {
                             const error = new Error('Item Not Found');
-                            error.statusCode = 400;
-                            throw error;
-                        }
-                        else if (item.stock < update.quantity) {
-                            const error = new Error('Insufficient Stock');
                             error.statusCode = 400;
                             throw error;
                         }
@@ -254,4 +247,4 @@ const CustomerorderDetails = (req) => {
         .catch(err => { throw err })
 }
 
-module.exports = {orderById, CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard };
+module.exports = { orderById, CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard };

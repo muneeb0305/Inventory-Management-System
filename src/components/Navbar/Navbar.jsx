@@ -3,22 +3,30 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { useDispatch } from 'react-redux'
 import { Logout } from '../../actions'
 import { Link, useNavigate } from 'react-router-dom'
-
-
-
+import Swal from 'sweetalert2';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar() {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+  })
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  
-  
+
   const handleLogout = () => {
+    Toast.fire({
+      icon: 'success',
+      title: 'Logout Successfully'
+    })
     dispatch(Logout())
-    navigate('/')
+    navigate('/');
   }
   return (
     <Disclosure as="nav" className="bg-white border-8">

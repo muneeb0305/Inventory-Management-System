@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Inventory from '../Services/Inventory';
+import Swal from 'sweetalert2';
 
 export default function Additem() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+    })
     const { id } = useParams()
     const navigate = useNavigate()
     const isID = !!id
@@ -19,23 +27,61 @@ export default function Additem() {
         const { name, value } = e.target;
         setForm((prevState) => ({ ...prevState, [name]: value }));
     };
-    console.log(Form)
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ? Inventory.updateItem(id, { ...Form }) : Inventory.addItem({ ...Form })
-        setForm({
-            itemName: '',
-            brand: '',
-            priceIn: '',
-            priceOut: '',
-            category: '',
-            stock: '',
-            image: null,
-        })
-        navigate('/Admin/Inventory')
+        isID ? Inventory.updateItem(id, { ...Form })
+            .then(() => {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Item Updated'
+                })
+                setTimeout(() => {
+                    navigate('/Admin/Inventory')
+                }, 2000);
+                setForm({
+                    itemName: '',
+                    brand: '',
+                    priceIn: '',
+                    priceOut: '',
+                    category: '',
+                    stock: '',
+                    image: '',
+                })
+            })
+            .catch((err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: err
+                })
+            })
+            :
+            Inventory.addItem({ ...Form })
+                .then(() => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Item Added'
+                    })
+                    setTimeout(() => {
+                        navigate('/Admin/Inventory')
+                    }, 2000);
+                    setForm({
+                        itemName: '',
+                        brand: '',
+                        priceIn: '',
+                        priceOut: '',
+                        category: '',
+                        stock: '',
+                        image: '',
+                    })
+                })
+                .catch((err) => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err
+                    })
+                })
     }
     useEffect(() => {
-
         if (isID) {
             Inventory.viewItem(id)
                 .then((data) => {

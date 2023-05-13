@@ -12,7 +12,8 @@ const Login = {
                 return [token, role]
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     checkToken: (token) => {
@@ -25,7 +26,18 @@ const Login = {
                 return [token, role ]
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
+            });
+    },
+    addUser: (Data) => {
+        return axios.put(`http://localhost:8080/user/add`,Data)
+            .then(res => {
+                return res
+            })
+            .catch(error => {
+                const err = error.response.data
+                throw err
             });
     },
 }

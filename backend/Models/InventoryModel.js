@@ -29,7 +29,7 @@ const inventorySchema = new Schema({
     },
     stock: {
         type: Number,
-        required: true
+        required: true,
     },
 }, { versionKey: false })
 

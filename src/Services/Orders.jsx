@@ -15,7 +15,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     getRecentOrders: () => {
@@ -30,7 +31,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     getOrderDetails: () => {
@@ -45,7 +47,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     deleteOrder: (id) => {
@@ -60,7 +63,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     updateOrder: (id, Data) => {
@@ -75,7 +79,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     OrderbyId: (id) => {
@@ -90,7 +95,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     addOrder: (Data) => {
@@ -105,7 +111,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     customerOrder: () => {
@@ -120,7 +127,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     customerCard: () => {
@@ -135,7 +143,8 @@ const Orders = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     }
 }

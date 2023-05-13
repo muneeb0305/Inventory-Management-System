@@ -17,9 +17,11 @@ import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import Orders from '../Services/Orders'
 
 export default function Dashboard() {
+  
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState(0)
   const [recentOrders, setrecentOrders] = useState()
+
   useEffect(() => {
     Orders.getAdminCardData()
       .then((data) => setData(data))
@@ -28,8 +30,6 @@ export default function Dashboard() {
       .then((data) => setrecentOrders(data))
       .catch((err) => { console.log(err) })
   }, [])
-
-
 
   return (
     <section>

@@ -6,7 +6,7 @@ const SecretKey = 'MERNdeveloper'
 const addUser = (req) => {
     const { name, email, password } = req.body;
     const validation = Object.keys(req.body).length
-    if (validation === 3) {
+    if (validation === 4) {
         return User.findOne({ email: email })
             .then((user) => {
                 if (user) {
@@ -16,6 +16,11 @@ const addUser = (req) => {
                 }
                 else if (password.length < 8) {
                     const error = new Error('Password should be atleast 8 digit');
+                    error.statusCode = 403;
+                    throw error;
+                }
+                else if (name.length < 8) {
+                    const error = new Error('Name should be atleast 8 digit');
                     error.statusCode = 403;
                     throw error;
                 }

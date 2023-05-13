@@ -2,8 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Orders from '../Services/Orders';
 import Inventory from '../Services/Inventory';
+import Swal from 'sweetalert2';
 
 export default function OrderForm() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+    })
     const { id } = useParams()
     const isID = !!id
     const [Item, setItem] = useState([])
@@ -44,8 +52,6 @@ export default function OrderForm() {
     const inventoryItems = Item && Item.map((data) => data.itemName)
     const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
     const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
-
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...Form, [name]: name === "quantity" ? Number(value) : value })
@@ -54,20 +60,55 @@ export default function OrderForm() {
         e.preventDefault()
         if (isID) {
             Orders.updateOrder(oldData._id, { ...Form })
-            navigate('/Admin/Order_Details')
+                .then(() => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Order Updated'
+                    })
+                    setTimeout(() => {
+                        navigate('/Admin/Order_Details')
+                    }, 2000);
+                    setForm({
+                        customer_id: '',
+                        customer_Name: '',
+                        quantity: '',
+                        address: '',
+                        city: '',
+                        amount: '',
+                        status: ''
+                    })
+                })
+                .catch((err) => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err
+                    })
+                })
         }
         else {
             Orders.addOrder({ ...Form })
+                .then(() => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Order Added'
+                    })
+                    setForm({
+                        customer_id: '',
+                        customer_Name: '',
+                        quantity: '',
+                        address: '',
+                        city: '',
+                        amount: '',
+                        status: ''
+                    })
+                })
+                .catch((err) => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err
+                    })
+                })
         }
-        setForm({
-            customer_id: '',
-            customer_Name: '',
-            quantity: '',
-            address: '',
-            city: '',
-            amount: '',
-            status: ''
-        })
     }
 
     return (

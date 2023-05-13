@@ -4,7 +4,17 @@ import { LoginSuccess } from '../actions/index';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Login from '../Services/Login';
+import Swal from 'sweetalert2';
+
 export default function LoginPage() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+    })
+
     const User = ['Admin', 'Customer']
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -22,14 +32,32 @@ export default function LoginPage() {
             .then(([_token, _role]) => {
                 const token = _token
                 const role = _role
-                dispatch(LoginSuccess(token, role))
                 if (role === 'Admin') {
-                    navigate('/Admin');
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Signed in'
+                    })
+                    setTimeout(() => {
+                        dispatch(LoginSuccess(token, role))
+                        navigate('/Admin');
+                    }, 2000);
                 } else if (role === 'Customer') {
-                    navigate('/Customer');
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Signed in'
+                    })
+                    setTimeout(() => {
+                        dispatch(LoginSuccess(token, role))
+                        navigate('/Customer');
+                    }, 2000);
                 }
             })
-            .catch(() => alert('User Not Found'))
+            .catch((err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: err
+                })
+            })
     };
     return (
         <section>

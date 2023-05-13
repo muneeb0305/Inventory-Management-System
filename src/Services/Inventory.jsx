@@ -15,7 +15,8 @@ const Inventory = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     viewItem: (id) => {
@@ -30,7 +31,8 @@ const Inventory = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     addItem: (Data) => {
@@ -45,7 +47,8 @@ const Inventory = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     updateItem: (id,Data) => {
@@ -60,7 +63,8 @@ const Inventory = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     deleteItem: (id) => {
@@ -75,7 +79,8 @@ const Inventory = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
 }
