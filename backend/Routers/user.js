@@ -1,5 +1,5 @@
 const express = require('express')
-const { addUser, login } = require('../Services/UserServices')
+const { checkToken, addUser, login } = require('../Services/UserServices')
 const router = express.Router()
 
 router.put('/add', (req, res, next) => {
@@ -16,5 +16,14 @@ router.post('/login', (req, res, next) => {
         })
         .catch(err => next(err))
 })
+router.post('/checktoken', (req, res, next) => {
+    try {
+        const result = checkToken(req)
+        res.status(200).json(result)
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = router

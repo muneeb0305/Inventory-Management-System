@@ -1,14 +1,15 @@
 import axios from "axios";
+import Store from '../Store'
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IjY0NWNhZDI5MjUzZmQ4ZThkMjk4MWRjOSIsIlJvbGUiOiJDdXN0b21lciIsImlhdCI6MTY4MzkxMzg0MywiZXhwIjoxNjgzOTE1NjQzfQ.u9el3mqPjlyBERdCtm8J_DDD1SLrNhp2ksgDw2e8lVM'
-const config = {
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
-};
 
 const Orders = {
     getAdminCardData: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get("http://localhost:8080/order/admin_cards", config)
             .then(response => {
                 return response.data
@@ -18,6 +19,12 @@ const Orders = {
             });
     },
     getRecentOrders: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get("http://localhost:8080/order/recent_orders", config)
             .then(response => {
                 return response.data
@@ -27,6 +34,12 @@ const Orders = {
             });
     },
     getOrderDetails: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get("http://localhost:8080/order/details", config)
             .then(response => {
                 return response.data
@@ -36,6 +49,12 @@ const Orders = {
             });
     },
     deleteOrder: (id) => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.delete(`http://localhost:8080/order/delete/${id}`, config)
             .then(response => {
                 return response.data
@@ -44,8 +63,14 @@ const Orders = {
                 throw error
             });
     },
-    updateOrder: (id) => {
-        return axios.delete(`http://localhost:8080/order/update/${id}`, config)
+    updateOrder: (id, Data) => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        return axios.post(`http://localhost:8080/order/update/${id}`, Data, config)
             .then(response => {
                 return response.data
             })
@@ -54,6 +79,12 @@ const Orders = {
             });
     },
     OrderbyId: (id) => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get(`http://localhost:8080/order/${id}`, config)
             .then(response => {
                 return response.data
@@ -63,7 +94,13 @@ const Orders = {
             });
     },
     addOrder: (Data) => {
-        return axios.put(`http://localhost:8080/order/add`,Data, config)
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        return axios.put(`http://localhost:8080/order/add`, Data, config)
             .then(response => {
                 return response.data
             })
@@ -72,6 +109,12 @@ const Orders = {
             });
     },
     customerOrder: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get(`http://localhost:8080/order/customer_order`, config)
             .then(response => {
                 return response.data
@@ -81,6 +124,12 @@ const Orders = {
             });
     },
     customerCard: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get(`http://localhost:8080/order/customer_cards`, config)
             .then(response => {
                 return response.data

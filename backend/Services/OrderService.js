@@ -83,9 +83,9 @@ const addOrder = (req) => {
     const { product, quantity, address, city, amount } = req.body;
     const authHeader = req.header('Authorization');
     const token = authHeader && authHeader.split(' ')[1];
-    const bodyValidation = Object.keys(req.body).length
+
     let userID;
-    if (bodyValidation === 5) {
+
         return Inventory.findOne({ itemName: product })
             .then((item) => {
                 if (!item) {
@@ -132,11 +132,6 @@ const addOrder = (req) => {
             .catch((err) => {
                 throw err;
             })
-    } else {
-        const error = new Error('Kindly send valid data');
-        error.statusCode = 400;
-        throw error;
-    }
 }
 const updateOrder = (req) => {
     const id = req.params.id

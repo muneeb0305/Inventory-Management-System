@@ -24,10 +24,12 @@ export default function Dashboard() {
     Orders.getAdminCardData()
       .then((data) => setData(data))
       .catch((err) => { console.log(err) })
-      Orders.getRecentOrders()
+    Orders.getRecentOrders()
       .then((data) => setrecentOrders(data))
       .catch((err) => { console.log(err) })
   }, [])
+
+
 
   return (
     <section>

@@ -92,6 +92,19 @@ const login = (req) => {
         throw error;
     }
 }
+const checkToken = (req) => {
+    const { token } = req.body
+    try {
+        jwt.verify(token, SecretKey)
+        return { Authorization: `Bearer ${token}` }
+
+    } catch (err) {
+        console.log(err)
+        const error = new Error("Not Authorized User");
+        error.statusCode = 400;
+        throw error;
+    }
+}
 
 
-module.exports = { addUser, login }
+module.exports = {checkToken, addUser, login }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Orders from '../Services/Orders';
 import Inventory from '../Services/Inventory';
 
@@ -7,21 +7,41 @@ export default function OrderForm() {
     const { id } = useParams()
     const isID = !!id
     const [Item, setItem] = useState([])
-    useEffect(() => {
-        Inventory.getItem()
-            .then((data) => setItem(data))
-            .catch(err => { throw err })
-    }, [])
-    const inventoryItems = Item && Item.map((data) => data.itemName)
-    console.log(inventoryItems)
-
+    const [oldData, setoldData] = useState()
+    const navigate = useNavigate()
     const [Form, setForm] = useState({
+        customer_id: '',
+        customer_Name: '',
         product: '',
         quantity: '',
         address: '',
         city: '',
         amount: '',
+        status: ''
     })
+    useEffect(() => {
+        Inventory.getItem()
+            .then((data) => setItem(data))
+            .catch(err => { throw err })
+        if (isID) {
+            Orders.OrderbyId(id)
+                .then((data) => {
+                    setoldData(data)
+                    setForm({
+                        customer_id: data.customer_id,
+                        customer_Name: data.customer_Name,
+                        product: data.product,
+                        quantity: data.quantity,
+                        address: data.address,
+                        city: data.city,
+                        amount: data.amount,
+                        status: data.status
+                    })
+                })
+                .catch(err => { throw err })
+        }
+    }, [isID, id])
+    const inventoryItems = Item && Item.map((data) => data.itemName)
     const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
     const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
 
@@ -30,19 +50,24 @@ export default function OrderForm() {
         const { name, value } = e.target;
         setForm({ ...Form, [name]: name === "quantity" ? Number(value) : value })
     };
-    // console.log(Form)
     const handleSubmit = (e) => {
         e.preventDefault()
-        Orders.addOrder({ ...Form })
+        if (isID) {
+            Orders.updateOrder(oldData._id, { ...Form })
+            navigate('/Admin/Order_Details')
+        }
+        else {
+            Orders.addOrder({ ...Form })
+        }
         setForm({
-            date: '',
+            customer_id: '',
+            customer_Name: '',
             quantity: '',
-            product: '',
             address: '',
             city: '',
             amount: '',
+            status: ''
         })
-
     }
 
     return (
@@ -55,10 +80,7 @@ export default function OrderForm() {
                             {
                                 isID &&
                                 <div className="grid md:grid-cols-3 md:gap-6">
-                                    <div className="relative z-0 w-full mb-6 group">
-                                        <input type="number" name="customer_id" value={Form.customer_id} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled required />
-                                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer ID</label>
-                                    </div>
+
                                     <div className="relative z-0 w-full mb-6 group">
                                         <input type="text" name="customer_Name" value={Form.customer_Name} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled required />
                                         <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer Name</label>

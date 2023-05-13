@@ -19,7 +19,7 @@ export default function Table(props) {
     setSearchValue3(event.target.value);
   }
   const filteredData = tableData.filter(row => {
-    if (row.Item_name.toLowerCase().includes(searchValue1.toLowerCase()) &&
+    if (row.itemName.toLowerCase().includes(searchValue1.toLowerCase()) &&
       row.brand.toLowerCase().includes(searchValue2.toLowerCase()) &&
       row.category.toLowerCase().includes(searchValue3.toLowerCase())) {
       return true;
@@ -93,7 +93,7 @@ export default function Table(props) {
                     {filteredData.map((data, index) => (
                       <tr key={index} className="border-b hover:bg-gray-50 text-center">
                         <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
-                          {data.Item_name}
+                          {data.itemName}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                           {data.brand}
@@ -111,7 +111,7 @@ export default function Table(props) {
                           {data.stock}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                          <Modal ID={data.id} />
+                          <Modal ID={data._id} />
                         </td>
                       </tr>
                     ))}

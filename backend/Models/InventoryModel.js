@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const inventorySchema = new Schema({
 
     image: {
-        type: Buffer,
+        type: String,
         required: true
     },
     itemName: {

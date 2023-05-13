@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "../components/Table/InventoryTable";
-import { useSelector } from "react-redux";
+import InventoryServive from "../Services/Inventory";
 
 export default function Inventory() {
     const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock"]
-    const InventoryData = useSelector((state)=>state.Inventory) 
+    const [Data, setData] = useState([])
+    useEffect(() => {
+        InventoryServive.getItem()
+            .then((data) => { setData(data) })
+            .catch((err) => { throw err })
+    }, [])
     return (
         <section>
             <div className="bg-gray-50 min-h-screen">
@@ -15,7 +20,7 @@ export default function Inventory() {
                         <Link to="Add_Item"><button className="w-32 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
                             Add Item
                         </button></Link>
-                        <Table tableHeader={Headers} tableData={InventoryData} />
+                        <Table tableHeader={Headers} tableData={Data} />
                     </div>
                 </div>
             </div>

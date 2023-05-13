@@ -1,14 +1,15 @@
 import axios from "axios";
+import Store from '../Store'
 
-const token = 'eyJhbGciOiJIUzI1NiJ9.SGFzaGlyIEF6YW0.xeUStF84kk4_7avyBaA9cyrxyTDksxK_WFKYBddS7mU'
-const config = {
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
-};
 
 const Sale = {
     getSaleCardData: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get("http://localhost:8080/sale/salecard", config)
             .then(response => {
                 return response.data
@@ -18,6 +19,12 @@ const Sale = {
             });
     },
     getCityOrders: () => {
+        const token = Store.getState().Auth.token;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         return axios.get("http://localhost:8080/sale/salebycities", config)
             .then(response => {
                 return response.data

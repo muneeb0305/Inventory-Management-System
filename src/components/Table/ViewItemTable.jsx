@@ -16,7 +16,7 @@ export default function Table({ tableHeader, tableData }) {
               {tableData.category}
             </td>
             <td className="px-6 py-3 whitespace-nowrap text-md  text-gray-900">
-              {tableData.Item_name}
+              {tableData.itemName}
             </td>
             <td className="px-6 py-3 whitespace-nowrap text-md  text-gray-900">
               {tableData.brand}

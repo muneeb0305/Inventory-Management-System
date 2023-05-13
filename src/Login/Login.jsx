@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LoginSuccess, UserAuthenticate} from '../actions/index';
+import { LoginSuccess } from '../actions/index';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Login from '../Services/Login';
 export default function LoginPage() {
     const User = ['Admin', 'Customer']
     const navigate = useNavigate()
@@ -17,19 +18,18 @@ export default function LoginPage() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(UserAuthenticate({ ...Form }));
-        const tokenFromStorage = JSON.parse(sessionStorage.getItem('token'));
-        const userRole = JSON.parse(sessionStorage.getItem('User'));
-        if (tokenFromStorage) {
-            dispatch(LoginSuccess(tokenFromStorage,userRole))
-            if (userRole === 'Admin') {
-                navigate('/Admin');
-            } else if (userRole === 'Customer') {
-                navigate('/Customer');
-            }
-        } else {
-            alert('User Not Found');
-        }
+        Login.loginSuccess({ ...Form })
+            .then(([_token, _role]) => {
+                const token = _token
+                const role = _role
+                dispatch(LoginSuccess(token, role))
+                if (role === 'Admin') {
+                    navigate('/Admin');
+                } else if (role === 'Customer') {
+                    navigate('/Customer');
+                }
+            })
+            .catch(() => alert('User Not Found'))
     };
     return (
         <section>

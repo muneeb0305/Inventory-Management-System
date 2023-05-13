@@ -2,17 +2,23 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { useDispatch } from 'react-redux'
 import { Logout } from '../../actions'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  
+  
   const handleLogout = () => {
-    sessionStorage.clear()
     dispatch(Logout())
+    navigate('/')
   }
   return (
     <Disclosure as="nav" className="bg-white border-8">

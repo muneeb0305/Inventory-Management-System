@@ -92,7 +92,7 @@ const viewItems = () => {
         .catch((err) => { throw err })
 }
 const viewItemsbyID = (id) => {
-    return Inventory.findById(id).select(['itemName', 'brand', 'priceIn', 'priceOut', 'category', 'stock'])
+    return Inventory.findById(id).select(['itemName', 'brand', 'priceIn', 'priceOut', 'category', 'stock','image'])
         .then((items) => {
             return items
         })
