@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Inventory from '../../Services/Inventory';
 export default function Modal({ ID }) {
-  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
