@@ -2,14 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "../components/Table/InventoryTable";
 import InventoryServive from "../Services/Inventory";
+import Swal from "sweetalert2";
 
 export default function Inventory() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    })
     const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock"]
     const [Data, setData] = useState([])
     useEffect(() => {
         InventoryServive.getItem()
             .then((data) => { setData(data) })
-            .catch((err) => { throw err })
+            .catch((err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: err.error
+                })
+            })
+        // eslint-disable-next-line
     }, [])
     return (
         <section>

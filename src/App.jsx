@@ -4,7 +4,7 @@ import Authentication from './UserAuthentication/Authentication'
 export default function App() {
   return (
     <>
-      <Authentication/>
+      <Authentication />
     </>
   )
 }

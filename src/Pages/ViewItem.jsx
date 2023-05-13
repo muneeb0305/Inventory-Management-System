@@ -20,10 +20,10 @@ export default function ViewItem() {
                         {Data &&
                             <div className='grid md:grid-cols-2 gap-5'>
                                 <div className='flex justify-center m-10'>
-                                    <img src={ Data.image} alt="" className='h-72 shadow-sm rounded-xl' />
+                                    <img src={Data.image} alt="" className='h-72 shadow-sm rounded-xl' />
                                 </div>
                                 <div className='flex items-center '>
-                                    <Table tableHeader={Headers} tableData={ Data} />
+                                    <Table tableHeader={Headers} tableData={Data} />
                                 </div>
                             </div>
                         }

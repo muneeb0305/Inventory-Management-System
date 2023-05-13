@@ -10,19 +10,37 @@ import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
 import Sale from '../Services/Sale';
+import Swal from 'sweetalert2';
 
 export default function SaleDetails() {
-
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  })
   const [Data, setData] = useState(0)
   const [CityOrders, setCityOrders] = useState([])
-  
+
   useEffect(() => {
     Sale.getSaleCardData()
       .then((data) => setData(data))
-      .catch(err => { throw err })
+      .catch(err => {
+        Toast.fire({
+          icon: 'error',
+          title: err.error
+        })
+      })
     Sale.getCityOrders()
       .then((data) => setCityOrders(data))
-      .catch(err => { throw err })
+      .catch(err => {
+        Toast.fire({
+          icon: 'error',
+          title: err.error
+        })
+      })
+    // eslint-disable-next-line
   }, [])
 
   return (

@@ -2,7 +2,7 @@ const initialState = {
     isAuthenticate: false,
     isLogged: false,
     token: null,
-    role:null
+    role: null
 }
 const Auth = (state = initialState, action) => {
     switch (action.type) {

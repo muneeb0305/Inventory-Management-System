@@ -15,7 +15,8 @@ const Sale = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
     getCityOrders: () => {
@@ -30,7 +31,8 @@ const Sale = {
                 return response.data
             })
             .catch(error => {
-                throw error
+                const err = error.response.data
+                throw err
             });
     },
 }

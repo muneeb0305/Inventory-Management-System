@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', User)
-app.use('/order', Order)
+app.use('/order',auth, Order)
 app.use('/sale', auth, Sale)
 app.use('/inventory', auth, Inventory)
 

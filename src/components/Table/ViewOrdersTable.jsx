@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Orders from '../../Services/Orders'
 export default function ViewOrderTable() {
-    const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
+    const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "City", "Amount"]
     const [Data, setData] = useState([])
     useEffect(() => {
         Orders.customerOrder()
@@ -72,6 +72,9 @@ export default function ViewOrderTable() {
                                                                         <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{row.status}</span>
                                                                     )
                                                                 }
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
+                                                                {row.city}
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
                                                                 Rs: {row.amount}/-

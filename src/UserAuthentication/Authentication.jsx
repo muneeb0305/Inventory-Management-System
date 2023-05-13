@@ -8,24 +8,23 @@ import Login from '../Services/Login';
 import { LoginSuccess, Logout } from '../actions';
 
 export default function Authentication() {
-
     const _Token = useSelector((state) => state.Auth.token)
     const _Role = useSelector((state) => state.Auth.role)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
-        Login.checkToken({ token: sessionStorage.getItem('token')})
-        .then(([Token, Role]) => {
-            dispatch(LoginSuccess(Token, Role))
-            if (Token && Role) {
-                navigate(`/${_Role}`)
-            }
-            else if (!_Token) { dispatch(Logout()) }
-        })
-        .catch((err) => console.log(err))
-        
-       
+        Login.checkToken({ token: sessionStorage.getItem('token') })
+            .then(([Token, Role]) => {
+                dispatch(LoginSuccess(Token, Role))
+                if (Token && Role) {
+                    navigate(`/${_Role}`)
+                }
+                else if (!_Token) { dispatch(Logout()) }
+            })
+            .catch((err) => {
+                throw err
+            })
         //eslint-disable-next-line
     }, [dispatch, _Token, _Role])
 

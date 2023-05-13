@@ -23,7 +23,7 @@ const Login = {
                 const token = response && response.split(' ')[1];
                 const decode = jwtDecode(token)
                 const role = decode.Role
-                return [token, role ]
+                return [token, role]
             })
             .catch(error => {
                 const err = error.response.data
@@ -31,7 +31,7 @@ const Login = {
             });
     },
     addUser: (Data) => {
-        return axios.put(`http://localhost:8080/user/add`,Data)
+        return axios.put(`http://localhost:8080/user/add`, Data)
             .then(res => {
                 return res
             })

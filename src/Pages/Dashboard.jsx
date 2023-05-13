@@ -15,9 +15,16 @@ import ClientOrderData from '../data/ClientOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import Orders from '../Services/Orders'
+import Swal from 'sweetalert2'
 
 export default function Dashboard() {
-  
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  })
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState(0)
   const [recentOrders, setrecentOrders] = useState()
@@ -25,10 +32,21 @@ export default function Dashboard() {
   useEffect(() => {
     Orders.getAdminCardData()
       .then((data) => setData(data))
-      .catch((err) => { console.log(err) })
+      .catch((err) => {
+        Toast.fire({
+          icon: 'error',
+          title: err.error
+        })
+      })
     Orders.getRecentOrders()
       .then((data) => setrecentOrders(data))
-      .catch((err) => { console.log(err) })
+      .catch((err) => {
+        Toast.fire({
+          icon: 'error',
+          title: err.error
+        })
+      })
+    // eslint-disable-next-line
   }, [])
 
   return (

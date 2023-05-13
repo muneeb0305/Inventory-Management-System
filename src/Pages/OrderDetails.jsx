@@ -2,15 +2,29 @@ import { CheckCircleIcon, ClipboardDocumentCheckIcon, DocumentCheckIcon, GiftIco
 import React, { useEffect, useState } from "react";
 import Table from "../components/Table/OrderTable";
 import Orders from "../Services/Orders";
+import Swal from "sweetalert2";
 
 export default function OrderDetails() {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  })
   const [openTab, setOpenTab] = React.useState(1);
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState([])
   useEffect(() => {
     Orders.getOrderDetails()
       .then((data) => setData(data))
-      .catch(err => { throw err })
+      .catch(err => {
+        Toast.fire({
+          icon: 'error',
+          title: err.error
+        })
+      })
+    // eslint-disable-next-line
   }, [])
   return (
     <section>

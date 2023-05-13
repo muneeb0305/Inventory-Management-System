@@ -51,7 +51,7 @@ const Inventory = {
                 throw err
             });
     },
-    updateItem: (id,Data) => {
+    updateItem: (id, Data) => {
         const token = Store.getState().Auth.token;
         const config = {
             headers: {
