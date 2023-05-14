@@ -22,8 +22,12 @@ Register Customer
 
 Role based Authorization
 
+JWT Authentication
+
 ## Customer
 Add Order
+
+View their Orders
 
 ## Admin
 Update Order
@@ -38,22 +42,10 @@ Delete Inventory Item
 
 City based Orders delivered and Clients
 
-View Sales, Produc Sold, Customers
+View Sales, Product Sold, Customers
 
 ## Technologies
-React.js
-
-## Installation
-To run this project, you can simply clone this repository:
-
-bash
-Copy code
-git clone https://github.com/muneeb0305/MERN-Project.git
-## Usage
-After cloning the repository, you can open the index.html file in your browser to view the website.
-
-## Contributing
-If you would like to contribute to this project, feel free to fork the repository and submit a pull request.
+React.js, Node.js, Express.js, Mongoose
 
 ## License
 This project is licensed under the MIT License.
