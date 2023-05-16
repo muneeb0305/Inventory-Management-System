@@ -52,7 +52,10 @@ export default function RegistrationForm() {
                 })
         }
         else {
-            alert("Password Not Matched")
+            Toast.fire({
+                icon: 'error',
+                title:' Password Not Matched'
+            })
         }
     }
     return (
