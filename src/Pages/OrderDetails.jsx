@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Table from "../components/Table/OrderTable";
 import Orders from "../Services/Orders";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 export default function OrderDetails() {
   const Toast = Swal.mixin({
@@ -12,6 +13,7 @@ export default function OrderDetails() {
     timer: 3000,
     timerProgressBar: true,
   })
+  const isDelete = useSelector((state)=>state.appState.isDelete)
   const [openTab, setOpenTab] = React.useState(1);
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState([])
@@ -25,7 +27,7 @@ export default function OrderDetails() {
         })
       })
     // eslint-disable-next-line
-  }, [])
+  }, [isDelete])
   return (
     <section>
       <div className='bg-gray-50 min-h-screen'>

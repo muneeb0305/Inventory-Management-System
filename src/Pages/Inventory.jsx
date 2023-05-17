@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Table from "../components/Table/InventoryTable";
 import InventoryServive from "../Services/Inventory";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 export default function Inventory() {
     const Toast = Swal.mixin({
@@ -14,6 +15,7 @@ export default function Inventory() {
     })
     const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock"]
     const [Data, setData] = useState([])
+    const isDelete = useSelector((state)=>state.appState.isDelete)
     useEffect(() => {
         InventoryServive.getItem()
             .then((data) => { setData(data) })
@@ -24,7 +26,7 @@ export default function Inventory() {
                 })
             })
         // eslint-disable-next-line
-    }, [])
+    }, [isDelete])
     return (
         <section>
             <div className="bg-gray-50 min-h-screen">

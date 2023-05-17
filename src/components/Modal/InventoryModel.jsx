@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import Inventory from '../../Services/Inventory';
+import { useDispatch } from 'react-redux';
+import { isDeleted } from '../../actions';
 export default function Modal({ ID }) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+  const dispatch =useDispatch()
   const DeleteRow = (id) => {
-   Inventory.deleteItem(id)
+    Inventory.deleteItem(id)
+    dispatch(isDeleted())
     closeModal()
   }
   return (

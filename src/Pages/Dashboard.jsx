@@ -16,6 +16,7 @@ import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import Orders from '../Services/Orders'
 import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux'
 
 export default function Dashboard() {
   const Toast = Swal.mixin({
@@ -28,6 +29,8 @@ export default function Dashboard() {
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState(0)
   const [recentOrders, setrecentOrders] = useState()
+  const isDelete = useSelector((state)=>state.appState.isDelete)
+  console.log(isDelete)
 
   useEffect(() => {
     Orders.getAdminCardData()
@@ -47,7 +50,7 @@ export default function Dashboard() {
         })
       })
     // eslint-disable-next-line
-  }, [])
+  }, [isDelete])
 
   return (
     <section>

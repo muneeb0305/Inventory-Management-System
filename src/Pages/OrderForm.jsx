@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Orders from '../Services/Orders';
 import Inventory from '../Services/Inventory';
 import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { isAdded } from '../actions';
 
 export default function OrderForm() {
     const Toast = Swal.mixin({
@@ -12,6 +14,7 @@ export default function OrderForm() {
         timer: 1500,
         timerProgressBar: true,
     })
+    const dispatch = useDispatch()
     const { id } = useParams()
     const isID = !!id
     const [Item, setItem] = useState([])
@@ -72,6 +75,7 @@ export default function OrderForm() {
                         customer_id: '',
                         customer_Name: '',
                         quantity: '',
+                        product:'',
                         address: '',
                         city: '',
                         amount: '',
@@ -92,9 +96,11 @@ export default function OrderForm() {
                         icon: 'success',
                         title: 'Order Added'
                     })
+                    dispatch(isAdded())
                     setForm({
                         customer_id: '',
                         customer_Name: '',
+                        product:'',
                         quantity: '',
                         address: '',
                         city: '',

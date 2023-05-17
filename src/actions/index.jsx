@@ -10,3 +10,14 @@ export const Logout = () => {
         type: 'LOGOUT',
     }
 }
+//Recent Orders
+export const isDeleted = () => {
+    return {
+        type: 'Deleted',
+    }
+}
+export const isAdded = () => {
+    return {
+        type: 'Added',
+    }
+}

@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import Orders from '../../Services/Orders';
+import { useDispatch } from 'react-redux';
+import { isDeleted } from '../../actions';
 
 export default function Modal({ ID }) {
-
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const DeleteRow = (id) => {
     Orders.deleteOrder(id)
+    dispatch(isDeleted())
     closeModal()
   }
   return (
