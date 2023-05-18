@@ -1,5 +1,5 @@
 const express = require('express')
-const { saleCard, saleTable } = require('../Services/SaleService')
+const { saleCard, saleTable } = require('../Controllers/SaleService')
 const router = express.Router()
 
 /*Sale Card Data */

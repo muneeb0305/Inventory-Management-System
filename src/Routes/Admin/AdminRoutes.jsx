@@ -50,7 +50,7 @@ const routes = [
   },
 ];
 
-function AdminRoutes() {
+function AdminRoutes(role) {
   return (
     <>
       <SideBar Menus={adminMenu}>

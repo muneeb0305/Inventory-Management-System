@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { orderById, CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard } = require('../Services/OrderService')
+const { orderById, CustomerorderDetails, recentOrder, deleteOrder, addOrder, updateOrder, adminOrderCard, orderDetails, customerCard } = require('../Controllers/OrderService')
 
 /* Admin Card */
 router.get('/admin_cards', (req, res, next) => {

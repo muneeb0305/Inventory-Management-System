@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 const express = require('express')
 const cors = require('cors')
-const Order = require('./Routers/orders')
-const Sale = require('./Routers/sale')
-const Inventory = require('./Routers/inventory')
-const User = require('./Routers/user');
-const auth = require('./Middleware/auth');
-const errorHandler = require('./Middleware/errorHandler');
-const notFound = require('./Middleware/notFound');
-const url = 'mongodb://127.0.0.1:27017/InventoryManagementSystem'
+const Order = require('./App/Routers/orders')
+const Sale = require('./App/Routers/sale')
+const Inventory = require('./App/Routers/inventory')
+const User = require('./App/Routers/user');
+const auth = require('./App/Middleware/auth');
+const errorHandler = require('./App/Middleware/errorHandler');
+const notFound = require('./App/Middleware/notFound');
+const dbConfig = require('./App/Config/db.config')
 const app = express()
 const PORT = 8080
 app.use(express.json())
 
 
-mongoose.connect(url)
+mongoose.connect(dbConfig.url)
     .then(() => {
         console.log('Connected to Mongo Successfully')
     }, (e) => { console.log(`Connection Error: ${e.message}`) }

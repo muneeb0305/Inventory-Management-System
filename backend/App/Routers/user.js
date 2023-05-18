@@ -1,5 +1,5 @@
 const express = require('express')
-const { checkToken, addUser, login } = require('../Services/UserServices')
+const { checkToken, addUser, login } = require('../Controllers/UserServices')
 const router = express.Router()
 
 router.put('/add', (req, res, next) => {
