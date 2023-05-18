@@ -1,6 +1,6 @@
 import { useState } from "react";
-import logo from '../assets/logo.png'
-import control from '../assets/control.png'
+import logo from '../../assets/logo.png'
+import control from '../../assets/control.png'
 import { NavLink } from 'react-router-dom';
 const SideBar = ({ children, Menus }) => {
   const [open, setOpen] = useState(false);
