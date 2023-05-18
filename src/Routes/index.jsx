@@ -82,8 +82,8 @@ function AppRoutes({ role }) {
               if (role === 'Admin' && route.isAdmin) {
                 return (
                   <Route key={index} path={route.path} element={route.element} />
-                );
-              } else if (role !== 'Admin' && !route.isAdmin) {
+                  );
+                } else if (role !== 'Admin' && !route.isAdmin) {
                 return (
                   <Route key={index} path={route.path} element={route.element} />
                 );

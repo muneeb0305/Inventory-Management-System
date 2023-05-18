@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import AppRoutes from '../Routes'
-import LoginLayout from '../Login/LoginLayout'
+import LoginLayout from '../Routes/LoginLayout'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Login from '../API/Login';

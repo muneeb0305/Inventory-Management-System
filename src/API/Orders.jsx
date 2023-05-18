@@ -1,7 +1,6 @@
 import axios from "axios";
 import Store from '../Redux-Store/Store'
 
-
 const Orders = {
     getAdminCardData: () => {
         const token = Store.getState().Auth.token;
