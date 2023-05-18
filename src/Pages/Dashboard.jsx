@@ -30,7 +30,6 @@ export default function Dashboard() {
   const [Data, setData] = useState(0)
   const [recentOrders, setrecentOrders] = useState()
   const isDelete = useSelector((state)=>state.appState.isDelete)
-  console.log(isDelete)
 
   useEffect(() => {
     Orders.getAdminCardData()

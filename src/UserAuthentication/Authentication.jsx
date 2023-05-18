@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import AdminRoutes from '../Admin/AdminRoutes'
-import CustomerRoutes from '../Customer/CustomerRoutes'
+import AdminRoutes from '../Routes/Admin/AdminRoutes'
+import CustomerRoutes from '../Routes/Customer/CustomerRoutes'
 import LoginLayout from '../Login/LoginLayout'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Login from '../Services/Login';
-import { LoginSuccess, Logout } from '../actions';
+import { LoginSuccess, Logout } from '../Redux-Store/actions/index';
 
 export default function Authentication() {
     const _Token = useSelector((state) => state.Auth.token)

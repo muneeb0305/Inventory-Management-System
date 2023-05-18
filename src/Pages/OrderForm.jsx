@@ -4,7 +4,7 @@ import Orders from '../Services/Orders';
 import Inventory from '../Services/Inventory';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { isAdded } from '../actions';
+import { isAdded } from '../Redux-Store/actions';
 
 export default function OrderForm() {
     const Toast = Swal.mixin({

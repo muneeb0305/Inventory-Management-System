@@ -1,14 +1,15 @@
 import React from 'react';
-import SideBar from './SideBar';
+import SideBar from '../../components/Sidebar/SideBar';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from '../Pages/Dashboard';
-import Navbar from '../components/Navbar/Navbar';
-import OrderDetails from '../Pages/OrderDetails';
-import SaleDetails from '../Pages/SaleDetails';
-import Inventory from '../Pages/Inventory';
-import Additem from '../Pages/Additem';
-import ViewItem from '../Pages/ViewItem';
-import OrderForm from '../Pages/OrderForm';
+import Dashboard from '../../Pages/Dashboard';
+import Navbar from '../../components/Navbar/Navbar';
+import OrderDetails from '../../Pages/OrderDetails';
+import SaleDetails from '../../Pages/SaleDetails';
+import Inventory from '../../Pages/Inventory';
+import Additem from '../../Pages/Additem';
+import ViewItem from '../../Pages/ViewItem';
+import OrderForm from '../../Pages/OrderForm';
+import { adminMenu } from '../../data/Menu';
 
 const routes = [
   { 
@@ -49,10 +50,10 @@ const routes = [
   },
 ];
 
-function SideBarRoutes() {
+function AdminRoutes() {
   return (
     <>
-      <SideBar>
+      <SideBar Menus={adminMenu}>
         <Navbar />
         <Routes>
           {routes.map((route, index) => (
@@ -64,4 +65,4 @@ function SideBarRoutes() {
   );
 }
 
-export default SideBarRoutes;
+export default AdminRoutes;

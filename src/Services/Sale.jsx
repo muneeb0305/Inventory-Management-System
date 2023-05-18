@@ -1,5 +1,5 @@
 import axios from "axios";
-import Store from '../Store'
+import Store from '../Redux-Store/Store'
 
 
 const Sale = {

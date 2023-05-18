@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import Orders from '../../Services/Orders';
 import { useDispatch } from 'react-redux';
-import { isDeleted } from '../../actions';
+import { isDeleted } from '../../Redux-Store/actions';
 
 export default function Modal({ ID }) {
   const dispatch = useDispatch()

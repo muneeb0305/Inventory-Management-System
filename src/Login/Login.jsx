@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LoginSuccess } from '../actions/index';
+import { LoginSuccess } from '../Redux-Store/actions/index';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Login from '../Services/Login';

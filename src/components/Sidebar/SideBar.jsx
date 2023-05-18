@@ -1,15 +1,9 @@
 import { useState } from "react";
-import logo from '../components/assets/logo.png'
-import control from '../components/assets/control.png'
+import logo from '../assets/logo.png'
+import control from '../assets/control.png'
 import { NavLink } from 'react-router-dom';
-import { ClipboardDocumentIcon, HomeIcon } from "@heroicons/react/24/solid";
-const SideBar = ({ children }) => {
+const SideBar = ({ children, Menus }) => {
   const [open, setOpen] = useState(false);
-  const Menus = [
-    { title: "Dashboard", icon: <HomeIcon className="w-6 h-6" />, path: '/Customer' },
-    { title: "View Orders", icon: <ClipboardDocumentIcon className="w-6 h-6"/>, path:'/Customer/view_orders' },
-  ];
-
   return (
     <div className="flex">
       <div
