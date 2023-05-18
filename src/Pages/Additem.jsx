@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import Inventory from '../Services/Inventory';
+import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
 
 export default function Additem() {

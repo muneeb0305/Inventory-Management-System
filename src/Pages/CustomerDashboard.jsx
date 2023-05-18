@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DashboardCard from '../components/cards/DashboardCard'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from './OrderForm'
-import Orders from '../Services/Orders'
+import Orders from '../API/Orders'
 import { useSelector } from 'react-redux'
 
 export default function CustomerDashboard() {

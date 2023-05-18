@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import AdminRoutes from '../Routes/Admin/AdminRoutes'
-import CustomerRoutes from '../Routes/Customer/CustomerRoutes'
+import AppRoutes from '../Routes'
 import LoginLayout from '../Login/LoginLayout'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import Login from '../Services/Login';
+import Login from '../API/Login';
 import { LoginSuccess, Logout } from '../Redux-Store/actions/index';
 
 export default function Authentication() {
@@ -31,8 +30,8 @@ export default function Authentication() {
     return (
         <Routes>
             {
-                _Token && _Role === 'Admin' ? <Route path="Admin/*" element={<AdminRoutes />} /> :
-                    _Token && _Role === 'Customer' ? <Route path="Customer/*" element={<CustomerRoutes />} /> :
+                _Token && _Role === 'Admin' ? <Route path="Admin/*" element={<AppRoutes role={'Admin'}/>} /> :
+                    _Token && _Role === 'Customer' ? <Route path="Customer/*" element={<AppRoutes role={'Customer'}/>} /> :
                         <Route path="/*" element={<LoginLayout />} />
             }
         </Routes >

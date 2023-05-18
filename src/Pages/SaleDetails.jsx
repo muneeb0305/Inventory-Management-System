@@ -9,7 +9,7 @@ import CityTable from '../components/Table/CityTable';
 import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
-import Sale from '../Services/Sale';
+import Sale from '../API/Sale';
 import Swal from 'sweetalert2';
 
 export default function SaleDetails() {

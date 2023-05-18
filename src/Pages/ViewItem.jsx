@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Table from '../components/Table/ViewItemTable'
 import { useParams } from 'react-router-dom'
-import Inventory from '../Services/Inventory'
+import Inventory from '../API/Inventory'
 export default function ViewItem() {
     const { id } = useParams()
     const [Data, setData] = useState()

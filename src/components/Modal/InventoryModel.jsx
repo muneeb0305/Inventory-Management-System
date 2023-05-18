@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import Inventory from '../../Services/Inventory';
+import Inventory from '../../API/Inventory';
 import { useDispatch } from 'react-redux';
 import { isDeleted } from '../../Redux-Store/actions';
 export default function Modal({ ID }) {

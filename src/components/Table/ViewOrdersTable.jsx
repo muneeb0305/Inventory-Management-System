@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Orders from '../../Services/Orders'
+import Orders from '../../API/Orders'
 export default function ViewOrderTable() {
     const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "City", "Amount"]
     const [Data, setData] = useState([])

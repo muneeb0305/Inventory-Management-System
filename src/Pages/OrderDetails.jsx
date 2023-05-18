@@ -1,7 +1,7 @@
 import { CheckCircleIcon, ClipboardDocumentCheckIcon, DocumentCheckIcon, GiftIcon, ShoppingCartIcon, TruckIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react";
 import Table from "../components/Table/OrderTable";
-import Orders from "../Services/Orders";
+import Orders from "../API/Orders";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 

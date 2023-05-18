@@ -14,7 +14,7 @@ import CancelOrderData from '../data/CancelOrderData'
 import ClientOrderData from '../data/ClientOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
-import Orders from '../Services/Orders'
+import Orders from '../API/Orders'
 import Swal from 'sweetalert2'
 import { useSelector } from 'react-redux'
 

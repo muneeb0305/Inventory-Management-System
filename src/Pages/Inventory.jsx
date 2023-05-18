@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "../components/Table/InventoryTable";
-import InventoryServive from "../Services/Inventory";
+import InventoryServive from "../API/Inventory";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 

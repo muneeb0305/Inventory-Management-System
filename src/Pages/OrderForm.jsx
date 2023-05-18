@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import Orders from '../Services/Orders';
-import Inventory from '../Services/Inventory';
+import Orders from '../API/Orders';
+import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { isAdded } from '../Redux-Store/actions';

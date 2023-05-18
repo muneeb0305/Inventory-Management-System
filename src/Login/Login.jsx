@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { LoginSuccess } from '../Redux-Store/actions/index';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Login from '../Services/Login';
+import Login from '../API/Login';
 import Swal from 'sweetalert2';
 
 export default function LoginPage() {
