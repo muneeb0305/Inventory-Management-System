@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import LoginPage from '../containers/Login'
-import Registration from '../containers/Registrations'
+import Registration from '../components/Forms/Registrations'
 
 export default function Layout() {
 

@@ -1,6 +1,5 @@
 import React from 'react'
-export default function Table({ tableData }) {
-  const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
+export default function Table({ tableData, tableHeader }) {
   return (
     <section >
       <div className='w-full'>

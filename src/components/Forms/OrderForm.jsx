@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import Orders from '../API/Orders';
-import Inventory from '../API/Inventory';
+import Orders from '../../API/Orders';
+import Inventory from '../../API/Inventory';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { changeName, isAdded } from '../Redux-Store/actions';
+import { changeName, isAdded } from '../../Redux-Store/actions';
 
 export default function OrderForm() {
     const Toast = Swal.mixin({

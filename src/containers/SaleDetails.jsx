@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { changeName } from '../Redux-Store/actions';
 
 export default function SaleDetails() {
+  const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
   const dispatch = useDispatch()
   dispatch(changeName({name:'Sale Overview'}))
   const Toast = Swal.mixin({
@@ -117,7 +118,7 @@ export default function SaleDetails() {
                 <DocumentIcon className="h-7 w-7  text-blue-500" />
                 <h2 className='text-xl pl-3'>Sales By Cities</h2>
               </div>
-              <CityTable tableData={CityOrders} />
+              <CityTable tableData={CityOrders} tableHeader={tableHeader}/>
             </div>
           </div>
         </div>

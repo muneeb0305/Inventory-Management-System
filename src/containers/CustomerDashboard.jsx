@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SaleCard from '../components/cards/SaleCard'
 import DashboardCardData from '../data/DashboardCardData'
-import OrderForm from './OrderForm'
+import OrderForm from '../components/Forms/OrderForm'
 import Orders from '../API/Orders'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../Redux-Store/actions'

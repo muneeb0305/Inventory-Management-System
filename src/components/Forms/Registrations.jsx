@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Login from '../API/Login';
+import Login from '../../API/Login';
 import Swal from 'sweetalert2';
 
 export default function RegistrationForm() {

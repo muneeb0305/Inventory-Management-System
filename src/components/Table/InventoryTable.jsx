@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import Modal from '../Modal/InventoryModel';
+import Modal from '../Modal/Model';
+import Inventory from '../../API/Inventory';
 
 export default function Table(props) {
   const tableData = props.tableData;
+
   const [searchValue1, setSearchValue1] = useState('');
   const [searchValue2, setSearchValue2] = useState('');
   const [searchValue3, setSearchValue3] = useState('');
@@ -18,7 +20,9 @@ export default function Table(props) {
   const handleSearch3 = (event) => {
     setSearchValue3(event.target.value);
   }
-  const filteredData = tableData.filter(row => {
+  let filteredData
+  // useEffect(() => {
+  filteredData = tableData.filter(row => {
     if (row.itemName.toLowerCase().includes(searchValue1.toLowerCase()) &&
       row.brand.toLowerCase().includes(searchValue2.toLowerCase()) &&
       row.category.toLowerCase().includes(searchValue3.toLowerCase())) {
@@ -26,7 +30,7 @@ export default function Table(props) {
     }
     return false;
   });
-
+  // }, [tableData])
   return (
     <section>
       <div className='w-full'>
@@ -79,7 +83,7 @@ export default function Table(props) {
                   </div>
                 </div>
                 <table className="min-w-full">
-                  <thead className="bg-blue-500 text-white text-center">
+                  <thead className="bg-blue-600 text-white text-center">
                     <tr className='text-center'>
                       {tableHeader.map((header, index) => (
                         <th key={index} className="text-sm font-medium px-6 py-4">{header}</th>
@@ -111,7 +115,7 @@ export default function Table(props) {
                           {data.stock}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                          <Modal ID={data._id} />
+                          <Modal ID={data._id} updateLink={`update_Item/${data._id}`} name={'Inventory'} deleteAPi={(id) => Inventory.deleteItem(id)} />
                         </td>
                       </tr>
                     ))}

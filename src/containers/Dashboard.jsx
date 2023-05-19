@@ -53,7 +53,7 @@ export default function Dashboard() {
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
         <div className='container mx-auto px-5 pt-5'>
           <div className='grid gap-6 mb-5 md:grid-cols-2'>
-          <div className='order-1 lg:order-1 bg-white border-2 w-full p-4 shadow-lg overflow-hidden rounded-lg'>
+            <div className='order-1 lg:order-1 bg-white border-2 w-full p-4 shadow-lg overflow-hidden rounded-lg'>
               <div className='flex align-middle justify-between mb-10'>
                 <div className='flex items-center'>
                   <CalendarDaysIcon className="h-7 w-7  text-blue-500" />
@@ -63,7 +63,6 @@ export default function Dashboard() {
               </div>
               <BarChart data={TotalOrderData} />
             </div>
-            
             <div className='lg:order-2 flex flex-col gap-6'>
               {
                 DashboardCardData.map(({ title, textColor, bgColor, icon, color }) => {
@@ -107,8 +106,7 @@ export default function Dashboard() {
             <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
           </div>
           <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
-            
-          <div className='bg-white border-2 w-full p-5 shadow-lg'>
+            <div className='bg-white border-2 w-full p-5 shadow-lg'>
               <div className='flex align-middle justify-between mb-7'>
                 <div className='flex items-center'>
                   <HeartIcon className="h-7 w-7  text-red-500" />
@@ -165,9 +163,6 @@ export default function Dashboard() {
                 </li>
               </ul>
             </div>
-
-
-
             <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
               <div className='flex align-middle  mb-10'>
                 <HandThumbUpIcon className="h-7 w-7  text-green-500" />
@@ -176,7 +171,6 @@ export default function Dashboard() {
               <SaleAreaChart data={CustomerSatisfactionData} />
             </div>
           </div>
-
         </div>
       </div>
     </section>

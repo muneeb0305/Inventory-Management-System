@@ -1,5 +1,7 @@
 import React from 'react'
-import Modal from '../Modal/OrderModal';
+import Modal from '../Modal/Model';
+import Orders from '../../API/Orders';
+
 export default function OrderTable({ tableData, tableHeader, color }) {
     return (
         <section >
@@ -45,7 +47,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         Rs: {row.amount}/-
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                                                        <Modal ID={row._id} />
+                                                        <Modal ID={row._id} updateLink={`update_order/${row._id}`} name={'Orders'} deleteAPi={(id) => Orders.deleteOrder(id)} />
                                                     </td>
                                                 </tr>
                                             ))}
