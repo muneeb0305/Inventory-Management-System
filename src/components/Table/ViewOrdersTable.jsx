@@ -16,16 +16,15 @@ export default function ViewOrderTable() {
     let color = ''
     return (
         <section >
-            <div className='bg-gray-100 min-h-screen pb-4'>
-                <div className='container mx-auto px-5'>
-                    <h1 className='text-4xl font-medium py-7'>Your Orders</h1>
+            <div className='bg-gray-100 min-h-screen  pt-20'>
+                <div className='container mx-auto px-5 bg-white border-2 w-full shadow-lg'>
                     <div className='w-full'>
                         <div className="p-4">
                             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                                     <div className="overflow-x-auto">
                                         <table className="min-w-full">
-                                            <thead className="bg-blue-500 text-white text-center">
+                                            <thead className="bg-blue-600 text-white text-center">
                                                 <tr className='text-center'>
                                                     {tableHeader.map((header, index) => (
                                                         <th key={index} className="text-sm font-medium px-6 py-4">{header}</th>

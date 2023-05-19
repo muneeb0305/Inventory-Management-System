@@ -38,7 +38,7 @@ export default function OrderDetails() {
         <div className="container mx-auto px-5 pt-5">
           <div className="flex flex-wrap">
             <div className="w-full">
-              <ul className="grid lg:grid-cols-6 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 " role="tablist">
+              <ul className="grid lg:grid-cols-6 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 border-b-4 pb" role="tablist">
                 <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                   <a className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded leading-normal " +
                     (openTab === 1 ? "text-white bg-blue-600" : "text-black bg-white")}
@@ -92,7 +92,7 @@ export default function OrderDetails() {
                   </a>
                 </li>
               </ul>
-              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 ">
+              <div className="relative flex flex-col min-w-0 break-words w-full pt-5 ">
                 <div className="flex-auto">
                   <div className="tab-content tab-space">
                     <div className={openTab === 1 ? "block" : "hidden"} id="link1">

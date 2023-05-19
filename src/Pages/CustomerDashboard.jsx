@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import DashboardCard from '../components/cards/DashboardCard'
+import SaleCard from '../components/cards/SaleCard'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from './OrderForm'
 import Orders from '../API/Orders'
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../Redux-Store/actions'
 
 export default function CustomerDashboard() {
-  const isAdded = useSelector((state)=>state.appState.isAdded)
+  const isAdded = useSelector((state) => state.appState.isAdded)
   const [Data, setData] = useState(0)
   useEffect(() => {
     Orders.customerCard()
@@ -15,36 +15,38 @@ export default function CustomerDashboard() {
       .catch((err) => { throw err })
   }, [isAdded])
   const dispatch = useDispatch()
-  dispatch(changeName({name: "Dashboard"}))
+  dispatch(changeName({ name: "Dashboard" }))
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
         <div className='container mx-auto px-5'>
-          <h1 className='text-4xl font-medium py-7'>Dashboard</h1>
-          <div className='flex flex-wrap justify-center gap-5'>
+          <div className='grid gap-6 mb-5 md:grid-cols-3'>
             {
-              DashboardCardData.map(({ title, icon, color }) => {
+              DashboardCardData.map(({ title, icon, color, textColor, bgColor }) => {
                 if (title === 'Order Placed') {
-                  return (<DashboardCard
+                  return (<SaleCard
                     key={title}
-                    color={color}
+                    textColor={textColor}
+                    bgColor={bgColor}
                     icon={icon}
                     title={title}
                     value={Data.OrderPlaced}
                   />)
                 }
                 else if (title === 'Pending Orders') {
-                  return (<DashboardCard
+                  return (<SaleCard
                     key={title}
-                    color={color}
+                    textColor={textColor}
+                    bgColor={bgColor}
                     icon={icon}
                     title={title}
                     value={Data.OrderPending}
                   />)
                 }
-                return (<DashboardCard
+                return (<SaleCard
                   key={title}
-                  color={color}
+                  textColor={textColor}
+                  bgColor={bgColor}
                   icon={icon}
                   title={title}
                   value={Data.OrderDelivered}

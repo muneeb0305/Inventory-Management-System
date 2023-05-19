@@ -52,9 +52,63 @@ export default function Dashboard() {
     <section>
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
         <div className='container mx-auto px-5 pt-5'>
-          <div className='grid gap-6 mb-5 md:grid-cols-2 xl:grid-cols-2'>
-
-            <div className='bg-white border-2 w-full p-5 shadow-lg'>
+          <div className='grid gap-6 mb-5 md:grid-cols-2'>
+          <div className='order-1 lg:order-1 bg-white border-2 w-full p-4 shadow-lg overflow-hidden rounded-lg'>
+              <div className='flex align-middle justify-between mb-10'>
+                <div className='flex items-center'>
+                  <CalendarDaysIcon className="h-7 w-7  text-blue-500" />
+                  <h2 className='text-xl pl-3'>Total Orders</h2>
+                </div>
+                <Select />
+              </div>
+              <BarChart data={TotalOrderData} />
+            </div>
+            
+            <div className='lg:order-2 flex flex-col gap-6'>
+              {
+                DashboardCardData.map(({ title, textColor, bgColor, icon, color }) => {
+                  if (title === 'Order Placed') {
+                    return (<SaleCard
+                      key={title}
+                      textColor={textColor}
+                      bgColor={bgColor}
+                      icon={icon}
+                      title={title}
+                      value={Data.OrderPlaced}
+                    />)
+                  }
+                  else if (title === 'Pending Orders') {
+                    return (<SaleCard
+                      key={title}
+                      textColor={textColor}
+                      bgColor={bgColor}
+                      icon={icon}
+                      title={title}
+                      value={Data.OrderPending}
+                    />)
+                  }
+                  return (<SaleCard
+                    key={title}
+                    textColor={textColor}
+                    bgColor={bgColor}
+                    icon={icon}
+                    title={title}
+                    value={Data.OrderDelivered}
+                  />)
+                })
+              }
+            </div>
+          </div>
+          <div className='bg-white rounded-lg border-2 shadow-lg p-5'>
+            <div className='flex items-center'>
+              <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
+              <h2 className='text-xl pl-3'>Recent Orders</h2>
+            </div>
+            <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
+          </div>
+          <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
+            
+          <div className='bg-white border-2 w-full p-5 shadow-lg'>
               <div className='flex align-middle justify-between mb-7'>
                 <div className='flex items-center'>
                   <HeartIcon className="h-7 w-7  text-red-500" />
@@ -111,59 +165,9 @@ export default function Dashboard() {
                 </li>
               </ul>
             </div>
-            <div className='flex flex-col gap-5'>
-              {
-                DashboardCardData.map(({ title, textColor, bgColor, icon, color }) => {
-                  if (title === 'Order Placed') {
-                    return (<SaleCard
-                      key={title}
-                      textColor={textColor}
-                      bgColor={bgColor}
-                      icon={icon}
-                      title={title}
-                      value={Data.OrderPlaced}
-                    />)
-                  }
-                  else if (title === 'Pending Orders') {
-                    return (<SaleCard
-                      key={title}
-                      textColor={textColor}
-                      bgColor={bgColor}
-                      icon={icon}
-                      title={title}
-                      value={Data.OrderPending}
-                    />)
-                  }
-                  return (<SaleCard
-                    key={title}
-                    textColor={textColor}
-                    bgColor={bgColor}
-                    icon={icon}
-                    title={title}
-                    value={Data.OrderDelivered}
-                  />)
-                })
-              }
-            </div>
-          </div>
-          <div className='bg-white rounded-lg border-2 shadow-lg p-5'>
-            <div className='flex items-center'>
-              <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
-              <h2 className='text-xl pl-3'>Recent Orders</h2>
-            </div>
-            <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
-          </div>
-          <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
-            <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
-              <div className='flex align-middle justify-between mb-10'>
-                <div className='flex items-center'>
-                  <CalendarDaysIcon className="h-7 w-7  text-blue-500" />
-                  <h2 className='text-xl pl-3'>Total Orders</h2>
-                </div>
-                <Select />
-              </div>
-              <BarChart data={TotalOrderData} />
-            </div>
+
+
+
             <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
               <div className='flex align-middle  mb-10'>
                 <HandThumbUpIcon className="h-7 w-7  text-green-500" />

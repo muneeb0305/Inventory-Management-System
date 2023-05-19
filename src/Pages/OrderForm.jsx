@@ -121,8 +121,8 @@ export default function OrderForm() {
 
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen pt-5 pt-20">
-                <div className="container mx-auto px-5">
+            <div className={`${isID?"bg-gray-50 pt-20":'bg-transparent pt-5'} min-h-screen `}>
+                <div className={`container mx-auto ${isID?'px-5':''}`}>
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form onSubmit={handleSubmit}>
                             {

@@ -9,7 +9,7 @@ export default function Table({ tableData }) {
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <div className="overflow-x-auto">
                 <table className="min-w-full">
-                  <thead className="bg-blue-500 text-white text-center">
+                  <thead className="bg-blue-600 text-white text-center">
                     <tr className='text-center'>
                       {tableHeader.map((header, index) => (
                         <th key={index} className="text-sm font-medium px-6 py-4">{header}</th>
