@@ -1,16 +1,16 @@
 import React from 'react';
 import SideBar from '../components/Sidebar/SideBar';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from '../Pages/Dashboard';
+import Dashboard from '../containers/Dashboard';
 import Navbar from '../components/Navbar/Navbar';
-import OrderDetails from '../Pages/OrderDetails';
-import SaleDetails from '../Pages/SaleDetails';
-import Inventory from '../Pages/Inventory';
-import Additem from '../Pages/Additem';
-import ViewItem from '../Pages/ViewItem';
-import OrderForm from '../Pages/OrderForm';
+import OrderDetails from '../containers/OrderDetails';
+import SaleDetails from '../containers/SaleDetails';
+import Inventory from '../containers/Inventory';
+import Additem from '../containers/Additem';
+import ViewItem from '../containers/ViewItem';
+import OrderForm from '../containers/OrderForm';
 import { adminMenu, customerMenu } from '../data/Menu';
-import CustomerDashboard from '../Pages/CustomerDashboard';
+import CustomerDashboard from '../containers/CustomerDashboard';
 import ViewOrderTable from '../components/Table/ViewOrdersTable';
 
 const routes = [
