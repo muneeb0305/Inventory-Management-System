@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import DashboardCard from '../components/cards/DashboardCard'
 import DashboardCardData from '../data/DashboardCardData'
 import BarChart from '../components/Charts/BarChartComponent'
 import Select from '../components/Select/Select'
-import { ArchiveBoxXMarkIcon, BanknotesIcon, CalendarDaysIcon, ClipboardDocumentCheckIcon, HandThumbUpIcon, HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/solid'
-import AreaChartComponent from '../components/Charts/AreaChartComponent'
-import RadialBarChartComponent from '../components/Charts/RadialBarChartComponent'
-import LineChartComponent from '../components/Charts/ProfitLossChart'
+import { CalendarDaysIcon, ClipboardDocumentCheckIcon, HandThumbUpIcon, HeartIcon } from '@heroicons/react/24/solid'
 import Table from '../components/Table/OrderTable'
-import Profit_Loss_Data from '../data/Profit_Loss_Data'
 import TotalOrderData from '../data/TotalOrderData'
-import CancelOrderData from '../data/CancelOrderData'
-import ClientOrderData from '../data/ClientOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import Orders from '../API/Orders'
 import Swal from 'sweetalert2'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeName } from '../Redux-Store/actions'
+import SaleCard from '../components/cards/SaleCard'
 
 export default function Dashboard() {
+  const dispatch = useDispatch()
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -29,9 +25,10 @@ export default function Dashboard() {
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState(0)
   const [recentOrders, setrecentOrders] = useState()
-  const isDelete = useSelector((state)=>state.appState.isDelete)
+  const isDelete = useSelector((state) => state.appState.isDelete)
 
   useEffect(() => {
+    dispatch(changeName({ name: 'Dashboard' }))
     Orders.getAdminCardData()
       .then((data) => setData(data))
       .catch((err) => {
@@ -53,53 +50,12 @@ export default function Dashboard() {
 
   return (
     <section>
-      <div className='bg-gray-100 min-h-screen pb-4'>
-        <div className='container mx-auto px-5'>
-          <h1 className='text-4xl font-medium py-7'>Dashboard</h1>
-          <div className='flex flex-wrap justify-center gap-5'>
-            {
-              DashboardCardData.map(({ title, icon, color }) => {
-                if (title === 'Order Placed') {
-                  return (<DashboardCard
-                    key={title}
-                    color={color}
-                    icon={icon}
-                    title={title}
-                    value={Data.OrderPlaced}
-                  />)
-                }
-                else if (title === 'Pending Orders') {
-                  return (<DashboardCard
-                    key={title}
-                    color={color}
-                    icon={icon}
-                    title={title}
-                    value={Data.OrderPending}
-                  />)
-                }
-                return (<DashboardCard
-                  key={title}
-                  color={color}
-                  icon={icon}
-                  title={title}
-                  value={Data.OrderDelivered}
-                />)
-              })
-            }
-          </div>
-          <div className='mt-10 mb-5 md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
-            <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
-              <div className='flex align-middle justify-between mb-10'>
-                <div className='flex items-center'>
-                  <BanknotesIcon className="h-7 w-7  text-green-500" />
-                  <h2 className='text-xl pl-3'>Profit / Loss</h2>
-                </div>
-                <Select />
-              </div>
-              <LineChartComponent data={Profit_Loss_Data} />
-            </div>
+      <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
+        <div className='container mx-auto px-5 pt-5'>
+          <div className='grid gap-6 mb-5 md:grid-cols-2 xl:grid-cols-2'>
+
             <div className='bg-white border-2 w-full p-5 shadow-lg'>
-              <div className='flex align-middle justify-between mb-10'>
+              <div className='flex align-middle justify-between mb-7'>
                 <div className='flex items-center'>
                   <HeartIcon className="h-7 w-7  text-red-500" />
                   <h2 className='text-xl pl-3'>Top Selling Products</h2>
@@ -155,8 +111,49 @@ export default function Dashboard() {
                 </li>
               </ul>
             </div>
+            <div className='flex flex-col gap-5'>
+              {
+                DashboardCardData.map(({ title, textColor, bgColor, icon, color }) => {
+                  if (title === 'Order Placed') {
+                    return (<SaleCard
+                      key={title}
+                      textColor={textColor}
+                      bgColor={bgColor}
+                      icon={icon}
+                      title={title}
+                      value={Data.OrderPlaced}
+                    />)
+                  }
+                  else if (title === 'Pending Orders') {
+                    return (<SaleCard
+                      key={title}
+                      textColor={textColor}
+                      bgColor={bgColor}
+                      icon={icon}
+                      title={title}
+                      value={Data.OrderPending}
+                    />)
+                  }
+                  return (<SaleCard
+                    key={title}
+                    textColor={textColor}
+                    bgColor={bgColor}
+                    icon={icon}
+                    title={title}
+                    value={Data.OrderDelivered}
+                  />)
+                })
+              }
+            </div>
           </div>
-          <div className='mt-10 mb-5 md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
+          <div className='bg-white rounded-lg border-2 shadow-lg p-5'>
+            <div className='flex items-center'>
+              <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
+              <h2 className='text-xl pl-3'>Recent Orders</h2>
+            </div>
+            <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
+          </div>
+          <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
             <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
               <div className='flex align-middle justify-between mb-10'>
                 <div className='flex items-center'>
@@ -167,18 +164,6 @@ export default function Dashboard() {
               </div>
               <BarChart data={TotalOrderData} />
             </div>
-            <div className='bg-white border-2 w-full  p-5 shadow-lg overflow-hidden'>
-              <div className='flex align-middle justify-between mb-10'>
-                <div className='flex items-center'>
-                  <ArchiveBoxXMarkIcon className="h-7 w-7  text-red-500" />
-                  <h2 className='text-xl pl-3'>Cancel Orders</h2>
-                </div>
-                <Select />
-              </div>
-              <AreaChartComponent data={CancelOrderData} />
-            </div>
-          </div>
-          <div className='mt-10 mb-5 md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
             <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
               <div className='flex align-middle  mb-10'>
                 <HandThumbUpIcon className="h-7 w-7  text-green-500" />
@@ -186,21 +171,8 @@ export default function Dashboard() {
               </div>
               <SaleAreaChart data={CustomerSatisfactionData} />
             </div>
-            <div className='bg-white border-2 w-full p-5 shadow-lg overflow-hidden'>
-              <div className='flex align-middle justify-start mb-10'>
-                <ShoppingBagIcon className="h-7 w-7  text-orange-500" />
-                <h2 className='text-xl pl-3'>Client Orders</h2>
-              </div>
-              <RadialBarChartComponent data={ClientOrderData} />
-            </div>
           </div>
-          <div className='bg-white rounded-lg border-2 shadow-lg p-5'>
-            <div className='flex items-center mb-5'>
-              <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
-              <h2 className='text-xl pl-3'>Recent Orders</h2>
-            </div>
-            <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
-          </div>
+
         </div>
       </div>
     </section>

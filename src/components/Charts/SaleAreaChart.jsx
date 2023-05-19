@@ -20,7 +20,7 @@ export default function SaleAreaChart({data}) {
         );
     }
         return (
-            <ResponsiveContainer width="100%" height="80%">
+            <ResponsiveContainer width="100%" height="75%">
                 <AreaChart
                     data={data}
                     margin={{

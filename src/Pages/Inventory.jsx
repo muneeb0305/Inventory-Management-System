@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import Table from "../components/Table/InventoryTable";
 import InventoryServive from "../API/Inventory";
 import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeName } from "../Redux-Store/actions";
 
 export default function Inventory() {
+    const dispatch = useDispatch()
+  dispatch(changeName({name:'Inventory'}))
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -29,9 +32,8 @@ export default function Inventory() {
     }, [isDelete])
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen">
-                <div className="container mx-auto px-5">
-                    <h1 className="text-4xl font-medium py-7">Inventory</h1>
+            <div className="bg-gray-50 min-h-screen pt-20">
+                <div className="container mx-auto px-5 pt-5">
                     <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
                         <Link to="Add_Item"><button className="w-32 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
                             Add Item

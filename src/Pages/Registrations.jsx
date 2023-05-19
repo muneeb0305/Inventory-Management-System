@@ -60,7 +60,7 @@ export default function RegistrationForm() {
     }
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen">
+            <div className="bg-gray-50 min-h-screen ">
                 <div className="container w-9/12 mx-auto px-5">
                     <h1 className="text-4xl font-medium py-7 text-center">Customer Registration</h1>
                     <div className='bg-white p-5 shadow-lg rounded-lg'>

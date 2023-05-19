@@ -1,3 +1,5 @@
+import { type } from "@testing-library/user-event/dist/type"
+
 //AuthenticateUser
 export const LoginSuccess = (token,role) => {
     return {
@@ -19,5 +21,18 @@ export const isDeleted = () => {
 export const isAdded = () => {
     return {
         type: 'Added',
+    }
+}
+//Breadcrumbs
+export const changeName=(payload)=>{
+    return{
+        type: 'ChangeName',
+        payload: payload
+    }
+}
+//sidebar
+export const Sidebar=()=>{
+    return{
+        type: 'Sidebar',
     }
 }

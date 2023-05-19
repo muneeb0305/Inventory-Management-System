@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Orders from '../../API/Orders'
+import { changeName } from '../../Redux-Store/actions'
+import { useDispatch } from 'react-redux'
 export default function ViewOrderTable() {
     const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "City", "Amount"]
+    const dispatch = useDispatch()
+    dispatch(changeName({ name: "Orders" }))
     const [Data, setData] = useState([])
     useEffect(() => {
         Orders.customerOrder()

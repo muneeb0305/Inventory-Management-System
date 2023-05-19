@@ -11,8 +11,12 @@ import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
 import Sale from '../API/Sale';
 import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { changeName } from '../Redux-Store/actions';
 
 export default function SaleDetails() {
+  const dispatch = useDispatch()
+  dispatch(changeName({name:'Sale Overview'}))
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -45,9 +49,8 @@ export default function SaleDetails() {
 
   return (
     <section>
-      <div className='bg-gray-100 min-h-screen pb-4'>
-        <div className='container mx-auto px-5'>
-          <h1 className='text-4xl font-medium py-7'>Sale Overview</h1>
+      <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
+        <div className='container mx-auto px-5 pt-5'>
           <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             {SaleCardData.map(({ textColor, bgColor, title, icon }) => {
               if (title === 'Total Clients') {

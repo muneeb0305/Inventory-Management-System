@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Table from '../components/Table/ViewItemTable'
 import { useParams } from 'react-router-dom'
 import Inventory from '../API/Inventory'
+import { useDispatch } from 'react-redux'
+import { changeName } from '../Redux-Store/actions'
 export default function ViewItem() {
     const { id } = useParams()
+    const dispatch = useDispatch()
+    dispatch(changeName({name: "View Item"}))
     const [Data, setData] = useState()
     useEffect(() => {
         Inventory.viewItem(id)
@@ -13,9 +17,8 @@ export default function ViewItem() {
     const Headers = ["Category:", "Item Name:", "Brand:", "Stock:", "Price In:", "Price Out:"]
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen">
-                <div className="container mx-auto px-5">
-                    <h1 className="text-4xl font-medium py-7">View Item</h1>
+            <div className="bg-gray-50 min-h-screen pt-20">
+                <div className="container mx-auto px-5 pt-5">
                     <div className='bg-white border-2 shadow-xl w-4/6 mx-auto'>
                         {Data &&
                             <div className='grid md:grid-cols-2 gap-5'>

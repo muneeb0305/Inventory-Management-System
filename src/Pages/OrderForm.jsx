@@ -4,7 +4,7 @@ import Orders from '../API/Orders';
 import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { isAdded } from '../Redux-Store/actions';
+import { changeName, isAdded } from '../Redux-Store/actions';
 
 export default function OrderForm() {
     const Toast = Swal.mixin({
@@ -14,9 +14,11 @@ export default function OrderForm() {
         timer: 1500,
         timerProgressBar: true,
     })
-    const dispatch = useDispatch()
     const { id } = useParams()
     const isID = !!id
+    const breadCrumb={name:"Update Order"}
+    const dispatch = useDispatch()
+    isID && dispatch(changeName(breadCrumb))
     const [Item, setItem] = useState([])
     const [oldData, setoldData] = useState()
     const navigate = useNavigate()
@@ -119,9 +121,8 @@ export default function OrderForm() {
 
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen">
+            <div className="bg-gray-50 min-h-screen pt-5 pt-20">
                 <div className="container mx-auto px-5">
-                    <h1 className="text-4xl font-medium py-7">{isID ? "Update" : "Add"} Order</h1>
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form onSubmit={handleSubmit}>
                             {

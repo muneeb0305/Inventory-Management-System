@@ -3,9 +3,13 @@ import React, { useEffect, useState } from "react";
 import Table from "../components/Table/OrderTable";
 import Orders from "../API/Orders";
 import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeName } from "../Redux-Store/actions";
 
 export default function OrderDetails() {
+  const dispatch = useDispatch()
+  const breadCrumb = { name: 'Order Details'}
+  dispatch(changeName(breadCrumb))
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -13,7 +17,7 @@ export default function OrderDetails() {
     timer: 3000,
     timerProgressBar: true,
   })
-  const isDelete = useSelector((state)=>state.appState.isDelete)
+  const isDelete = useSelector((state) => state.appState.isDelete)
   const [openTab, setOpenTab] = React.useState(1);
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   const [Data, setData] = useState([])
@@ -30,9 +34,8 @@ export default function OrderDetails() {
   }, [isDelete])
   return (
     <section>
-      <div className='bg-gray-50 min-h-screen'>
-        <div className="container mx-auto px-5">
-          <h1 className="text-4xl font-medium py-7">Order Details</h1>
+      <div className='bg-gray-50 min-h-screen pt-20'>
+        <div className="container mx-auto px-5 pt-5">
           <div className="flex flex-wrap">
             <div className="w-full">
               <ul className="grid lg:grid-cols-6 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 " role="tablist">

@@ -1,31 +1,29 @@
 import { useState } from "react";
-import logo from '../../assets/logo.png'
-import control from '../../assets/control.png'
+import { useDispatch } from "react-redux";
 import { NavLink } from 'react-router-dom';
+import { Sidebar } from "../../Redux-Store/actions";
 const SideBar = ({ children, Menus }) => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch()
   return (
     <div className="flex">
       <div
-        className={` ${open ? "w-72" : "w-20 "
-          } bg-blue-900 p-5 min-h-screen pt-8 relative duration-300`}
+        className={` ${open ? "w-52" : "w-16 "
+          } bg-blue-800 p-3 left-0 top-0 min-h-screen pt-8 relative duration-300`}
       >
-        <div>
-          <img
-            src={control} alt=""
-            className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
-            onClick={() => setOpen(!open)}
-          />
-          <div className="flex gap-x-4 items-center justify-center">
-          <img
-            src={logo} alt=""
-            className={`cursor-pointer duration-500 w-40  ${
-              open && "rotate-[360deg]"
-            }`}
-          />
-        </div>
-          <ul className="pt-6 ">
+        <div className="fixed" >
+          <div className={`duration-300 absolute cursor-pointer ${open ? '-right-10' : 'right-1'} top-0 w-7 text-white
+            z-20 ${!open}`}
+            onClick={() => {
+              dispatch(Sidebar())
+              setOpen(!open)
+            }}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.9} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+            </svg>
+
+          </div>
+          <ul className="pt-11">
             {Menus.map((Menu, index) => (
               <NavLink to={Menu.path} key={index}  >
                 <li

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { changeName } from '../Redux-Store/actions';
 
 export default function Additem() {
     const Toast = Swal.mixin({
@@ -98,12 +100,12 @@ export default function Additem() {
                 .catch(err => { throw err })
         }
     }, [isID, id])
-
+    const dispatch = useDispatch()
+    dispatch(changeName({name: isID ? "Update Item" : "Add Item"}))
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen">
-                <div className="container mx-auto px-5">
-                    <h1 className="text-4xl font-medium py-7">{isID ? "Update" : "Add"} Item</h1>
+            <div className="bg-gray-50 min-h-screen pt-20">
+                <div className="container mx-auto px-5 pt-5">
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form onSubmit={handleSubmit}>
                             <div className='mb-4'>

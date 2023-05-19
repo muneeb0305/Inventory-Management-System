@@ -1,15 +1,16 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Logout } from '../../Redux-Store/actions'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
+import Breadcrumbs from '../Breadcrumb/Breadcrumbs'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-
 export default function Navbar() {
+  const open = useSelector((state)=>state.appState.open)
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -29,11 +30,11 @@ export default function Navbar() {
     navigate('/');
   }
   return (
-    <Disclosure as="nav" className="bg-white border-8">
-
-      <>
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-16 items-center justify-end">
+    <Disclosure as="nav" className={`bg-white border-2 shadow-md rounded-md w-full z-10 4 fixed`}>
+      <div className=''>
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
+          <div className={`relative flex h-16 items-center  ${open?'justify-between right-20':'justify-between'}`}>
+            <Breadcrumbs/>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
                 type="button"
@@ -100,7 +101,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     </Disclosure>
   )
 }
