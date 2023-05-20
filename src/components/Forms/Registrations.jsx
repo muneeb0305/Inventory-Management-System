@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Login from '../../API/Login';
 import Swal from 'sweetalert2';
+import Input from '../Input/input'
 
 export default function RegistrationForm() {
     const Toast = Swal.mixin({
@@ -54,7 +55,7 @@ export default function RegistrationForm() {
         else {
             Toast.fire({
                 icon: 'error',
-                title:' Password Not Matched'
+                title: ' Password Not Matched'
             })
         }
     }
@@ -66,24 +67,12 @@ export default function RegistrationForm() {
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="name" value={Form.name} onChange={handleChange} minLength={8} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer Name</label>
-                                </div>
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <input type="email" name="email" value={Form.email} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address</label>
-                                </div>
+                                <Input type="text" name="name" value={Form.name} onChange={handleChange} minLength={8} title={'Customer Name'} />
+                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <input type="password" name="password" value={Form.password} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-                                </div>
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <input type="password" name="retype_password" value={Form.retype_password} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Retype Password</label>
-                                </div>
+                                <Input type="password" name="password" value={Form.password} onChange={handleChange} title={'Password'} />
+                                <Input type="password" name="retype_password" value={Form.retype_password} onChange={handleChange} title={'Retype Password'} />
                             </div>
                             <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-4">Submit</button>
                         </form>
