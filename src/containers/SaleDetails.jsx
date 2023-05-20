@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SaleCard from '../components/cards/SaleCard'
+import Card from '../components/cards/Card'
 import SaleCardData from '../data/SaleCardData'
 import SaleBarChart from '../components/Charts/SaleBarChart';
 import SaleAreaChart from '../components/Charts/SaleAreaChart';
@@ -56,7 +56,7 @@ export default function SaleDetails() {
             {SaleCardData.map(({ textColor, bgColor, title, icon }) => {
               if (title === 'Total Clients') {
                 return (
-                  <SaleCard
+                  <Card
                     key={title}
                     textColor={textColor}
                     bgColor={bgColor}
@@ -67,7 +67,7 @@ export default function SaleDetails() {
               }
               else if (title === 'Total Sales') {
                 return (
-                  <SaleCard
+                  <Card
                     key={title}
                     textColor={textColor}
                     bgColor={bgColor}
@@ -78,7 +78,7 @@ export default function SaleDetails() {
               }
               else if (title === 'Total Orders') {
                 return (
-                  <SaleCard
+                  <Card
                     key={title}
                     textColor={textColor}
                     bgColor={bgColor}
@@ -88,7 +88,7 @@ export default function SaleDetails() {
                   />)
               }
               return (
-                <SaleCard
+                <Card
                   key={title}
                   textColor={textColor}
                   bgColor={bgColor}

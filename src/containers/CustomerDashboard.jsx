@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SaleCard from '../components/cards/SaleCard'
+import SaleCard from '../components/cards/Card'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from '../containers/OrderForm'
 import Orders from '../API/Orders'
@@ -22,7 +22,7 @@ export default function CustomerDashboard() {
         <div className='container mx-auto px-5'>
           <div className='grid gap-6 mb-5 md:grid-cols-3'>
             {
-              DashboardCardData.map(({ title, icon, color, textColor, bgColor }) => {
+              DashboardCardData.map(({ title, icon, textColor, bgColor }) => {
                 if (title === 'Order Placed') {
                   return (<SaleCard
                     key={title}

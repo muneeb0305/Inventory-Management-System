@@ -11,7 +11,7 @@ import Orders from '../API/Orders'
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../Redux-Store/actions'
-import SaleCard from '../components/cards/SaleCard'
+import Card from '../components/cards/Card'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
@@ -67,7 +67,7 @@ export default function Dashboard() {
               {
                 DashboardCardData.map(({ title, textColor, bgColor, icon, color }) => {
                   if (title === 'Order Placed') {
-                    return (<SaleCard
+                    return (<Card
                       key={title}
                       textColor={textColor}
                       bgColor={bgColor}
@@ -77,7 +77,7 @@ export default function Dashboard() {
                     />)
                   }
                   else if (title === 'Pending Orders') {
-                    return (<SaleCard
+                    return (<Card
                       key={title}
                       textColor={textColor}
                       bgColor={bgColor}
@@ -86,7 +86,7 @@ export default function Dashboard() {
                       value={Data.OrderPending}
                     />)
                   }
-                  return (<SaleCard
+                  return (<Card
                     key={title}
                     textColor={textColor}
                     bgColor={bgColor}
