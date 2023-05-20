@@ -4,7 +4,7 @@ import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from '../containers/OrderForm'
 import Orders from '../API/Orders'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeName } from '../Redux-Store/actions'
+import { changeName } from '../Redux-Store/AppSlice'
 
 export default function CustomerDashboard() {
   const isAdded = useSelector((state) => state.appState.isAdded)

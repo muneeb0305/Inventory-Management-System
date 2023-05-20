@@ -4,7 +4,7 @@ import Table from "../components/Table/OrderTable";
 import Orders from "../API/Orders";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { changeName } from "../Redux-Store/actions";
+import { changeName } from "../Redux-Store/AppSlice";
 
 export default function OrderDetails() {
   const dispatch = useDispatch()

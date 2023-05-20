@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { isDeleted } from '../../Redux-Store/actions';
+import { isDeleted } from '../../Redux-Store/AppSlice';
 export default function Modal({ ID, updateLink, name, deleteAPi }) {
 
   const [isOpen, setIsOpen] = useState(false);

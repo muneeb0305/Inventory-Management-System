@@ -4,9 +4,9 @@ import Table from "../components/Table/InventoryTable";
 import InventoryServive from "../API/Inventory";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { changeName } from "../Redux-Store/actions";
 import Button from "../components/Button/Button";
 import Searchbar from "../components/SearchBar/Searchbar";
+import { changeName } from "../Redux-Store/AppSlice";
 
 export default function Inventory() {
     const [searchValue1, setSearchValue1] = useState('');

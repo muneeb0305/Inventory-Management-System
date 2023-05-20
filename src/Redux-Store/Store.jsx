@@ -1,8 +1,10 @@
-import { createStore } from "redux";
-import rootReducer from "./reducers";
+import { configureStore } from '@reduxjs/toolkit'
+import AppSlice from './AppSlice'
+import AuthSlice from './AuthSlice'
 
-const Store = createStore(rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__())
-
-export default Store
+export default configureStore({
+  reducer: {
+    appState: AppSlice,
+    Auth: AuthSlice,
+  }
+})

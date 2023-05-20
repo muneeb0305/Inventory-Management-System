@@ -10,8 +10,8 @@ import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import Orders from '../API/Orders'
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeName } from '../Redux-Store/actions'
 import Card from '../components/cards/Card'
+import { changeName } from '../Redux-Store/AppSlice'
 
 export default function Dashboard() {
   const dispatch = useDispatch()

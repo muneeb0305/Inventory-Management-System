@@ -12,7 +12,7 @@ import TargetRealityData from '../data/TargetRealityData';
 import Sale from '../API/Sale';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { changeName } from '../Redux-Store/actions';
+import { changeName } from '../Redux-Store/AppSlice';
 
 export default function SaleDetails() {
   const tableHeader = ["City", "Clients", "Product Sold", "Sale"]

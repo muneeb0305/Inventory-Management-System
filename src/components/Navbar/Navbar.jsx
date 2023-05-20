@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Logout } from '../../Redux-Store/actions'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import Breadcrumbs from '../Breadcrumb/Breadcrumbs'
+import { Logout } from '../../Redux-Store/AuthSlice';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

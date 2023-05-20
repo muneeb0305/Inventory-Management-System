@@ -3,7 +3,7 @@ import Table from '../components/Table/ViewItemTable'
 import { useParams } from 'react-router-dom'
 import Inventory from '../API/Inventory'
 import { useDispatch } from 'react-redux'
-import { changeName } from '../Redux-Store/actions'
+import { changeName } from '../Redux-Store/AppSlice'
 export default function ViewItem() {
     const { id } = useParams()
     const dispatch = useDispatch()

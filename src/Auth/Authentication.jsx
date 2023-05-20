@@ -4,7 +4,7 @@ import LoginLayout from '../Routes/LoginLayout'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Login from '../API/Login';
-import { LoginSuccess, Logout } from '../Redux-Store/actions/index';
+import { LoginSuccess, Logout } from '../Redux-Store/AuthSlice';
 
 export default function Authentication() {
     const _Token = useSelector((state) => state.Auth.token)
@@ -14,9 +14,9 @@ export default function Authentication() {
 
     useEffect(() => {
         Login.checkToken({ token: sessionStorage.getItem('token') })
-            .then(([Token, Role]) => {
-                dispatch(LoginSuccess(Token, Role))
-                if (Token && Role) {
+            .then(([token, role]) => {
+                dispatch(LoginSuccess({token: token, role:role}))
+                if (token && role) {
                     navigate(`/${_Role}`)
                 }
                 else if (!_Token) { dispatch(Logout()) }

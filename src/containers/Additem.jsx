@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { changeName } from '../Redux-Store/actions';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
+import { changeName } from '../Redux-Store/AppSlice';
 
 export default function Additem() {
     const Toast = Swal.mixin({

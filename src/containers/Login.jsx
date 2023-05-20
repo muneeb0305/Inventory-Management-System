@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LoginSuccess } from '../Redux-Store/actions/index';
+import { LoginSuccess } from '../Redux-Store/AuthSlice';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Login from '../API/Login';
@@ -39,7 +39,7 @@ export default function LoginPage() {
                         title: 'Signed in'
                     })
                     setTimeout(() => {
-                        dispatch(LoginSuccess(token, role))
+                        dispatch(LoginSuccess({token, role}))
                         navigate('/Admin');
                     }, 2000);
                 } else if (role === 'Customer') {
@@ -48,7 +48,7 @@ export default function LoginPage() {
                         title: 'Signed in'
                     })
                     setTimeout(() => {
-                        dispatch(LoginSuccess(token, role))
+                        dispatch(LoginSuccess({token, role}))
                         navigate('/Customer');
                     }, 2000);
                 }
