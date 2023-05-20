@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Login from '../API/Login';
 import Swal from 'sweetalert2';
+import Button from '../components/Button/Button';
 
 export default function LoginPage() {
     const Toast = Swal.mixin({
@@ -89,9 +90,7 @@ export default function LoginPage() {
                                     }
                                 </select>
                             </div>
-                            <button type="submit" className="bg-blue-600 font-bold text-white focus:outline-none rounded p-3">
-                                Submit
-                            </button>
+                            <Button type="submit" label={'Submit'} />
                         </form>
                         <div className='mt-5 shadow-md px-3 py-1 border-2 rounded-lg text-gray-500 hover:text-white hover:cursor-pointer bg-white hover:bg-blue-600'>
                             <Link to='/registration'><p className='text-sm '>Register Your Self</p></Link>

@@ -5,10 +5,11 @@ import InventoryServive from "../API/Inventory";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { changeName } from "../Redux-Store/actions";
+import Button from "../components/Button/Button";
 
 export default function Inventory() {
     const dispatch = useDispatch()
-  dispatch(changeName({name:'Inventory'}))
+    dispatch(changeName({ name: 'Inventory' }))
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -18,7 +19,7 @@ export default function Inventory() {
     })
     const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock"]
     const [Data, setData] = useState([])
-    const isDelete = useSelector((state)=>state.appState.isDelete)
+    const isDelete = useSelector((state) => state.appState.isDelete)
     useEffect(() => {
         InventoryServive.getItem()
             .then((data) => { setData(data) })
@@ -35,9 +36,9 @@ export default function Inventory() {
             <div className="bg-gray-50 min-h-screen pt-20">
                 <div className="container mx-auto px-5 pt-5">
                     <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
-                        <Link to="Add_Item"><button className="w-32 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
-                            Add Item
-                        </button></Link>
+                        <Link to="Add_Item">
+                            <Button label={'Add Item'} />
+                        </Link>
                         <Table tableHeader={Headers} tableData={Data} />
                     </div>
                 </div>
