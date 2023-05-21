@@ -10,7 +10,8 @@ export default function ViewItem() {
     useEffect(() => {
         dispatch(changeName({ name: "View Item" }))
         dispatch(showItemsByID(id))
-    }, [id, dispatch])
+        // eslint-disable-next-line
+    }, [id])
     const item = useSelector(state => state.inventory.itemByID)
     const Headers = ["Category:", "Item Name:", "Brand:", "Stock:", "Price In:", "Price Out:"]
     return (

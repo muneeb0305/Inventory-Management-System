@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import Orders from '../../API/Orders'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../../Redux-Store/AppSlice'
+import { customerOrders } from '../../Redux-Store/OrderSlice'
 export default function ViewOrderTable() {
     const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "City", "Amount"]
     const dispatch = useDispatch()
-    dispatch(changeName({ name: "Orders" }))
-    const [Data, setData] = useState([])
+
     useEffect(() => {
-        Orders.customerOrder()
-            .then((data) => setData(data))
-            .catch(err => { throw err })
+        dispatch(changeName({ name: "Orders" }))
+        dispatch(customerOrders())
+        // eslint-disable-next-line 
     }, [])
+
+    const Orders = useSelector(state => state.app.userOrders)
 
     let color = ''
     return (
@@ -31,9 +32,9 @@ export default function ViewOrderTable() {
                                                     ))}
                                                 </tr>
                                             </thead>
-                                            {Data && Data.length ? (
+                                            {Orders && Orders.length ? (
                                                 <tbody>
-                                                    {Data.map((row, index) => (
+                                                    {Orders.map((row, index) => (
                                                         <tr key={index} className="border-b hover:bg-gray-50 text-center">
                                                             <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                                 {index + 1}

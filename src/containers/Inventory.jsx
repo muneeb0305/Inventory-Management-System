@@ -17,7 +17,8 @@ export default function Inventory() {
     useEffect(() => {
         dispatch(changeName({ name: 'Inventory' }))
         dispatch(showItems())
-    }, [dispatch])
+        // eslint-disable-next-line
+    }, [])
 
     const Items = useSelector(state=>state.inventory.items)
 

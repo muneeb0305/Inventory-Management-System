@@ -14,8 +14,9 @@ export default function OrderDetails() {
 
   useEffect(() => {
     dispatch(showOrders())
-  }, [dispatch])
-  const Orders = useSelector((state)=>state.app.orders)
+    // eslint-disable-next-line
+  }, [])
+  const Orders = useSelector((state)=>state.orders.orders)
   return (
     <section>
       <div className='bg-gray-50 min-h-screen pt-20'>

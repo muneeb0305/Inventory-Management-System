@@ -9,8 +9,6 @@ import CityTable from '../components/Table/CityTable';
 import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
-// import Sale from '../API/Sale';
-// import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeName } from '../Redux-Store/AppSlice';
 import { cityOrders, saleCard } from '../Redux-Store/SaleSlice';
@@ -18,19 +16,13 @@ import { cityOrders, saleCard } from '../Redux-Store/SaleSlice';
 export default function SaleDetails() {
   const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
   const dispatch = useDispatch()
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: 'top-end',
-  //   showConfirmButton: false,
-  //   timer: 3000,
-  //   timerProgressBar: true,
-  // })
 
   useEffect(() => {
     dispatch(changeName({name:'Sale Overview'}))
     dispatch(saleCard())
     dispatch(cityOrders())
-  }, [dispatch])
+    // eslint-disable-next-line
+  }, [])
 
   const _saleCard = useSelector((state)=>state.sale.saleCard)
   const _cityOrders = useSelector((state)=>state.sale.orders)

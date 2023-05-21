@@ -4,17 +4,10 @@ import { LoginSuccess } from '../Redux-Store/AuthSlice';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Login from '../API/Login';
-import Swal from 'sweetalert2';
 import Button from '../components/Button/Button';
+import Alert from '../components/Alert/Alert';
 
 export default function LoginPage() {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    })
 
     const User = ['Admin', 'Customer']
     const navigate = useNavigate()
@@ -34,30 +27,21 @@ export default function LoginPage() {
                 const token = _token
                 const role = _role
                 if (role === 'Admin') {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Signed in'
-                    })
+                    Alert({ icon: 'success', title: 'Signed in' })
                     setTimeout(() => {
-                        dispatch(LoginSuccess({token, role}))
+                        dispatch(LoginSuccess({ token, role }))
                         navigate('/Admin');
                     }, 2000);
                 } else if (role === 'Customer') {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Signed in'
-                    })
+                    Alert({ icon: 'success', title: 'Signed in' })
                     setTimeout(() => {
-                        dispatch(LoginSuccess({token, role}))
+                        dispatch(LoginSuccess({ token, role }))
                         navigate('/Customer');
                     }, 2000);
                 }
             })
             .catch((err) => {
-                Toast.fire({
-                    icon: 'error',
-                    title: err
-                })
+                Alert({ icon: 'error', title: err })
             })
     };
     return (

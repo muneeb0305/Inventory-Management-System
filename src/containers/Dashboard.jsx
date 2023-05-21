@@ -7,7 +7,6 @@ import Table from '../components/Table/OrderTable'
 import TotalOrderData from '../data/TotalOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
-// import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
 import Card from '../components/cards/Card'
 import { changeName } from '../Redux-Store/AppSlice'
@@ -15,24 +14,17 @@ import { adminCard, recentOrders } from '../Redux-Store/OrderSlice'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: 'top-end',
-  //   showConfirmButton: false,
-  //   timer: 3000,
-  //   timerProgressBar: true,
-  // })
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-  const isDelete = useSelector((state) => state.appState.isDelete)
 
   useEffect(() => {
     dispatch(changeName({ name: 'Dashboard' }))
     dispatch(recentOrders())
     dispatch(adminCard())
-  }, [isDelete, dispatch])
+    // eslint-disable-next-line
+  }, [])
 
-  const data = useSelector((state)=>state.app.orders)
-  const AdminCard = useSelector((state)=>state.app.adminCard)
+  const data = useSelector((state)=>state.orders.orders)
+  const AdminCard = useSelector((state)=>state.orders.adminCard)
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>

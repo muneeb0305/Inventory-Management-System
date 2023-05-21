@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import SaleCard from '../components/cards/Card'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from '../containers/OrderForm'
-import Orders from '../API/Orders'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../Redux-Store/AppSlice'
+import { customerCard } from '../Redux-Store/OrderSlice'
 
 export default function CustomerDashboard() {
-  const isAdded = useSelector((state) => state.appState.isAdded)
-  const [Data, setData] = useState(0)
-  useEffect(() => {
-    Orders.customerCard()
-      .then((data) => setData(data))
-      .catch((err) => { throw err })
-  }, [isAdded])
+  
   const dispatch = useDispatch()
-  dispatch(changeName({ name: "Dashboard" }))
+  useEffect(() => {
+    dispatch(changeName({ name: "Dashboard" }))
+    dispatch(customerCard())
+    // eslint-disable-next-line
+  }, [])
+  const Data = useSelector(state => state.orders.customerCard)
+
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>

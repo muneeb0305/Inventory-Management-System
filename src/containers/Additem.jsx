@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
 import { changeName } from '../Redux-Store/AppSlice';
 import { addItem, showItemsByID, updateItem } from '../Redux-Store/InventorySlice';
+import Alert from '../components/Alert/Alert';
 
 export default function Additem() {
     const dispatch = useDispatch()
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    })
     const { id } = useParams()
     const navigate = useNavigate()
     const isID = !!id
@@ -37,10 +30,7 @@ export default function Additem() {
         isID ? dispatch(updateItem([id, { ...Form }]))
             .unwrap()
             .then(() => {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Item Updated'
-                })
+                Alert({ icon: 'success', title: 'Item Updated' })
                 setTimeout(() => {
                     navigate('/Admin/Inventory')
                 }, 2000);
@@ -55,19 +45,13 @@ export default function Additem() {
                 })
             })
             .catch((err) => {
-                Toast.fire({
-                    icon: 'error',
-                    title: err
-                })
+                Alert({ icon: 'error', title: err })
             })
             :
             dispatch(addItem({ ...Form }))
                 .unwrap()
                 .then(() => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Item Added'
-                    })
+                    Alert({ icon: 'success', title: 'Item Added' })
                     setTimeout(() => {
                         navigate('/Admin/Inventory')
                     }, 2000);
@@ -82,10 +66,7 @@ export default function Additem() {
                     })
                 })
                 .catch((err) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: err
-                    })
+                    Alert({ icon: 'error', title: err })
                 })
     }
     useEffect(() => {

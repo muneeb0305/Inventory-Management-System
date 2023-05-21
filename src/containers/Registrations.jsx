@@ -1,18 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Login from '../API/Login';
-import Swal from 'sweetalert2';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
+import Alert from '../components/Alert/Alert';
 
 export default function RegistrationForm() {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    })
     const navigate = useNavigate()
     const [Form, setForm] = useState({
         name: '',
@@ -23,7 +16,6 @@ export default function RegistrationForm() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm((prevState) => ({ ...prevState, [name]: value }));
-
     };
 
     const handleSubmit = (e) => {
@@ -31,10 +23,7 @@ export default function RegistrationForm() {
         if (Form.password === Form.retype_password) {
             Login.addUser({ ...Form })
                 .then(() => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Customer Added'
-                    })
+                    Alert({ icon: 'success', title: 'Customer Added' })
                     setTimeout(() => {
                         navigate('/');
                     }, 2000);
@@ -47,17 +36,11 @@ export default function RegistrationForm() {
                     })
                 })
                 .catch((err) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: err
-                    })
+                    Alert({ icon: 'error', title: err })
                 })
         }
         else {
-            Toast.fire({
-                icon: 'error',
-                title: ' Password Not Matched'
-            })
+            Alert({ icon: 'error', title: ' Password Not Matched' })
         }
     }
     return (

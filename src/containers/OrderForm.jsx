@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import Orders from '../API/Orders';
-import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
-import { changeName, isAdded } from '../Redux-Store/AppSlice';
+import { changeName } from '../Redux-Store/AppSlice';
 import { showItems } from '../Redux-Store/InventorySlice';
+import { addOrder, orderbyId, updateOrder } from '../Redux-Store/OrderSlice';
+import Alert from '../components/Alert/Alert';
 
 export default function OrderForm() {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    })
     const { id } = useParams()
     const isID = !!id
     const breadCrumb = { name: "Update Order" }
@@ -36,7 +29,8 @@ export default function OrderForm() {
     useEffect(() => {
         dispatch(showItems())
         if (isID) {
-            Orders.OrderbyId(id)
+            dispatch(orderbyId(id))
+                .unwrap()
                 .then((data) => {
                     setoldData(data)
                     setForm({
@@ -52,8 +46,9 @@ export default function OrderForm() {
                 })
                 .catch(err => { throw err })
         }
-    }, [isID, id, dispatch])
-    const Item = useSelector(state=>state.inventory.items)
+        // eslint-disable-next-line
+    }, [isID, id])
+    const Item = useSelector(state => state.inventory.items)
     const inventoryItems = Item && Item.map((data) => data.itemName)
     const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
     const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
@@ -64,12 +59,10 @@ export default function OrderForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (isID) {
-            Orders.updateOrder(oldData._id, { ...Form })
+            dispatch(updateOrder([oldData._id, { ...Form }]))
+                .unwrap()
                 .then(() => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Order Updated'
-                    })
+                    Alert({ icon: 'success', title: 'Order Updated' })
                     setTimeout(() => {
                         navigate('/Admin/Order_Details')
                     }, 2000);
@@ -85,20 +78,14 @@ export default function OrderForm() {
                     })
                 })
                 .catch((err) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: err
-                    })
+                    Alert({ icon: 'error', title: err })
                 })
         }
         else {
-            Orders.addOrder({ ...Form })
+            dispatch(addOrder({ ...Form }))
+                .unwrap()
                 .then(() => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Order Added'
-                    })
-                    dispatch(isAdded())
+                    Alert({ icon: 'success', title: 'Order Added' })
                     setForm({
                         customer_id: '',
                         customer_Name: '',
@@ -111,10 +98,7 @@ export default function OrderForm() {
                     })
                 })
                 .catch((err) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: err
-                    })
+                    Alert({ icon: 'error', title: err })
                 })
         }
     }
