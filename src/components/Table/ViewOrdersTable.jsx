@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeName } from '../../Redux-Store/AppSlice'
-import { customerOrders } from '../../Redux-Store/OrderSlice'
+import { changeName } from '../../features/App/AppSlice'
+import { customerOrders } from '../../features/Orders/OrderSlice'
 export default function ViewOrderTable() {
     const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "City", "Amount"]
     const dispatch = useDispatch()

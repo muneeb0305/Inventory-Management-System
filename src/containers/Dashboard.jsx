@@ -9,8 +9,8 @@ import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
 import { useDispatch, useSelector } from 'react-redux'
 import Card from '../components/cards/Card'
-import { changeName } from '../Redux-Store/AppSlice'
-import { adminCard, recentOrders } from '../Redux-Store/OrderSlice'
+import { changeName } from '../features/App/AppSlice'
+import { adminCard, recentOrders } from '../features/Orders/OrderSlice'
 
 export default function Dashboard() {
   const dispatch = useDispatch()

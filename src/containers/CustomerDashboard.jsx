@@ -3,8 +3,8 @@ import SaleCard from '../components/cards/Card'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from '../containers/OrderForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeName } from '../Redux-Store/AppSlice'
-import { customerCard } from '../Redux-Store/OrderSlice'
+import { changeName } from '../features/App/AppSlice'
+import { customerCard } from '../features/Orders/OrderSlice'
 
 export default function CustomerDashboard() {
   

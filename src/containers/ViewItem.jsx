@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import Table from '../components/Table/ViewItemTable'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeName } from '../Redux-Store/AppSlice'
-import { showItemsByID } from '../Redux-Store/InventorySlice'
+import { changeName } from '../features/App/AppSlice'
+import { showItemsByID } from '../features/Inventory/InventorySlice'
 export default function ViewItem() {
     const { id } = useParams()
     const dispatch = useDispatch()

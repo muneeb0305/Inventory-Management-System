@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Login from '../API/Login';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
 import Alert from '../components/Alert/Alert';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../features/Users/UserSlice';
 
 export default function RegistrationForm() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [Form, setForm] = useState({
         name: '',
         email: '',
@@ -21,7 +23,8 @@ export default function RegistrationForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (Form.password === Form.retype_password) {
-            Login.addUser({ ...Form })
+            dispatch(addUser({ ...Form }))
+                .unwrap()
                 .then(() => {
                     Alert({ icon: 'success', title: 'Customer Added' })
                     setTimeout(() => {

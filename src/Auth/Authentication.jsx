@@ -3,35 +3,35 @@ import AppRoutes from '../Routes'
 import LoginLayout from '../Routes/LoginLayout'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import Login from '../API/Login';
-import { LoginSuccess, Logout } from '../Redux-Store/AuthSlice';
+import { Logout, checkToken } from '../features/Auth/AuthSlice';
 
 export default function Authentication() {
-    const _Token = useSelector((state) => state.Auth.token)
+    const _Token = sessionStorage.getItem('token')
     const _Role = useSelector((state) => state.Auth.role)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
     useEffect(() => {
-        Login.checkToken({ token: sessionStorage.getItem('token') })
-            .then(([token, role]) => {
-                dispatch(LoginSuccess({token: token, role:role}))
+        dispatch(checkToken({ token: _Token }))
+            .unwrap()
+            .then((payload) => {
+                const role = payload.role
+                const token = payload.token
                 if (token && role) {
-                    navigate(`/${_Role}`)
+                    navigate(`/${role}`)
                 }
-                else if (!_Token) { dispatch(Logout()) }
+                else if (!_Token) {
+                    dispatch(Logout())
+                }
             })
-            .catch((err) => {
-                throw err
-            })
+            .catch(err => { throw err })
         //eslint-disable-next-line
-    }, [dispatch, _Token, _Role])
+    }, [])
 
     return (
         <Routes>
             {
-                _Token && _Role === 'Admin' ? <Route path="Admin/*" element={<AppRoutes role={'Admin'}/>} /> :
-                    _Token && _Role === 'Customer' ? <Route path="Customer/*" element={<AppRoutes role={'Customer'}/>} /> :
+                _Token && _Role === 'Admin' ? <Route path="Admin/*" element={<AppRoutes role={'Admin'} />} /> :
+                    _Token && _Role === 'Customer' ? <Route path="Customer/*" element={<AppRoutes role={'Customer'} />} /> :
                         <Route path="/*" element={<LoginLayout />} />
             }
         </Routes >

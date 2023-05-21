@@ -10,8 +10,8 @@ import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName } from '../Redux-Store/AppSlice';
-import { cityOrders, saleCard } from '../Redux-Store/SaleSlice';
+import { changeName } from '../features/App/AppSlice';
+import { cityOrders, saleCard } from '../features/Sale/SaleSlice';
 
 export default function SaleDetails() {
   const tableHeader = ["City", "Clients", "Product Sold", "Sale"]

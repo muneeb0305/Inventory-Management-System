@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { Sidebar } from "../../Redux-Store/AppSlice";
+import { Sidebar } from "../../features/App/AppSlice";
 const SideBar = ({ children, Menus }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch()

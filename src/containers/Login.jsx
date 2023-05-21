@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LoginSuccess } from '../Redux-Store/AuthSlice';
+import { login } from '../features/Auth/AuthSlice';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Login from '../API/Login';
 import Button from '../components/Button/Button';
 import Alert from '../components/Alert/Alert';
 
@@ -22,22 +21,16 @@ export default function LoginPage() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        Login.loginSuccess({ ...Form })
-            .then(([_token, _role]) => {
-                const token = _token
-                const role = _role
+        dispatch(login({ ...Form }))
+            .unwrap()
+            .then((payload) => {
+                const role = payload.role
                 if (role === 'Admin') {
                     Alert({ icon: 'success', title: 'Signed in' })
-                    setTimeout(() => {
-                        dispatch(LoginSuccess({ token, role }))
-                        navigate('/Admin');
-                    }, 2000);
+                    navigate('/Admin');
                 } else if (role === 'Customer') {
                     Alert({ icon: 'success', title: 'Signed in' })
-                    setTimeout(() => {
-                        dispatch(LoginSuccess({ token, role }))
-                        navigate('/Customer');
-                    }, 2000);
+                    navigate('/Customer');
                 }
             })
             .catch((err) => {

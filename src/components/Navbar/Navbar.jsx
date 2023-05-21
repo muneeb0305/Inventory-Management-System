@@ -2,30 +2,20 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import Swal from 'sweetalert2';
 import Breadcrumbs from '../Breadcrumb/Breadcrumbs'
-import { Logout } from '../../Redux-Store/AuthSlice';
+import { Logout } from '../../features/Auth/AuthSlice';
+import Alert from '../Alert/Alert'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 export default function Navbar() {
   const open = useSelector((state)=>state.appState.open)
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 1500,
-    timerProgressBar: true,
-  })
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleLogout = () => {
-    Toast.fire({
-      icon: 'success',
-      title: 'Logout Successfully'
-    })
+    Alert({ icon: 'success', title: 'Logout Successfully' })
     dispatch(Logout())
     navigate('/');
   }

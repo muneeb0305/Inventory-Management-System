@@ -4,8 +4,8 @@ import Table from "../components/Table/InventoryTable";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button/Button";
 import Searchbar from "../components/SearchBar/Searchbar";
-import { changeName } from "../Redux-Store/AppSlice";
-import { showItems } from "../Redux-Store/InventorySlice";
+import { changeName } from "../features/App/AppSlice";
+import { showItems } from "../features/Inventory/InventorySlice";
 
 export default function Inventory() {
     const [searchValue1, setSearchValue1] = useState('');

@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
-import { changeName } from '../Redux-Store/AppSlice';
-import { addItem, showItemsByID, updateItem } from '../Redux-Store/InventorySlice';
+import { changeName } from '../features/App/AppSlice';
+import { addItem, showItemsByID, updateItem } from '../features/Inventory/InventorySlice';
 import Alert from '../components/Alert/Alert';
 
 export default function Additem() {

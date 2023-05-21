@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteItem, showItems } from '../../Redux-Store/InventorySlice';
-import { adminCard, deleteOrder, recentOrders } from '../../Redux-Store/OrderSlice';
+import { deleteItem, showItems } from '../../features/Inventory/InventorySlice';
+import { adminCard, deleteOrder, recentOrders } from '../../features/Orders/OrderSlice';
 export default function Modal({ ID, updateLink, name }) {
 
   const [isOpen, setIsOpen] = useState(false);

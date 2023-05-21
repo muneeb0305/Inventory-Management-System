@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
-import { changeName } from '../Redux-Store/AppSlice';
-import { showItems } from '../Redux-Store/InventorySlice';
-import { addOrder, orderbyId, updateOrder } from '../Redux-Store/OrderSlice';
+import { changeName } from '../features/App/AppSlice';
+import { showItems } from '../features/Inventory/InventorySlice';
+import { addOrder, orderbyId, updateOrder } from '../features/Orders/OrderSlice';
 import Alert from '../components/Alert/Alert';
 
 export default function OrderForm() {

@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import AppReducer from './AppSlice'
-import AuthReducer from './AuthSlice'
-import OrderReducer from './OrderSlice'
-import SaleReducer from './SaleSlice'
+import AppReducer from '../App/AppSlice'
+import AuthReducer from '../Auth/AuthSlice'
+import OrderReducer from '../Orders/OrderSlice'
+import SaleReducer from '../Sale/SaleSlice'
+import UserSlice from '../Users/UserSlice'
 // import InventoryReducer from './InventorySlice'
 
 export default configureStore({
@@ -11,6 +12,7 @@ export default configureStore({
     Auth: AuthReducer,
     orders: OrderReducer,
     sale: SaleReducer,
+    user: UserSlice,
     // inventory: InventoryReducer
   }
 })

@@ -2,8 +2,8 @@ import { CheckCircleIcon, ClipboardDocumentCheckIcon, DocumentCheckIcon, GiftIco
 import React, { useEffect } from "react";
 import Table from "../components/Table/OrderTable";
 import { useDispatch, useSelector } from "react-redux";
-import { changeName } from "../Redux-Store/AppSlice";
-import { showOrders } from "../Redux-Store/OrderSlice";
+import { changeName } from "../features/App/AppSlice";
+import { showOrders } from "../features/Orders/OrderSlice";
 
 export default function OrderDetails() {
   const dispatch = useDispatch()
