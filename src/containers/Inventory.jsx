@@ -1,43 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "../components/Table/InventoryTable";
-import InventoryServive from "../API/Inventory";
-import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button/Button";
 import Searchbar from "../components/SearchBar/Searchbar";
 import { changeName } from "../Redux-Store/AppSlice";
+import { showItems } from "../Redux-Store/InventorySlice";
 
 export default function Inventory() {
     const [searchValue1, setSearchValue1] = useState('');
     const handleSearch1 = (event) => {
         setSearchValue1(event.target.value);
       }
-     
     const dispatch = useDispatch()
-    dispatch(changeName({ name: 'Inventory' }))
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    })
     const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock"]
-    const [Data, setData] = useState([])
-    const isDelete = useSelector((state) => state.appState.isDelete)
     useEffect(() => {
-        InventoryServive.getItem()
-            .then((data) => { setData(data) })
-            .catch((err) => {
-                Toast.fire({
-                    icon: 'error',
-                    title: err.error
-                })
-            })
-        // eslint-disable-next-line
-    }, [isDelete])
-    let tableData = Data.filter(row => {
+        dispatch(changeName({ name: 'Inventory' }))
+        dispatch(showItems())
+    }, [dispatch])
+
+    const Items = useSelector(state=>state.inventory.items)
+
+    let tableData = Items.filter(row => {
         if (row.itemName.toLowerCase().includes(searchValue1.toLowerCase())) {
           return true;
         }

@@ -1,6 +1,5 @@
 import React from 'react'
 import Modal from '../Modal/Model';
-import Inventory from '../../API/Inventory';
 
 export default function Table(props) {
   const tableData = props.tableData;
@@ -45,7 +44,7 @@ export default function Table(props) {
                           {data.stock}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                          <Modal ID={data._id} updateLink={`update_Item/${data._id}`} name={'Inventory'} deleteAPi={(id) => Inventory.deleteItem(id)} />
+                          <Modal ID={data._id} updateLink={`update_Item/${data._id}`} name={'Inventory'}  />
                         </td>
                       </tr>
                     ))}

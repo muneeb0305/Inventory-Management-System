@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import AppSlice from './AppSlice'
-import AuthSlice from './AuthSlice'
+import AppReducer from './AppSlice'
+import AuthReducer from './AuthSlice'
+import OrderReducer from './OrderSlice'
+import SaleReducer from './SaleSlice'
+import InventoryReducer from './InventorySlice'
 
 export default configureStore({
   reducer: {
-    appState: AppSlice,
-    Auth: AuthSlice,
+    appState: AppReducer,
+    Auth: AuthReducer,
+    app: OrderReducer,
+    sale: SaleReducer,
+    inventory: InventoryReducer
   }
 })

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
 import { changeName } from '../Redux-Store/AppSlice';
+import { addItem, showItemsByID, updateItem } from '../Redux-Store/InventorySlice';
 
 export default function Additem() {
+    const dispatch = useDispatch()
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -33,7 +34,8 @@ export default function Additem() {
     };
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ? Inventory.updateItem(id, { ...Form })
+        isID ? dispatch(updateItem([id, { ...Form }]))
+            .unwrap()
             .then(() => {
                 Toast.fire({
                     icon: 'success',
@@ -59,7 +61,8 @@ export default function Additem() {
                 })
             })
             :
-            Inventory.addItem({ ...Form })
+            dispatch(addItem({ ...Form }))
+                .unwrap()
                 .then(() => {
                     Toast.fire({
                         icon: 'success',
@@ -86,24 +89,24 @@ export default function Additem() {
                 })
     }
     useEffect(() => {
+        dispatch(changeName({ name: isID ? "Update Item" : "Add Item" }))
         if (isID) {
-            Inventory.viewItem(id)
-                .then((data) => {
+            dispatch(showItemsByID(id))
+                .unwrap()
+                .then((payload) => {
                     setForm({
-                        itemName: data.itemName,
-                        brand: data.brand,
-                        priceIn: data.priceIn,
-                        priceOut: data.priceOut,
-                        category: data.category,
-                        stock: data.stock,
-                        image: data.image,
+                        itemName: payload.itemName,
+                        brand: payload.brand,
+                        priceIn: payload.priceIn,
+                        priceOut: payload.priceOut,
+                        category: payload.category,
+                        stock: payload.stock,
+                        image: payload.image,
                     })
                 })
                 .catch(err => { throw err })
         }
-    }, [isID, id])
-    const dispatch = useDispatch()
-    dispatch(changeName({ name: isID ? "Update Item" : "Add Item" }))
+    }, [isID, id, dispatch])
     return (
         <section>
             <div className="bg-gray-50 min-h-screen pt-20">

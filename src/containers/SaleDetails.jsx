@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import Card from '../components/cards/Card'
 import SaleCardData from '../data/SaleCardData'
 import SaleBarChart from '../components/Charts/SaleBarChart';
@@ -9,45 +9,31 @@ import CityTable from '../components/Table/CityTable';
 import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
-import Sale from '../API/Sale';
-import Swal from 'sweetalert2';
-import { useDispatch } from 'react-redux';
+// import Sale from '../API/Sale';
+// import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeName } from '../Redux-Store/AppSlice';
+import { cityOrders, saleCard } from '../Redux-Store/SaleSlice';
 
 export default function SaleDetails() {
   const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
   const dispatch = useDispatch()
-  dispatch(changeName({name:'Sale Overview'}))
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  })
-  const [Data, setData] = useState(0)
-  const [CityOrders, setCityOrders] = useState([])
+  // const Toast = Swal.mixin({
+  //   toast: true,
+  //   position: 'top-end',
+  //   showConfirmButton: false,
+  //   timer: 3000,
+  //   timerProgressBar: true,
+  // })
 
   useEffect(() => {
-    Sale.getSaleCardData()
-      .then((data) => setData(data))
-      .catch(err => {
-        Toast.fire({
-          icon: 'error',
-          title: err.error
-        })
-      })
-    Sale.getCityOrders()
-      .then((data) => setCityOrders(data))
-      .catch(err => {
-        Toast.fire({
-          icon: 'error',
-          title: err.error
-        })
-      })
-    // eslint-disable-next-line
-  }, [])
+    dispatch(changeName({name:'Sale Overview'}))
+    dispatch(saleCard())
+    dispatch(cityOrders())
+  }, [dispatch])
 
+  const _saleCard = useSelector((state)=>state.sale.saleCard)
+  const _cityOrders = useSelector((state)=>state.sale.orders)
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
@@ -62,7 +48,7 @@ export default function SaleDetails() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={Data.TotalUsers}
+                    value={_saleCard.TotalUsers}
                   />)
               }
               else if (title === 'Total Sales') {
@@ -73,7 +59,7 @@ export default function SaleDetails() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={'Rs: ' + Data.TotalSale + "/-"}
+                    value={'Rs: ' + _saleCard.TotalSale + "/-"}
                   />)
               }
               else if (title === 'Total Orders') {
@@ -84,7 +70,7 @@ export default function SaleDetails() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={Data.TotalOrders}
+                    value={_saleCard.TotalOrders}
                   />)
               }
               return (
@@ -94,7 +80,7 @@ export default function SaleDetails() {
                   bgColor={bgColor}
                   icon={icon}
                   title={title}
-                  value={Data.ProductSold}
+                  value={_saleCard.ProductSold}
                 />)
             })}
           </div>
@@ -118,7 +104,7 @@ export default function SaleDetails() {
                 <DocumentIcon className="h-7 w-7  text-blue-500" />
                 <h2 className='text-xl pl-3'>Sales By Cities</h2>
               </div>
-              <CityTable tableData={CityOrders} tableHeader={tableHeader}/>
+              <CityTable tableData={_cityOrders} tableHeader={tableHeader}/>
             </div>
           </div>
         </div>

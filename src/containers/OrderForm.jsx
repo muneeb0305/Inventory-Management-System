@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Orders from '../API/Orders';
-import Inventory from '../API/Inventory';
 import Swal from 'sweetalert2';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
 import { changeName, isAdded } from '../Redux-Store/AppSlice';
+import { showItems } from '../Redux-Store/InventorySlice';
 
 export default function OrderForm() {
     const Toast = Swal.mixin({
@@ -21,7 +21,6 @@ export default function OrderForm() {
     const breadCrumb = { name: "Update Order" }
     const dispatch = useDispatch()
     isID && dispatch(changeName(breadCrumb))
-    const [Item, setItem] = useState([])
     const [oldData, setoldData] = useState()
     const navigate = useNavigate()
     const [Form, setForm] = useState({
@@ -35,9 +34,7 @@ export default function OrderForm() {
         status: ''
     })
     useEffect(() => {
-        Inventory.getItem()
-            .then((data) => setItem(data))
-            .catch(err => { throw err })
+        dispatch(showItems())
         if (isID) {
             Orders.OrderbyId(id)
                 .then((data) => {
@@ -55,7 +52,8 @@ export default function OrderForm() {
                 })
                 .catch(err => { throw err })
         }
-    }, [isID, id])
+    }, [isID, id, dispatch])
+    const Item = useSelector(state=>state.inventory.items)
     const inventoryItems = Item && Item.map((data) => data.itemName)
     const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
     const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']

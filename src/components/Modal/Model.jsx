@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { isDeleted } from '../../Redux-Store/AppSlice';
-export default function Modal({ ID, updateLink, name, deleteAPi }) {
+import { deleteItem, showItems } from '../../Redux-Store/InventorySlice';
+import { adminCard, deleteOrder, recentOrders } from '../../Redux-Store/OrderSlice';
+export default function Modal({ ID, updateLink, name }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch()
@@ -10,9 +11,19 @@ export default function Modal({ ID, updateLink, name, deleteAPi }) {
   const closeModal = () => setIsOpen(false);
 
   const handleDelete = (id) => {
-    deleteAPi(id)
-      .then(() => dispatch(isDeleted()))
-      .catch(err => console.log(err))
+    if (name === 'Orders') {
+      dispatch(deleteOrder(id))
+        .unwrap()
+        .then(() => {
+          dispatch(recentOrders())
+          dispatch(adminCard())
+        })
+        .catch(err => console.log(err))
+    } else
+      dispatch(deleteItem(id))
+        .unwrap()
+        .then(() => dispatch(showItems()))
+        .catch(err => console.log(err))
     closeModal()
   }
 

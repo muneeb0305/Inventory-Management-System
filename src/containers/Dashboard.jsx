@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import DashboardCardData from '../data/DashboardCardData'
 import BarChart from '../components/Charts/BarChartComponent'
 import Select from '../components/Select/Select'
@@ -7,47 +7,32 @@ import Table from '../components/Table/OrderTable'
 import TotalOrderData from '../data/TotalOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
-import Orders from '../API/Orders'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
 import Card from '../components/cards/Card'
 import { changeName } from '../Redux-Store/AppSlice'
+import { adminCard, recentOrders } from '../Redux-Store/OrderSlice'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  })
+  // const Toast = Swal.mixin({
+  //   toast: true,
+  //   position: 'top-end',
+  //   showConfirmButton: false,
+  //   timer: 3000,
+  //   timerProgressBar: true,
+  // })
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-  const [Data, setData] = useState(0)
-  const [recentOrders, setrecentOrders] = useState()
   const isDelete = useSelector((state) => state.appState.isDelete)
 
   useEffect(() => {
     dispatch(changeName({ name: 'Dashboard' }))
-    Orders.getAdminCardData()
-      .then((data) => setData(data))
-      .catch((err) => {
-        Toast.fire({
-          icon: 'error',
-          title: err.error
-        })
-      })
-    Orders.getRecentOrders()
-      .then((data) => setrecentOrders(data))
-      .catch((err) => {
-        Toast.fire({
-          icon: 'error',
-          title: err.error
-        })
-      })
-    // eslint-disable-next-line
-  }, [isDelete])
+    dispatch(recentOrders())
+    dispatch(adminCard())
+  }, [isDelete, dispatch])
 
+  const data = useSelector((state)=>state.app.orders)
+  const AdminCard = useSelector((state)=>state.app.adminCard)
   return (
     <section>
       <div className='bg-gray-100 min-h-screen pb-4 pt-20'>
@@ -73,7 +58,7 @@ export default function Dashboard() {
                       bgColor={bgColor}
                       icon={icon}
                       title={title}
-                      value={Data.OrderPlaced}
+                      value={AdminCard.OrderPlaced}
                     />)
                   }
                   else if (title === 'Pending Orders') {
@@ -83,7 +68,7 @@ export default function Dashboard() {
                       bgColor={bgColor}
                       icon={icon}
                       title={title}
-                      value={Data.OrderPending}
+                      value={AdminCard.OrderPending}
                     />)
                   }
                   return (<Card
@@ -92,7 +77,7 @@ export default function Dashboard() {
                     bgColor={bgColor}
                     icon={icon}
                     title={title}
-                    value={Data.OrderDelivered}
+                    value={AdminCard.OrderDelivered}
                   />)
                 })
               }
@@ -103,7 +88,7 @@ export default function Dashboard() {
               <ClipboardDocumentCheckIcon className="h-7 w-7  text-blue-500" />
               <h2 className='text-xl pl-3'>Recent Orders</h2>
             </div>
-            <Table color="bg-red-500" tableData={recentOrders} tableHeader={Headers} />
+            <Table color="bg-red-500" tableData={data} tableHeader={Headers} />
           </div>
           <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
             <div className='bg-white border-2 w-full p-5 shadow-lg'>
