@@ -4,7 +4,7 @@ import AuthReducer from '../Auth/AuthSlice'
 import OrderReducer from '../Orders/OrderSlice'
 import SaleReducer from '../Sale/SaleSlice'
 import UserSlice from '../Users/UserSlice'
-// import InventoryReducer from './InventorySlice'
+// import InventoryReducer from '../Inventory/InventorySlice'
 
 export default configureStore({
   reducer: {
@@ -13,6 +13,6 @@ export default configureStore({
     orders: OrderReducer,
     sale: SaleReducer,
     user: UserSlice,
-    // inventory: InventoryReducer
+    // inventory: InventoryReducer,
   }
 })
