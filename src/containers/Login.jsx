@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import Alert from '../components/Alert/Alert';
-
+import Input from '../components/Input/input'
+import Select from '../components/Select/Select'
 export default function LoginPage() {
 
     const User = ['Admin', 'Customer']
@@ -50,23 +51,9 @@ export default function LoginPage() {
                             LOGIN
                         </h3>
                         <form className="w-full flex flex-col justify-center" onSubmit={handleSubmit} autoComplete='off'>
-                            <div className="mb-4">
-                                <input type="email" name='email' value={Form.email} onChange={handleChange} placeholder="Email" className="w-full p-3 rounded border placeholder-gray-400 focus:outline-none focus:border-blue-600" />
-                            </div>
-                            <div className="mb-4">
-                                <input type="password" autoComplete='off' name='password' value={Form.password} onChange={handleChange} placeholder="Password" className="w-full p-3 rounded border placeholder-gray-400 focus:outline-none focus:border-blue-600" />
-                            </div>
-                            <div className="relative z-0 w-full mb-6 group">
-                                <label className="text-gray-500 pr-5">Select City</label>
-                                <select className="w-52 bg-white border border-gray-300 rounded-md shadow-sm py-2 text-center text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='type' value={Form.type} onChange={handleChange} required>
-                                    <option hidden value="">Select Type</option>
-                                    {
-                                        User.map((data, index) => (
-                                            <option key={index} value={data}>{data}</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
+                            <Input type="email" name="email" value={Form.email} onChange={handleChange} placeholder="Email" title={'Email'} />
+                            <Input type="password" name="password" value={Form.password} onChange={handleChange} placeholder="Password" title={'Password'} />
+                            <Select label={'Type'} data={User}  name='type' value={Form.type} onChange={handleChange}/>
                             <Button type="submit" label={'Submit'} />
                         </form>
                         <div className='mt-5 shadow-md px-3 py-1 border-2 rounded-lg text-gray-500 hover:text-white hover:cursor-pointer bg-white hover:bg-blue-600'>

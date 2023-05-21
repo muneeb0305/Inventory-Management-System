@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import SaleCard from '../components/cards/Card'
+import Card from '../components/cards/Card'
 import DashboardCardData from '../data/DashboardCardData'
 import OrderForm from '../containers/OrderForm'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,7 +24,7 @@ export default function CustomerDashboard() {
             {
               DashboardCardData.map(({ title, icon, textColor, bgColor }) => {
                 if (title === 'Order Placed') {
-                  return (<SaleCard
+                  return (<Card
                     key={title}
                     textColor={textColor}
                     bgColor={bgColor}
@@ -34,7 +34,7 @@ export default function CustomerDashboard() {
                   />)
                 }
                 else if (title === 'Pending Orders') {
-                  return (<SaleCard
+                  return (<Card
                     key={title}
                     textColor={textColor}
                     bgColor={bgColor}
@@ -43,7 +43,7 @@ export default function CustomerDashboard() {
                     value={Data.OrderPending}
                   />)
                 }
-                return (<SaleCard
+                return (<Card
                   key={title}
                   textColor={textColor}
                   bgColor={bgColor}

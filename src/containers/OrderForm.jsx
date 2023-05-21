@@ -7,6 +7,7 @@ import { changeName } from '../features/App/AppSlice';
 import { showItems } from '../features/Inventory/InventorySlice';
 import { addOrder, orderbyId, updateOrder } from '../features/Orders/OrderSlice';
 import Alert from '../components/Alert/Alert';
+import Select from '../components/Select/Select';
 
 export default function OrderForm() {
     const { id } = useParams()
@@ -117,46 +118,18 @@ export default function OrderForm() {
                             }
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Input type="text" name="address" value={Form.address} onChange={handleChange} title={'Address'} />
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <label className="text-gray-500 pr-5">Select City</label>
-                                    <select className="w-52 bg-white border border-gray-300 rounded-md shadow-sm py-2 text-center text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='city' value={Form.city} onChange={handleChange} required>
-                                        <option hidden value="">Select City</option>
-                                        {
-                                            City.map((data, index) => (
-                                                <option key={index} value={data}>{data}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
+                                <Select label={'City'} data={City} name='city' value={Form.city} onChange={handleChange} />
+
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <label className="text-gray-500 pr-5">Select Product</label>
-                                    <select className="w-52 bg-white border border-gray-300 rounded-md shadow-sm py-2 text-center text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='product' value={Form.product} onChange={handleChange} required>
-                                        <option hidden value="">Select Product</option>
-                                        {
-                                            inventoryItems.map((data, index) => (
-                                                <option key={index} value={data}>{data}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
+                                <Select label={'Product'} data={inventoryItems} name='product' value={Form.product} onChange={handleChange} />
                                 <Input type="number" name="quantity" value={Number(Form.quantity)} onChange={handleChange} min={1} title={'Quantity'} />
                                 <Input type="text" name="amount" value={Form.amount = Item.find((data) => data.itemName === Form.product)?.priceOut * Form.quantity || ''} onChange={handleChange} disabled title={'Amount'} />
                             </div>
                             {
                                 isID ?
                                     <div className="grid md:grid-cols-2 md:gap-6">
-                                        <div className="relative inline-flex">
-                                            <select className="w-52 bg-white border border-gray-300 rounded-md shadow-sm py-2 text-center text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='status' value={Form.status} onChange={handleChange} required>
-                                                <option hidden value="">Status</option>
-                                                {
-                                                    status.map((data, index) => (
-                                                        <option key={index} value={data}>{data}</option>
-                                                    ))
-                                                }
-                                            </select>
-                                        </div>
+                                        <Select label={'Status'} data={status} name='status' value={Form.status} onChange={handleChange} />
                                     </div> : null
                             }
                             <Button type="submit" label={'Submit'} />
