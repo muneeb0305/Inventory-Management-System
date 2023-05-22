@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import Store from '../Store/Store';
 import axios from 'axios';
 
 //Order Details
 export const showOrders = createAsyncThunk(
     "showOrders",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -25,8 +25,9 @@ export const showOrders = createAsyncThunk(
 //Add Order
 export const addOrder = createAsyncThunk(
     "addOrder",
-    async (data, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (data, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -45,8 +46,9 @@ export const addOrder = createAsyncThunk(
 //Update Order
 export const updateOrder = createAsyncThunk(
     "updateOrder",
-    async (data, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (data, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -65,8 +67,9 @@ export const updateOrder = createAsyncThunk(
 //Delete Order
 export const deleteOrder = createAsyncThunk(
     "deleteOrder",
-    async (id, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (id, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -85,8 +88,9 @@ export const deleteOrder = createAsyncThunk(
 //Recent Orders
 export const recentOrders = createAsyncThunk(
     "recentOrders",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -105,8 +109,9 @@ export const recentOrders = createAsyncThunk(
 //Customer Orders
 export const customerOrders = createAsyncThunk(
     "customerOrders",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -125,8 +130,9 @@ export const customerOrders = createAsyncThunk(
 //Admin Card
 export const adminCard = createAsyncThunk(
     "adminCard",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -145,8 +151,9 @@ export const adminCard = createAsyncThunk(
 //Customer Card
 export const customerCard = createAsyncThunk(
     "customerCard",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -165,8 +172,9 @@ export const customerCard = createAsyncThunk(
 //Order by ID
 export const orderbyId = createAsyncThunk(
     "orderbyId",
-    async (id, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (id, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -190,7 +198,7 @@ export const OrderSlice = createSlice({
         orders: [],
         userOrders: [],
         adminCard: [],
-        orderbyId:[],
+        orderbyId: [],
         customerCard: [],
         loading: false,
         error: null,

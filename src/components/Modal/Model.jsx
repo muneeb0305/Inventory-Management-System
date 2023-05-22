@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteItem, showItems } from '../../features/Inventory/InventorySlice';
-import { adminCard, deleteOrder, recentOrders } from '../../features/Orders/OrderSlice';
+import { adminCard, deleteOrder, recentOrders, showOrders } from '../../features/Orders/OrderSlice';
 export default function Modal({ ID, updateLink, name }) {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +16,7 @@ export default function Modal({ ID, updateLink, name }) {
         .unwrap()
         .then(() => {
           dispatch(recentOrders())
+          dispatch(showOrders())
           dispatch(adminCard())
         })
         .catch(err => console.log(err))

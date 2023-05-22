@@ -6,6 +6,7 @@ import jwtDecode from "jwt-decode";
 export const login = createAsyncThunk(
     "login",
     async (user, { rejectWithValue }) => {
+
         return axios.post(`http://localhost:8080/user/login`, user)
             .then(res => {
                 const response = res.data.Authorization

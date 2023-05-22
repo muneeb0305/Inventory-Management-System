@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import Store from '../Store/Store';
 import axios from 'axios';
 
 //get all Items
 export const showItems = createAsyncThunk(
     "showItems",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, {getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -25,8 +25,9 @@ export const showItems = createAsyncThunk(
 //get item by id
 export const showItemsByID = createAsyncThunk(
     "showItemsByID",
-    async (id, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (id, {getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -45,8 +46,9 @@ export const showItemsByID = createAsyncThunk(
 //Add Item
 export const addItem = createAsyncThunk(
     "addItem",
-    async (data, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (data, { getState,rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -65,8 +67,9 @@ export const addItem = createAsyncThunk(
 //Update Item
 export const updateItem = createAsyncThunk(
     "updateItem",
-    async (data, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (data, {getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -85,8 +88,9 @@ export const updateItem = createAsyncThunk(
 //Delete Item
 export const deleteItem = createAsyncThunk(
     "deleteItem",
-    async (id, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (id, { getState,rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`

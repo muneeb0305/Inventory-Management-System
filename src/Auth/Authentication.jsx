@@ -11,7 +11,7 @@ export default function Authentication() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
-        dispatch(checkToken({ token: _Token }))
+        dispatch(checkToken({ token: sessionStorage.getItem('token') }))
             .unwrap()
             .then((payload) => {
                 const role = payload.role

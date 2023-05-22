@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import Store from '../Store/Store';
 import axios from 'axios';
 
 //Sale Card
 export const saleCard = createAsyncThunk(
     "saleCard",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -25,8 +25,9 @@ export const saleCard = createAsyncThunk(
 //Sale Table
 export const cityOrders = createAsyncThunk(
     "cityOrders",
-    async (args, { rejectWithValue }) => {
-        const token = Store.getState().Auth.token;
+    async (args, { getState, rejectWithValue }) => {
+        const state = getState()
+        const token = state.Auth.token
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -47,7 +48,7 @@ export const SaleSlice = createSlice({
     name: 'saleDetails',
     initialState: {
         orders: [],
-        saleCard:[],
+        saleCard: [],
         loading: false,
         error: null,
     },

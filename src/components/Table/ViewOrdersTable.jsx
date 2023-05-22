@@ -12,7 +12,7 @@ export default function ViewOrderTable() {
         // eslint-disable-next-line 
     }, [])
 
-    const Orders = useSelector(state => state.app.userOrders)
+    const Orders = useSelector((state) => state.orders.userOrders)
 
     let color = ''
     return (
