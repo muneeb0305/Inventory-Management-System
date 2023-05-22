@@ -53,7 +53,6 @@ const updateItem = (req) => {
     const id = req.params.id
     const update = req.body
     const bodyValidation = Object.keys(req.body).length
-
     if (bodyValidation === 7) {
         return Inventory.findById(id)
             .then((idFound) => {
@@ -62,20 +61,15 @@ const updateItem = (req) => {
                     error.statusCode = 404;
                     throw error;
                 }
-                return Inventory.findOne({ itemName: update.itemName })
-                    .then((item) => {
-                        if (item.itemName != idFound.itemName) {
-                            const error = new Error('Item already exist');
-                            error.statusCode = 400;
-                            throw error;
-                        }
-                        else if (item.itemName === idFound.itemName) {
-                            return Inventory.findByIdAndUpdate(id, update)
-                                .then(() => console.log("Item Updated"))
-                                .catch(err => { throw err })
-                        }
+                return Inventory.findByIdAndUpdate(id, update)
+                    .then(() => console.log("Item Updated"))
+                    .catch(err => {
+                        const error = new Error('Issue in Update');
+                        error.statusCode = 400;
+                        throw error
                     })
-            }).catch((err) => { throw err; })
+            })
+            .catch((err) => { throw err; })
     }
     else {
         const error = new Error('Kindly send valid data');
@@ -92,7 +86,7 @@ const viewItems = () => {
         .catch((err) => { throw err })
 }
 const viewItemsbyID = (id) => {
-    return Inventory.findById(id).select(['itemName', 'brand', 'priceIn', 'priceOut', 'category', 'stock','image'])
+    return Inventory.findById(id).select(['itemName', 'brand', 'priceIn', 'priceOut', 'category', 'stock', 'image'])
         .then((items) => {
             return items
         })

@@ -11,13 +11,19 @@ export default function Modal({ ID, updateLink, name }) {
   const closeModal = () => setIsOpen(false);
 
   const handleDelete = (id) => {
-    if (name === 'Orders') {
+    if (name === 'recentOrders') {
       dispatch(deleteOrder(id))
         .unwrap()
         .then(() => {
           dispatch(recentOrders())
-          dispatch(showOrders())
           dispatch(adminCard())
+        })
+        .catch(err => console.log(err))
+    } else if (name === 'orderDetails') {
+      dispatch(deleteOrder(id))
+        .unwrap()
+        .then(() => {
+          dispatch(showOrders())
         })
         .catch(err => console.log(err))
     } else

@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from '../Modal/Model';
-export default function OrderTable({ tableData, tableHeader, color }) {
+export default function OrderTable({ tableData, tableHeader, color, name }) {
     return (
         <section >
             <div className='w-full '>
@@ -45,7 +45,7 @@ export default function OrderTable({ tableData, tableHeader, color }) {
                                                         Rs: {row.amount}/-
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                                                        <Modal ID={row._id} updateLink={`update_order/${row._id}`} name={'Orders'} />
+                                                        <Modal ID={row._id} updateLink={`update_order/${row._id}`} name={name} />
                                                     </td>
                                                 </tr>
                                             ))}

@@ -5,7 +5,7 @@ import Input from '../components/Input/input'
 import Button from '../components/Button/Button';
 import { changeName } from '../features/App/AppSlice';
 import { showItems } from '../features/Inventory/InventorySlice';
-import { addOrder, orderbyId, updateOrder } from '../features/Orders/OrderSlice';
+import { addOrder, customerCard, orderbyId, updateOrder } from '../features/Orders/OrderSlice';
 import Alert from '../components/Alert/Alert';
 import Select from '../components/Select/Select';
 
@@ -86,6 +86,7 @@ export default function OrderForm() {
             dispatch(addOrder({ ...Form }))
                 .unwrap()
                 .then(() => {
+                    dispatch(customerCard())
                     Alert({ icon: 'success', title: 'Order Added' })
                     setForm({
                         customer_id: '',
