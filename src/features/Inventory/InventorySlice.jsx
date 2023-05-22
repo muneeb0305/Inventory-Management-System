@@ -174,4 +174,4 @@ export const InventorySlice = createSlice({
     }
 })
 
-export default InventorySlice.reducer
+export default InventorySlice.reducer;
