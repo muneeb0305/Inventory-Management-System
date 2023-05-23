@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function SaleCard(props) {
-    const { textColor,bgColor, icon, title, value } = props
+    const { textColor, bgColor, icon, title, value } = props
 
     return (
         <div className="min-w-0 rounded-lg shadow-lg overflow-hidden bg-white border-b-4 border-blue-300">

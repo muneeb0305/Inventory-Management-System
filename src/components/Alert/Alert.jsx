@@ -5,7 +5,7 @@ export default function Alert(props) {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
         timerProgressBar: true,
     })
     Toast.fire({

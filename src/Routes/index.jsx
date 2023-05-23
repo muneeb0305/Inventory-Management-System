@@ -75,7 +75,7 @@ function AppRoutes({ role }) {
   return (
     <>
       <SideBar Menus={role === 'Admin' ? adminMenu : customerMenu}>
-          <Navbar />
+        <Navbar />
         <Routes>
           {
             routes.map((route, index) => {

@@ -10,7 +10,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 export default function Navbar() {
-  const open = useSelector((state)=>state.appState.open)
+  const open = useSelector((state) => state.appState.open)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -23,8 +23,8 @@ export default function Navbar() {
     <Disclosure as="nav" className={`bg-white border-2 shadow-lg rounded-md w-full z-10 4 fixed`}>
       <div className=''>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
-          <div className={`relative flex h-16 items-center  ${open?'justify-between md:right-20':'justify-between'}`}>
-            <Breadcrumbs/>
+          <div className={`relative flex h-16 items-center  ${open ? 'justify-between md:right-20' : 'justify-between'}`}>
+            <Breadcrumbs />
             <div className="absolute inset-y-0 right-14 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
                 type="button"

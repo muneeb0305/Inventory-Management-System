@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { Logout, checkToken } from '../features/Auth/AuthSlice';
 
 export default function Authentication() {
-    const _Token = sessionStorage.getItem('token')
+    const _Token = useSelector((state) => state.Auth.token)
     const _Role = useSelector((state) => state.Auth.role)
     const dispatch = useDispatch()
     const navigate = useNavigate()

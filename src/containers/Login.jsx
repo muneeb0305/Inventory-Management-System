@@ -26,11 +26,10 @@ export default function LoginPage() {
             .unwrap()
             .then((payload) => {
                 const role = payload.role
+                Alert({ icon: 'success', title: 'Signed in' })
                 if (role === 'Admin') {
-                    Alert({ icon: 'success', title: 'Signed in' })
                     navigate('/Admin');
                 } else if (role === 'Customer') {
-                    Alert({ icon: 'success', title: 'Signed in' })
                     navigate('/Customer');
                 }
             })
@@ -52,8 +51,8 @@ export default function LoginPage() {
                         </h3>
                         <form className="w-full flex flex-col justify-center" onSubmit={handleSubmit} autoComplete='off'>
                             <Input type="email" name="email" value={Form.email} onChange={handleChange} placeholder="Email" title={'Email'} />
-                            <Input type="password" name="password" value={Form.password} onChange={handleChange} placeholder="Password" title={'Password'} />
-                            <Select label={'Type'} data={User}  name='type' value={Form.type} onChange={handleChange}/>
+                            <Input type="password" name="password" value={Form.password} onChange={handleChange} autoComplete='true' placeholder="Password" title={'Password'} />
+                            <Select label={'Type'} data={User} name='type' value={Form.type} onChange={handleChange} />
                             <Button type="submit" label={'Submit'} />
                         </form>
                         <div className='mt-5 shadow-md px-3 py-1 border-2 rounded-lg text-gray-500 hover:text-white hover:cursor-pointer bg-white hover:bg-blue-600'>

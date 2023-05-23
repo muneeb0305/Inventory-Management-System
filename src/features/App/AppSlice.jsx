@@ -17,5 +17,4 @@ export const appSlice = createSlice({
 })
 
 export const { Sidebar, changeName } = appSlice.actions
-
 export default appSlice.reducer

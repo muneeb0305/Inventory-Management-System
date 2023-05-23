@@ -44,7 +44,7 @@ export default function Table(props) {
                           {data.stock}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">
-                          <Modal ID={data._id} updateLink={`update_Item/${data._id}`} name={'Inventory'}  />
+                          <Modal ID={data._id} updateLink={`update_Item/${data._id}`} name={'Inventory'} />
                         </td>
                       </tr>
                     ))}

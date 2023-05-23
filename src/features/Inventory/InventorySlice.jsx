@@ -4,7 +4,7 @@ import axios from 'axios';
 //get all Items
 export const showItems = createAsyncThunk(
     "showItems",
-    async (args, {getState, rejectWithValue }) => {
+    async (args, { getState, rejectWithValue }) => {
         const state = getState()
         const token = state.Auth.token
         const config = {
@@ -25,7 +25,7 @@ export const showItems = createAsyncThunk(
 //get item by id
 export const showItemsByID = createAsyncThunk(
     "showItemsByID",
-    async (id, {getState, rejectWithValue }) => {
+    async (id, { getState, rejectWithValue }) => {
         const state = getState()
         const token = state.Auth.token
         const config = {
@@ -46,7 +46,7 @@ export const showItemsByID = createAsyncThunk(
 //Add Item
 export const addItem = createAsyncThunk(
     "addItem",
-    async (data, { getState,rejectWithValue }) => {
+    async (data, { getState, rejectWithValue }) => {
         const state = getState()
         const token = state.Auth.token
         const config = {
@@ -67,7 +67,7 @@ export const addItem = createAsyncThunk(
 //Update Item
 export const updateItem = createAsyncThunk(
     "updateItem",
-    async (data, {getState, rejectWithValue }) => {
+    async (data, { getState, rejectWithValue }) => {
         const state = getState()
         const token = state.Auth.token
         const config = {
@@ -88,7 +88,7 @@ export const updateItem = createAsyncThunk(
 //Delete Item
 export const deleteItem = createAsyncThunk(
     "deleteItem",
-    async (id, { getState,rejectWithValue }) => {
+    async (id, { getState, rejectWithValue }) => {
         const state = getState()
         const token = state.Auth.token
         const config = {

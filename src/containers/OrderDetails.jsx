@@ -25,7 +25,7 @@ export default function OrderDetails() {
     }, 1000);
     // eslint-disable-next-line
   }, [])
-  
+
   return (
     showLoader ? <Loader /> :
       <section>
