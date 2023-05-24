@@ -5,11 +5,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import Breadcrumbs from '../Breadcrumb/Breadcrumbs'
 import { Logout } from '../../features/Auth/AuthSlice';
 import Alert from '../Alert/Alert'
+import Toggle from '../Toggle/Toggle'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
+
 export default function Navbar() {
+  const toggle = useSelector(state=> state.appState.darkMode)
   const open = useSelector((state) => state.appState.open)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -19,21 +22,17 @@ export default function Navbar() {
     dispatch(Logout())
     navigate('/');
   }
+  console.log(toggle)
   return (
-    <Disclosure as="nav" className={`bg-white border-2 shadow-lg rounded-md w-full z-10 4 fixed`}>
+    <Disclosure as="nav" className={`${toggle?'bg-dark1 ':'bg-white border-2 rounded-md'} shadow-lg  w-full z-10  fixed`}>
       <div className=''>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
           <div className={`relative flex h-16 items-center  ${open ? 'justify-between md:right-20' : 'justify-between'}`}>
             <Breadcrumbs />
             <div className="absolute inset-y-0 right-14 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <button
-                type="button"
-                className="px-3 rounded-full bg-gray-800 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-              >
-                <i className="fa-sharp fa-solid fa-bell"></i>
-              </button>
 
               {/* Profile dropdown */}
+                    <Toggle/>
               <Menu as="div" className="relative ml-3">
                 <div>
                   <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">

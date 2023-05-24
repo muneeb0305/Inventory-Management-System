@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../components/Input/input'
+import Input from '../components/Input/Input'
 import Button from '../components/Button/Button';
 import { changeName } from '../features/App/AppSlice';
 import { showItems } from '../features/Inventory/InventorySlice';
@@ -50,6 +50,8 @@ export default function OrderForm() {
         // eslint-disable-next-line
     }, [isID, id])
     const Item = useSelector(state => state.inventory.items)
+    const toggle = useSelector(state=> state.appState.darkMode)
+
     const inventoryItems = Item && Item.map((data) => data.itemName)
     const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
     const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
@@ -107,9 +109,9 @@ export default function OrderForm() {
 
     return (
         <section>
-            <div className={`${isID ? "bg-gray-50 pt-20" : 'bg-transparent pt-5'} min-h-screen `}>
+            <div className={`${toggle ? "bg-dark3 pt-20" : 'bg-gray-100 pt-20'} min-h-screen `}>
                 <div className={`container mx-auto ${isID ? 'px-5' : ''}`}>
-                    <div className='bg-white p-5 shadow-lg rounded-lg'>
+                    <div className={`${toggle?'bg-dark4':'bg-white'} p-5 shadow-lg rounded-lg`}>
                         <form onSubmit={handleSubmit}>
                             {
                                 isID &&

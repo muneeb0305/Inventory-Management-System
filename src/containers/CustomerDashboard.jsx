@@ -20,7 +20,7 @@ export default function CustomerDashboard() {
     dispatch(customerCard())
     setTimeout(() => {
       setShowLoader(Loading)
-    }, 1000);
+    }, 500);
     // eslint-disable-next-line
   }, [])
 

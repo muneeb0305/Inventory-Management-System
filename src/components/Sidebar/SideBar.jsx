@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import { Sidebar } from "../../features/App/AppSlice";
 const SideBar = ({ children, Menus }) => {
@@ -9,14 +9,16 @@ const SideBar = ({ children, Menus }) => {
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
   };
+  const toggle = useSelector(state=> state.appState.darkMode)
+
   return (
     <div className="flex">
       <div
         className={` ${open ? "w-44" : "w-16 "
-          } bg-blue-800 p-3 left-0 top-0 min-h-screen pt-8 relative duration-300`}
+          } ${toggle?'bg-dark10':'bg-blue-800 '} p-3 left-0 top-0 min-h-screen pt-8 relative duration-300`}
       >
         <div className="fixed" >
-          <div className={`duration-300 absolute cursor-pointer ${open ? '-right-5' : 'right-1'} top-0 w-7 text-white
+          <div className={`duration-300 absolute cursor-pointer ${open ? '-right-5' : 'right-1'} top-0 w-7 ${toggle?'text-dark7 ':'text-white'}
             z-20 ${!open}`}
             onClick={() => {
               dispatch(Sidebar())
@@ -37,10 +39,10 @@ const SideBar = ({ children, Menus }) => {
             {Menus.map((Menu, index) => (
               <NavLink to={Menu.path} key={index} onClick={() => handleMenuClick(Menu)}>
                 <li
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-white text-sm items-center gap-x-4 
-                  ${Menu.gap ? 'mt-9' : 'mt-2'} ${Menu === selectedMenu ? 'bg-light-white' : ''}`}
+                  className={`flex rounded-md p-2 cursor-pointer ${toggle?'hover:bg-dark1  text-dark7':'hover:bg-light-white text-white'}  text-sm items-center gap-x-4 
+                  ${Menu.gap ? 'mt-9' : 'mt-2'} ${Menu === selectedMenu ? toggle?'bg-dark1 text-dark7':"bg-light-white" : ''}`}
                 >
-                  <p className="text-white text-lg">{Menu.icon}</p>
+                  <p className={`${toggle?'text-dark7 ':'text-white'}  text-lg`}>{Menu.icon}</p>
                   <span className={`${!open && "hidden"} origin-left duration-300`} >
                     {Menu.title}
                   </span>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import Alert from '../components/Alert/Alert';
-import Input from '../components/Input/input'
+import Input from '../components/Input/Input'
 import Select from '../components/Select/Select'
 export default function LoginPage() {
 

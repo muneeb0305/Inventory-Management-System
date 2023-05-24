@@ -17,6 +17,7 @@ export default function Inventory() {
 
     const Loading = useSelector(state => state.inventory.loading)
     const Items = useSelector(state => state.inventory.items)
+    const toggle = useSelector(state=> state.appState.darkMode)
 
     const handleSearch1 = (event) => {
         setSearchValue1(event.target.value);
@@ -34,16 +35,16 @@ export default function Inventory() {
         dispatch(showItems())
         setTimeout(() => {
             setShowLoader(Loading)
-        }, 1000);
+        }, 500);
         // eslint-disable-next-line
     }, [])
 
     return (
         showLoader ? <Loader /> :
             <section>
-                <div className="bg-gray-50 min-h-screen pt-20">
+        <div className={`${toggle?'bg-dark3':'bg-gray-100'} min-h-screen pb-4 pt-20`}>
                     <div className="container mx-auto px-5 pt-5">
-                        <div className='bg-white rounded-lg border-2 shadow-lg p-3'>
+                        <div className={` ${toggle?'bg-dark4 border-2 border-dark2':'bg-white border-2'} rounded-lg shadow-lg p-3`}>
                             <div className="px-4 flex justify-between align-middle items-center">
                                 <Link to="Add_Item">
                                     <Button label={'Add Item'} />

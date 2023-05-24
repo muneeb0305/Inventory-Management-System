@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Input from '../components/Input/input'
+import { useDispatch, useSelector } from 'react-redux';
+import Input from '../components/Input/Input'
 import Button from '../components/Button/Button';
 import { changeName } from '../features/App/AppSlice';
 import { addItem, showItemsByID, updateItem } from '../features/Inventory/InventorySlice';
@@ -88,11 +88,13 @@ export default function Additem() {
                 .catch(err => { throw err })
         }
     }, [isID, id, dispatch])
+    const toggle = useSelector(state=> state.appState.darkMode)
+
     return (
         <section>
-            <div className="bg-gray-50 min-h-screen pt-20">
+            <div className={`${toggle ? "bg-dark3 pt-20" : 'bg-gray-100 pt-20'} min-h-screen `}>
                 <div className="container mx-auto px-5 pt-5">
-                    <div className='bg-white p-5 shadow-lg rounded-lg'>
+                <div className={`${toggle?'bg-dark4':'bg-white'} p-5 shadow-lg rounded-lg`}>
                         <form onSubmit={handleSubmit}>
                             <div className='mb-4'>
                                 <Input type="text" name="image" value={Form.image} onChange={handleChange} title={'Upload Image Url'} />

@@ -4,7 +4,8 @@ export const appSlice = createSlice({
     name: 'AppState',
     initialState: {
         changeName: [],
-        open: false
+        open: false,
+        darkMode: false
     },
     reducers: {
         Sidebar: state => {
@@ -12,9 +13,12 @@ export const appSlice = createSlice({
         },
         changeName: (state, action) => {
             return { ...state, changeName: [action.payload] };
-        }
+        },
+        DarkMode: state => {
+            return { ...state, darkMode: !state.darkMode }
+        },
     }
 })
 
-export const { Sidebar, changeName } = appSlice.actions
+export const { Sidebar, changeName, DarkMode } = appSlice.actions
 export default appSlice.reducer

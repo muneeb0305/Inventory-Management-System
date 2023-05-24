@@ -1,7 +1,10 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useSelector } from 'react-redux';
+import { BarChart, Bar, XAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 
 export default function SaleBarChart({ data }) {
+  const toggle = useSelector(state => state.appState.darkMode)
+
   return (
     <ResponsiveContainer width="100%" height="100%" aspect={3}>
       <BarChart
@@ -13,9 +16,8 @@ export default function SaleBarChart({ data }) {
           bottom: 5,
         }}
       >
-        <CartesianGrid stroke="#F8F8F8	" vertical={false} />
+        <CartesianGrid stroke={`${toggle?"#3ba1c5":"#F8F8F8"}`}  vertical={false} />
         <XAxis dataKey="name" tickLine={false} padding={{ left: 20, right: 20 }} tick={{ fontSize: 12 }} axisLine={false} />
-        <Tooltip />
         <Legend wrapperStyle={{ fontSize: "13px" }} iconSize={10} iconType={'circle'} />
         <Bar dataKey="Online Sales" fill="#008eff" barSize={15} radius={4} />
         <Bar dataKey="Offline Sales" fill="#5dee73" barSize={15} radius={4} />

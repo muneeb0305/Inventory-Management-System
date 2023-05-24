@@ -307,7 +307,7 @@ export const OrderSlice = createSlice({
         },
         [orderbyId.rejected]: (state, action) => {
             state.loading = false;
-            state.error = action.payload;
+            state.error = action.payload.error;
         },
     }
 })

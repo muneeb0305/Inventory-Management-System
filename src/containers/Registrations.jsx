@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Input from '../components/Input/input'
+import Input from '../components/Input/Input'
 import Button from '../components/Button/Button';
 import Alert from '../components/Alert/Alert';
 import { useDispatch } from 'react-redux';

@@ -1,15 +1,18 @@
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { AreaChart, Area, ResponsiveContainer, Legend } from 'recharts';
 
 
 
 export default function SaleAreaChart({ data }) {
+    const toggle = useSelector(state=> state.appState.darkMode)
+
     const renderLegend = () => {
         return (
             <>
-                <ul className='flex justify-center pt-2 border-t-2 mt-4 '>
-                    <li className='mx-5 text-blue-500 flex items-center border-r-2'><CheckCircleIcon className='h-4' />Last Month <span className='px-3 border-r-2'></span></li>
+                <ul className={`flex justify-center pt-2 mt-4 ${toggle?' border-t-2 border-dark6':' border-t-2'}`}>
+                    <li className={`mx-5 text-blue-500 flex items-center ${toggle?' border-r-2 border-dark6':' border-r-2'} `}><CheckCircleIcon className='h-4' />Last Month <span className='px-3 border-r-2'></span></li>
                     <li className='text-green-500 flex items-center'><CheckCircleIcon className='h-4' />This Month</li>
                 </ul>
                 <ul className='flex justify-center'>
@@ -28,7 +31,7 @@ export default function SaleAreaChart({ data }) {
                     left: 5,
                 }}
             >
-                <Legend content={renderLegend} iconSize={0} iconType={'line'} />
+                <Legend content={renderLegend} iconSize={0} iconType={'line'}  />
                 <Area type="monotone" dataKey="Last Month" stackId="1" stroke="#0000ff" fill="#008eff" />
                 <Area type="monotone" dataKey="ThisMonth" stackId="1" stroke="#008000" fill="#5dee73" />
             </AreaChart>

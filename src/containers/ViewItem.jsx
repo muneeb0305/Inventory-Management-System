@@ -1,24 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from '../components/Table/ViewItemTable'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../features/App/AppSlice'
 import { showItemsByID } from '../features/Inventory/InventorySlice'
+import Loader from '../components/Loader/Loader'
 export default function ViewItem() {
     const { id } = useParams()
     const dispatch = useDispatch()
+    const [showLoader, setShowLoader] = useState(true)
+
+    const Loading = useSelector(state => state.inventory.loading)
+    const toggle = useSelector(state=> state.appState.darkMode)
+
     useEffect(() => {
         dispatch(changeName({ name: "View Item" }))
         dispatch(showItemsByID(id))
+        setTimeout(() => {
+            setShowLoader(Loading)
+          }, 500);
         // eslint-disable-next-line
     }, [id])
     const item = useSelector(state => state.inventory.itemByID)
     const Headers = ["Category:", "Item Name:", "Brand:", "Stock:", "Price In:", "Price Out:"]
     return (
+        showLoader ? <Loader /> :
         <section>
-            <div className="bg-gray-50 min-h-screen pt-20">
+            <div className={`${toggle ? "bg-dark3 pt-20" : 'bg-gray-100 pt-20'} min-h-screen `}>
                 <div className="container mx-auto px-5 pt-5">
-                    <div className='bg-white border-2 shadow-xl w-4/6 mx-auto'>
+                    <div className={`${toggle?'bg-dark7 border-dark2':'bg-white'} border-2 shadow-xl w-4/6 mx-auto`}>
                         {item &&
                             <div className='grid md:grid-cols-2 gap-5'>
                                 <div className='flex justify-center m-10'>

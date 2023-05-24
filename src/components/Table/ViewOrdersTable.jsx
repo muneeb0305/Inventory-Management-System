@@ -14,7 +14,7 @@ export default function ViewOrderTable() {
         dispatch(customerOrders())
         setTimeout(() => {
             setShowLoader(Loading)
-        }, 1000);
+        }, 500);
         // eslint-disable-next-line 
     }, [])
 
