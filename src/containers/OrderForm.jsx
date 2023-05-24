@@ -10,13 +10,25 @@ import Alert from '../components/Alert/Alert';
 import Select from '../components/Select/Select';
 
 export default function OrderForm() {
-    const { id } = useParams()
-    const isID = !!id
-    const breadCrumb = { name: "Update Order" }
-    const dispatch = useDispatch()
-    isID && dispatch(changeName(breadCrumb))
-    const [oldData, setoldData] = useState()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    //Get ID from Param
+    const { id } = useParams()
+    //Check is ID there or not
+    const isID = !!id
+    //BreadCrumb
+    const breadCrumb = { name: "Update Order" }
+    //Redux States
+    const Item = useSelector(state => state.inventory.items)
+    const toggle = useSelector(state => state.appState.darkMode)
+    //only get inventory item names
+    const inventoryItems = Item && Item.map((data) => data.itemName)
+    //Status dropbox 
+    const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
+    //City dropbox
+    const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
+
+    const [oldData, setoldData] = useState()
     const [Form, setForm] = useState({
         customer_id: '',
         customer_Name: '',
@@ -28,7 +40,10 @@ export default function OrderForm() {
         status: ''
     })
     useEffect(() => {
+        isID && dispatch(changeName(breadCrumb))
+        //Item Show in dropbox
         dispatch(showItems())
+        //if there's id get his order data on basis of id
         if (isID) {
             dispatch(orderbyId(id))
                 .unwrap()
@@ -49,18 +64,14 @@ export default function OrderForm() {
         }
         // eslint-disable-next-line
     }, [isID, id])
-    const Item = useSelector(state => state.inventory.items)
-    const toggle = useSelector(state=> state.appState.darkMode)
 
-    const inventoryItems = Item && Item.map((data) => data.itemName)
-    const status = ['Order Placed', 'Order Received', 'Order Picked', 'Order Packaged', 'Order Shipped', 'Order Delivered']
-    const City = ['Peshawar', 'Lahore', 'Islamabad', 'Karachi']
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...Form, [name]: name === "quantity" ? Number(value) : value })
     };
     const handleSubmit = (e) => {
         e.preventDefault()
+        //if there's ID then update the order else create it
         if (isID) {
             dispatch(updateOrder([oldData._id, { ...Form }]))
                 .unwrap()
@@ -109,9 +120,9 @@ export default function OrderForm() {
 
     return (
         <section>
-            <div className={`${toggle ? "bg-dark3 pt-20" : 'bg-gray-100 pt-20'} min-h-screen `}>
+            <div className={`${toggle ? isID ? "bg-dark3 pt-20 min-h-screen " : "pt-5" : isID ? "bg-gray-100 pt-20 min-h-screen " : "pt-5"} `}>
                 <div className={`container mx-auto ${isID ? 'px-5' : ''}`}>
-                    <div className={`${toggle?'bg-dark4':'bg-white'} p-5 shadow-lg rounded-lg`}>
+                    <div className={`${toggle ? 'bg-dark4' : 'bg-white'} p-5 shadow-lg rounded-lg`}>
                         <form onSubmit={handleSubmit}>
                             {
                                 isID &&
@@ -122,7 +133,6 @@ export default function OrderForm() {
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Input type="text" name="address" value={Form.address} onChange={handleChange} title={'Address'} />
                                 <Select label={'City'} data={City} name='city' value={Form.city} onChange={handleChange} />
-
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Select label={'Product'} data={inventoryItems} name='product' value={Form.product} onChange={handleChange} />

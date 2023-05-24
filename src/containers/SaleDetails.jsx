@@ -15,10 +15,11 @@ import { cityOrders, saleCard } from '../features/Sale/SaleSlice';
 import Loader from '../components/Loader/Loader';
 
 export default function SaleDetails() {
-  const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
   const dispatch = useDispatch()
   const [showLoader, setShowLoader] = useState(true)
-
+  //Table Headers
+  const tableHeader = ["City", "Clients", "Product Sold", "Sale"]
+  //Redux States
   const Loading = useSelector(state => state.sale.loading)
   const _saleCard = useSelector((state) => state.sale.saleCard)
   const _cityOrders = useSelector((state) => state.sale.orders)

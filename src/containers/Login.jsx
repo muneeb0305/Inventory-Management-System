@@ -8,10 +8,10 @@ import Alert from '../components/Alert/Alert';
 import Input from '../components/Input/Input'
 import Select from '../components/Select/Select'
 export default function LoginPage() {
-
-    const User = ['Admin', 'Customer']
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    //User Array for Type dropbox
+    const User = ['Admin', 'Customer']
     const [Form, setForm] = useState({
         email: '',
         password: '',
@@ -22,6 +22,7 @@ export default function LoginPage() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        //check responce od api and navigate to there role
         dispatch(login({ ...Form }))
             .unwrap()
             .then((payload) => {

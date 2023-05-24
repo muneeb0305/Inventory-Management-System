@@ -16,15 +16,17 @@ import Loader from '../components/Loader/Loader'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
-  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-
   const [showLoader, setShowLoader] = useState(true)
-
+  //Table Headers
+  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
+  //Redux States
   const Loading = useSelector(state => state.orders.loading)
   const data = useSelector((state) => state.orders.orders)
   const AdminCard = useSelector((state) => state.orders.adminCard)
+  const toggle = useSelector(state => state.appState.darkMode)
 
   useEffect(() => {
+    //BreadCrumb
     dispatch(changeName({ name: 'Dashboard' }))
     dispatch(recentOrders())
     dispatch(adminCard())
@@ -33,19 +35,18 @@ export default function Dashboard() {
     }, 500);
     // eslint-disable-next-line
   }, [])
-  const toggle = useSelector(state=> state.appState.darkMode)
 
   return (
     showLoader ? <Loader /> :
-    <section>
-        <div className={`${toggle?'bg-dark3':'bg-gray-100'} min-h-screen pb-4 pt-20`}>
+      <section>
+        <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pb-4 pt-20`}>
           <div className='container mx-auto px-5 pt-5'>
             <div className='grid gap-6 mb-5 md:grid-cols-2'>
-              <div className={`order-1 lg:order-1 ${toggle?'bg-dark4 border-2 border-dark2':'bg-white border-2'}   w-full p-4 shadow-lg overflow-hidden rounded-lg`}>
+              <div className={`order-1 lg:order-1 ${toggle ? 'bg-dark4 border-2 border-dark2' : 'bg-white border-2'}   w-full p-4 shadow-lg overflow-hidden rounded-lg`}>
                 <div className='flex align-middle justify-between mb-10'>
                   <div className='flex items-center'>
-                    <CalendarDaysIcon className={`h-7 w-7 ${toggle?'text-dark2':'text-blue-500'} `} />
-                    <h2 className={`text-xl pl-3 ${toggle?'text-dark2 ':'text-black'}`}>Total Orders</h2>
+                    <CalendarDaysIcon className={`h-7 w-7 ${toggle ? 'text-dark2' : 'text-blue-500'} `} />
+                    <h2 className={`text-xl pl-3 ${toggle ? 'text-dark2 ' : 'text-black'}`}>Total Orders</h2>
                   </div>
                 </div>
                 <BarChart data={TotalOrderData} />
@@ -56,8 +57,8 @@ export default function Dashboard() {
                     if (title === 'Order Placed') {
                       return (<Card
                         key={title}
-                        textColor={toggle?'text-dark4':'text-blue-500'}
-                        bgColor={toggle?'bg-dark10':'bg-blue-100'}
+                        textColor={toggle ? 'text-dark4' : 'text-blue-500'}
+                        bgColor={toggle ? 'bg-dark10' : 'bg-blue-100'}
                         icon={icon}
                         title={title}
                         value={AdminCard.OrderPlaced}
@@ -66,8 +67,8 @@ export default function Dashboard() {
                     else if (title === 'Pending Orders') {
                       return (<Card
                         key={title}
-                        textColor={toggle?'text-dark4':'text-orange-500'}
-                        bgColor={toggle?'bg-dark10':'bg-orange-100'}
+                        textColor={toggle ? 'text-dark4' : 'text-orange-500'}
+                        bgColor={toggle ? 'bg-dark10' : 'bg-orange-100'}
                         icon={icon}
                         title={title}
                         value={AdminCard.OrderPending}
@@ -75,8 +76,8 @@ export default function Dashboard() {
                     }
                     return (<Card
                       key={title}
-                      textColor={toggle?'text-dark4':'text-green-500'}
-                      bgColor={toggle?'bg-dark10':'bg-green-100'}
+                      textColor={toggle ? 'text-dark4' : 'text-green-500'}
+                      bgColor={toggle ? 'bg-dark10' : 'bg-green-100'}
                       icon={icon}
                       title={title}
                       value={AdminCard.OrderDelivered}
@@ -85,16 +86,16 @@ export default function Dashboard() {
                 }
               </div>
             </div>
-            <div className={`${toggle?'bg-dark4 border-2 border-dark2':'bg-white border-2'} rounded-lg  shadow-lg p-5`}>
+            <div className={`${toggle ? 'bg-dark4 border-2 border-dark2' : 'bg-white border-2'} rounded-lg  shadow-lg p-5`}>
               <div className='flex items-center'>
-                <ClipboardDocumentCheckIcon className={`h-7 w-7  ${toggle?'text-dark2':'text-blue-500'} `} />
+                <ClipboardDocumentCheckIcon className={`h-7 w-7  ${toggle ? 'text-dark2' : 'text-blue-500'} `} />
                 <h2 className='text-xl pl-3'>Recent Orders</h2>
               </div>
               <Table color="bg-red-500" tableData={data} tableHeader={Headers} name="recentOrders" />
             </div>
             <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
               <TopSelling />
-              <div className={`${toggle?'bg-dark4 border-2 border-dark2':'bg-white border-2'} border-2 w-full p-5 shadow-lg overflow-hidden`}>
+              <div className={`${toggle ? 'bg-dark4 border-2 border-dark2' : 'bg-white border-2'} border-2 w-full p-5 shadow-lg overflow-hidden`}>
                 <div className='flex align-middle  mb-10'>
                   <HandThumbUpIcon className="h-7 w-7  text-green-500" />
                   <h2 className='text-xl pl-3'>Customer Satisfaction</h2>

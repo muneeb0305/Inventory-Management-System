@@ -8,17 +8,20 @@ import Loader from "../components/Loader/Loader";
 
 export default function OrderDetails() {
   const dispatch = useDispatch()
+  //Breadcrumb name
   const breadCrumb = { name: 'Order Details' }
+
   const [openTab, setOpenTab] = React.useState(1);
-  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
-  const toggle = useSelector(state=> state.appState.darkMode)
-
   const [showLoader, setShowLoader] = useState(true)
-
+  //Table Headers
+  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
+  //Redux States
+  const toggle = useSelector(state => state.appState.darkMode)
   const Loading = useSelector(state => state.orders.loading)
   const Orders = useSelector((state) => state.orders.orders)
 
   useEffect(() => {
+    //BreadCrumb
     dispatch(changeName(breadCrumb))
     dispatch(showOrders())
     setTimeout(() => {
@@ -30,14 +33,14 @@ export default function OrderDetails() {
   return (
     showLoader ? <Loader /> :
       <section>
-        <div className={`${toggle?'bg-dark3':'bg-gray-100'} min-h-screen pt-20`}>
+        <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pt-20`}>
           <div className="container mx-auto px-5 pt-5">
             <div className="flex flex-wrap">
               <div className="w-full">
-                <ul className={`grid lg:grid-cols-6 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 ${toggle?'border-b-4 border-dark5':'border-b-4'} pb`} role="tablist">
+                <ul className={`grid lg:grid-cols-6 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 ${toggle ? 'border-b-4 border-dark5' : 'border-b-4'} pb`} role="tablist">
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded leading-normal " +
-                      (openTab === 1 ? `${toggle?'bg-dark5 text-dark2':'text-white bg-blue-600'} `: `${toggle?'bg-dark2 text-dark5':'text-black bg-white'} `)}
+                      (openTab === 1 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
                       onClick={e => { e.preventDefault(); setOpenTab(1); }}
                       data-toggle="tab" href="#link1" role="tablist">
                       <ShoppingCartIcon className="h-5 w-5" /><span className="mx-2 "> Order Placed</span>
@@ -45,7 +48,7 @@ export default function OrderDetails() {
                   </li>
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded  leading-normal " +
-                      (openTab === 2 ? `${toggle?'bg-dark5 text-dark2':'text-white bg-blue-600'} `: `${toggle?'bg-dark2 text-dark5':'text-black bg-white'} `)}
+                      (openTab === 2 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
                       onClick={e => { e.preventDefault(); setOpenTab(2); }}
                       data-toggle="tab" href="#link2" role="tablist">
                       <CheckCircleIcon className="h-5 w-5" /><span className="mx-2 ">Order Received</span>
@@ -54,7 +57,7 @@ export default function OrderDetails() {
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a
                       className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded  leading-normal " +
-                      (openTab === 3 ? `${toggle?'bg-dark5 text-dark2':'text-white bg-blue-600'} `: `${toggle?'bg-dark2 text-dark5':'text-black bg-white'} `)}
+                        (openTab === 3 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
                       onClick={e => { e.preventDefault(); setOpenTab(3); }}
                       data-toggle="tab" href="#link3" role="tablist">
                       <ClipboardDocumentCheckIcon className="h-5 w-5" /><span className="mx-2 ">Order Picked</span>
@@ -63,7 +66,7 @@ export default function OrderDetails() {
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a
                       className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded  leading-normal " +
-                      (openTab === 4 ? `${toggle?'bg-dark5 text-dark2':'text-white bg-blue-600'} `: `${toggle?'bg-dark2 text-dark5':'text-black bg-white'} `)}
+                        (openTab === 4 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
                       onClick={e => { e.preventDefault(); setOpenTab(4); }}
                       data-toggle="tab" href="#link3" role="tablist">
                       <GiftIcon className="h-5 w-5" /><span className="mx-2 ">Order Packaged</span>
@@ -72,7 +75,7 @@ export default function OrderDetails() {
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a
                       className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded  leading-normal " +
-                      (openTab === 5 ? `${toggle?'bg-dark5 text-dark2':'text-white bg-blue-600'} `: `${toggle?'bg-dark2 text-dark5':'text-black bg-white'} `)}
+                        (openTab === 5 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
                       onClick={e => { e.preventDefault(); setOpenTab(5); }}
                       data-toggle="tab" href="#link3" role="tablist">
                       <TruckIcon className="h-5 w-5" /><span className="mx-2 ">Order Shipped</span>
@@ -81,7 +84,7 @@ export default function OrderDetails() {
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a
                       className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded  leading-normal " +
-                      (openTab === 6 ? `${toggle?'bg-dark5 text-dark2':'text-white bg-blue-600'} `: `${toggle?'bg-dark2 text-dark5':'text-black bg-white'} `)}
+                        (openTab === 6 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
                       onClick={e => { e.preventDefault(); setOpenTab(6); }}
                       data-toggle="tab" href="#link3" role="tablist">
                       <DocumentCheckIcon className="h-5 w-5" /><span className="mx-2 ">Order Delivered</span>
@@ -92,32 +95,32 @@ export default function OrderDetails() {
                   <div className="flex-auto">
                     <div className="tab-content tab-space">
                       <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                        <div className={`${toggle?'bg-dark4 border-dark2':'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-red-500" tableData={Orders.orderPlaced} tableHeader={Headers} name="orderDetails" />
                         </div>
                       </div>
                       <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                        <div className={ `${toggle?'bg-dark4 border-dark2':'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-green-500" tableData={Orders.orderReceived} tableHeader={Headers} name="orderDetails" />
                         </div>
                       </div>
                       <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                        <div className={`${toggle?'bg-dark4 border-dark2':'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-purple-500" tableData={Orders.orderPicked} tableHeader={Headers} name="orderDetails" />
                         </div>
                       </div>
                       <div className={openTab === 4 ? "block" : "hidden"} id="link3">
-                        <div className={`${toggle?'bg-dark4 border-dark2':'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-orange-500" tableData={Orders.orderPackaged} tableHeader={Headers} name="orderDetails" />
                         </div>.
                       </div>
                       <div className={openTab === 5 ? "block" : "hidden"} id="link3">
-                        <div className={`${toggle?'bg-dark4 border-dark2':'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-green-500" tableData={Orders.orderShipped} tableHeader={Headers} name="orderDetails" />
                         </div>
                       </div>
                       <div className={openTab === 6 ? "block" : "hidden"} id="link3">
-                        <div className={`${toggle?'bg-dark4 border-dark2':'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-green-500" tableData={Orders.orderDelivered} tableHeader={Headers} name="orderDetails" />
                         </div>
                       </div>

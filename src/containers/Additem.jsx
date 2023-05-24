@@ -9,9 +9,14 @@ import Alert from '../components/Alert/Alert';
 
 export default function Additem() {
     const dispatch = useDispatch()
-    const { id } = useParams()
     const navigate = useNavigate()
+    //get id from param
+    const { id } = useParams()
+    //check is there ID exist or not
     const isID = !!id
+    //Redux state
+    const toggle = useSelector(state => state.appState.darkMode)
+
     const [Form, setForm] = useState({
         itemName: '',
         brand: '',
@@ -27,6 +32,7 @@ export default function Additem() {
     };
     const handleSubmit = (e) => {
         e.preventDefault()
+        //if there's id then update that item else create it
         isID ? dispatch(updateItem([id, { ...Form }]))
             .unwrap()
             .then(() => {
@@ -70,7 +76,9 @@ export default function Additem() {
                 })
     }
     useEffect(() => {
+        //breadCrumb
         dispatch(changeName({ name: isID ? "Update Item" : "Add Item" }))
+        //if id exist then get its old data
         if (isID) {
             dispatch(showItemsByID(id))
                 .unwrap()
@@ -88,13 +96,12 @@ export default function Additem() {
                 .catch(err => { throw err })
         }
     }, [isID, id, dispatch])
-    const toggle = useSelector(state=> state.appState.darkMode)
 
     return (
         <section>
             <div className={`${toggle ? "bg-dark3 pt-20" : 'bg-gray-100 pt-20'} min-h-screen `}>
                 <div className="container mx-auto px-5 pt-5">
-                <div className={`${toggle?'bg-dark4':'bg-white'} p-5 shadow-lg rounded-lg`}>
+                    <div className={`${toggle ? 'bg-dark4' : 'bg-white'} p-5 shadow-lg rounded-lg`}>
                         <form onSubmit={handleSubmit}>
                             <div className='mb-4'>
                                 <Input type="text" name="image" value={Form.image} onChange={handleChange} title={'Upload Image Url'} />

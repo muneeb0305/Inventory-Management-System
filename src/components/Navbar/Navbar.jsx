@@ -30,9 +30,12 @@ export default function Navbar() {
           <div className={`relative flex h-16 items-center  ${open ? 'justify-between md:right-20' : 'justify-between'}`}>
             <Breadcrumbs />
             <div className="absolute inset-y-0 right-14 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <button
+                type="button">
+                    <Toggle/>
+              </button>
 
               {/* Profile dropdown */}
-                    <Toggle/>
               <Menu as="div" className="relative ml-3">
                 <div>
                   <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">

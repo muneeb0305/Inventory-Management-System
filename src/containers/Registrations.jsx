@@ -22,6 +22,7 @@ export default function RegistrationForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        //if password matches then create user else error
         if (Form.password === Form.retype_password) {
             dispatch(addUser({ ...Form }))
                 .unwrap()

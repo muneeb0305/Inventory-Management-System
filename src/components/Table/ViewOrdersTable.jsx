@@ -7,6 +7,7 @@ export default function ViewOrderTable() {
     const tableHeader = ["#", "Date", "Customer Name", "Product", "Quantity", "Status", "City", "Amount"]
     const dispatch = useDispatch()
     const [showLoader, setShowLoader] = useState(true)
+    const toggle = useSelector(state => state.appState.darkMode)
 
     const Loading = useSelector(state => state.orders.loading)
     useEffect(() => {
@@ -24,15 +25,15 @@ export default function ViewOrderTable() {
     return (
         showLoader ? <Loader /> :
             <section >
-                <div className='bg-gray-100 min-h-screen  pt-20'>
-                    <div className='container mx-auto px-5 bg-white border-2 w-full shadow-lg'>
+                <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pb-4 pt-20`}>
+                    <div className={` ${toggle?'bg-dark4 border-2 border-dark2':'bg-white border-2'} container mx-auto px-5 2 w-full shadow-lg`}>
                         <div className='w-full'>
                             <div className="p-4">
                                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                                         <div className="overflow-x-auto">
                                             <table className="min-w-full">
-                                                <thead className="bg-blue-600 text-white text-center">
+                                                <thead className={`${toggle ? 'bg-dark1 ' : 'bg-blue-600'} text-white text-center`}>
                                                     <tr className='text-center'>
                                                         {tableHeader.map((header, index) => (
                                                             <th key={index} className="text-sm font-medium px-6 py-4">{header}</th>
@@ -42,7 +43,7 @@ export default function ViewOrderTable() {
                                                 {Orders && Orders.length ? (
                                                     <tbody>
                                                         {Orders.map((row, index) => (
-                                                            <tr key={index} className="border-b hover:bg-gray-50 text-center">
+                                                            <tr key={index} className={`${toggle ? 'hover:bg-dark5 border-b border-dark6 ' : 'hover:bg-gray-50 border-b '}   text-center`}>
                                                                 <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                                     {index + 1}
                                                                 </td>
