@@ -11,7 +11,7 @@ export default function OrderDetails() {
   //Breadcrumb name
   const breadCrumb = { name: 'Order Details' }
 
-  const [openTab, setOpenTab] = React.useState(1);
+  const [openTab, setOpenTab] = useState(1);
   const [showLoader, setShowLoader] = useState(true)
   //Table Headers
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]

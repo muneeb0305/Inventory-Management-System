@@ -47,6 +47,7 @@ export const addOrder = createAsyncThunk(
 export const updateOrder = createAsyncThunk(
     "updateOrder",
     async (data, { getState, rejectWithValue }) => {
+        console.log(data)
         const state = getState()
         const token = state.Auth.token
         const config = {
@@ -202,6 +203,8 @@ export const OrderSlice = createSlice({
         customerCard: [],
         loading: false,
         error: null,
+        adminloader: false,
+        orderloader: false,
     },
     extraReducers: {
         //Show Orders
@@ -229,26 +232,26 @@ export const OrderSlice = createSlice({
         },
         //Recent Orders
         [recentOrders.pending]: (state) => {
-            state.loading = true;
+            state.orderloader = true;
         },
         [recentOrders.fulfilled]: (state, action) => {
-            state.loading = false;
+            state.orderloader = false;
             state.orders = action.payload;
         },
         [recentOrders.rejected]: (state, action) => {
-            state.loading = false;
+            state.orderloader = false;
             state.error = action.payload;
         },
         //adminCard
         [adminCard.pending]: (state) => {
-            state.loading = true;
+            state.adminloader = true;
         },
         [adminCard.fulfilled]: (state, action) => {
-            state.loading = false;
+            state.adminloader = false;
             state.adminCard = action.payload;
         },
         [adminCard.rejected]: (state, action) => {
-            state.loading = false;
+            state.adminloader = false;
             state.error = action.payload;
         },
         //customerCard

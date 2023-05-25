@@ -15,11 +15,13 @@ export const login = createAsyncThunk(
                 return { token, role }
             })
             .catch(error => {
+                console.log(error)
                 const err = error.response.data
                 return rejectWithValue(err)
             });
     }
 );
+
 export const checkToken = createAsyncThunk(
     "checkToken",
     async (token, { rejectWithValue }) => {

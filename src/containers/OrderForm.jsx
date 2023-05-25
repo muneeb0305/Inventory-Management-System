@@ -121,8 +121,8 @@ export default function OrderForm() {
     return (
         <section>
             <div className={`${toggle ? isID ? "bg-dark3 pt-20 min-h-screen " : "pt-5" : isID ? "bg-gray-100 pt-20 min-h-screen " : "pt-5"} `}>
-                <div className={`container mx-auto ${isID ? 'px-5' : ''}`}>
-                    <div className={`${toggle ? 'bg-dark4' : 'bg-white'} p-5 shadow-lg rounded-lg`}>
+                <div className={`container mx-auto ${isID ? 'px-5 ' : ''}`}>
+                    <div className={`${toggle ? 'bg-dark4 pt-6' : 'bg-white pt-6'} p-5 shadow-lg rounded-lg`}>
                         <form onSubmit={handleSubmit}>
                             {
                                 isID &&

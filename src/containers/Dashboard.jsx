@@ -20,10 +20,11 @@ export default function Dashboard() {
   //Table Headers
   const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
   //Redux States
-  const Loading = useSelector(state => state.orders.loading)
   const data = useSelector((state) => state.orders.orders)
-  const AdminCard = useSelector((state) => state.orders.adminCard)
   const toggle = useSelector(state => state.appState.darkMode)
+  const adminLoader = useSelector((state) => state.orders.adminloader)
+  const orderloader = useSelector((state) => state.orders.orderloader)
+  const AdminCard = useSelector((state) => state.orders.adminCard)
 
   useEffect(() => {
     //BreadCrumb
@@ -31,7 +32,7 @@ export default function Dashboard() {
     dispatch(recentOrders())
     dispatch(adminCard())
     setTimeout(() => {
-      setShowLoader(Loading)
+      setShowLoader(adminLoader && orderloader)
     }, 500);
     // eslint-disable-next-line
   }, [])
@@ -53,7 +54,7 @@ export default function Dashboard() {
               </div>
               <div className='lg:order-2 flex flex-col gap-6'>
                 {
-                  DashboardCardData.map(({ title, bgColor, icon }) => {
+                  DashboardCardData.map(({ title, icon }) => {
                     if (title === 'Order Placed') {
                       return (<Card
                         key={title}

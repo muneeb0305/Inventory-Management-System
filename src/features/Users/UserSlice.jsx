@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
-//Sale Table
+//Add User
 export const addUser = createAsyncThunk(
     "addUser",
     async (data, { rejectWithValue }) => {
@@ -16,7 +16,7 @@ export const addUser = createAsyncThunk(
     }
 );
 
-export const SaleSlice = createSlice({
+export const UserSlice = createSlice({
     name: 'User',
     initialState: {
         loading: false,
@@ -37,4 +37,4 @@ export const SaleSlice = createSlice({
     }
 })
 
-export default SaleSlice.reducer
+export default UserSlice.reducer

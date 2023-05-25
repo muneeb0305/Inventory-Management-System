@@ -14,6 +14,7 @@ export default function LoginPage() {
     const User = ['Admin', 'Customer']
     //Redux States
     const toggle = useSelector(state => state.appState.darkMode)
+    
     const [Form, setForm] = useState({
         email: '',
         password: '',

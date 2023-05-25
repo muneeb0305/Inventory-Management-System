@@ -2,12 +2,12 @@
 
 /* Scroll Bar */
 html::-webkit-scrollbar {
-  width: 5px;
+  width: 7px;
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #1690e8;
-  border-radius: 16px;
+  background: #065c9a;
+  border-radius: 20px;
 }
 
 html::-webkit-scrollbar-track {
