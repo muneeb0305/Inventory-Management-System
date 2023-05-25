@@ -12,7 +12,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-  const toggle = useSelector(state=> state.appState.darkMode)
+  const toggle = useSelector(state => state.appState.darkMode)
   const open = useSelector((state) => state.appState.open)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -23,15 +23,14 @@ export default function Navbar() {
     navigate('/');
   }
   return (
-    <Disclosure as="nav" className={`${toggle?'bg-dark1 ':'bg-white border-2 rounded-md'} shadow-lg  w-full z-10  fixed`}>
+    <Disclosure as="nav" className={`${toggle ? 'bg-dark1 ' : 'bg-white border-2 rounded-md'} shadow-lg  w-full z-10  fixed`}>
       <div className=''>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
           <div className={`relative flex h-16 items-center  ${open ? 'justify-between md:right-20' : 'justify-between'}`}>
             <Breadcrumbs />
             <div className="absolute inset-y-0 right-14 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <button
-                type="button">
-                    <Toggle/>
+              <button>
+                <Toggle />
               </button>
 
               {/* Profile dropdown */}
