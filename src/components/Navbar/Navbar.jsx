@@ -22,7 +22,6 @@ export default function Navbar() {
     dispatch(Logout())
     navigate('/');
   }
-  console.log(toggle)
   return (
     <Disclosure as="nav" className={`${toggle?'bg-dark1 ':'bg-white border-2 rounded-md'} shadow-lg  w-full z-10  fixed`}>
       <div className=''>

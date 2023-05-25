@@ -47,7 +47,6 @@ export const addOrder = createAsyncThunk(
 export const updateOrder = createAsyncThunk(
     "updateOrder",
     async (data, { getState, rejectWithValue }) => {
-        console.log(data)
         const state = getState()
         const token = state.Auth.token
         const config = {
