@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Table from '../components/Table/ViewItemTable'
+import Table from './ViewInventoryItem'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../features/App/AppSlice'

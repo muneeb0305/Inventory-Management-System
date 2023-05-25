@@ -11,7 +11,7 @@ import ViewItem from '../containers/ViewItem';
 import OrderForm from '../containers/OrderForm';
 import { adminMenu, customerMenu } from '../data/Menu';
 import CustomerDashboard from '../containers/CustomerDashboard';
-import ViewOrderTable from '../components/Table/ViewOrdersTable';
+import ViewOrderTable from '../containers/CustomerOrders';
 
 const routes = [
   {
