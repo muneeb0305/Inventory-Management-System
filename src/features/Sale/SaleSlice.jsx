@@ -50,7 +50,7 @@ export const SaleSlice = createSlice({
         orders: [],
         saleCard: [],
         loading: false,
-        error: null,
+        error: '',
     },
     extraReducers: {
         //Sale Card

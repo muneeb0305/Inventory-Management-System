@@ -114,7 +114,7 @@ export const InventorySlice = createSlice({
         items: [],
         itemByID: [],
         loading: false,
-        error: null,
+        error: '',
     },
     extraReducers: {
 

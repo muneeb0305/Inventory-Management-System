@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeName } from '../features/App/AppSlice';
 import { cityOrders, saleCard } from '../features/Sale/SaleSlice';
 import Loader from '../components/Loader/Loader';
+import Alert from '../components/Alert/Alert';
 
 export default function SaleDetails() {
   const dispatch = useDispatch()
@@ -24,6 +25,8 @@ export default function SaleDetails() {
   const _saleCard = useSelector((state) => state.sale.saleCard)
   const _cityOrders = useSelector((state) => state.sale.orders)
   const toggle = useSelector(state => state.appState.darkMode)
+  const error = useSelector((state) => state.sale.error.error)
+
 
   useEffect(() => {
     dispatch(changeName({ name: 'Sale Overview' }))
@@ -38,6 +41,7 @@ export default function SaleDetails() {
   return (
     showLoader ? <Loader /> :
       <section>
+        {error && Alert({ icon: 'error', title: error })}
         <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pb-4 pt-20`}>
           <div className='container mx-auto px-5 pt-5'>
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">

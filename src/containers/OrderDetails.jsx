@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeName } from "../features/App/AppSlice";
 import { showOrders } from "../features/Orders/OrderSlice";
 import Loader from "../components/Loader/Loader";
+import Alert from "../components/Alert/Alert";
 
 export default function OrderDetails() {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ export default function OrderDetails() {
   const toggle = useSelector(state => state.appState.darkMode)
   const Loading = useSelector(state => state.orders.loading)
   const Orders = useSelector((state) => state.orders.orders)
+  const error = useSelector((state) => state.orders.error.error)
 
   useEffect(() => {
     //BreadCrumb
@@ -33,6 +35,7 @@ export default function OrderDetails() {
   return (
     showLoader ? <Loader /> :
       <section>
+        {error && Alert({ icon: 'error', title: error })}
         <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pt-20`}>
           <div className="container mx-auto px-5 pt-5">
             <div className="flex flex-wrap">

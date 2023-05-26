@@ -26,7 +26,7 @@ export default function ViewOrderTable() {
         showLoader ? <Loader /> :
             <section >
                 <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pb-4 pt-20`}>
-                    <div className={` ${toggle?'bg-dark4 border-2 border-dark2':'bg-white border-2'} container mx-auto px-5 2 w-full shadow-lg`}>
+                    <div className={` ${toggle ? 'bg-dark4 border-2 border-dark2' : 'bg-white border-2'} container mx-auto px-5 2 w-full shadow-lg`}>
                         <div className='w-full'>
                             <div className="p-4">
                                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">

@@ -201,7 +201,7 @@ export const OrderSlice = createSlice({
         orderbyId: [],
         customerCard: [],
         loading: false,
-        error: null,
+        error: '',
         adminloader: false,
         orderloader: false,
     },

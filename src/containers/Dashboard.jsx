@@ -13,6 +13,7 @@ import { adminCard, recentOrders } from '../features/Orders/OrderSlice'
 import TopSelling from '../components/CustomComponent/TopSelling'
 import { useState } from 'react'
 import Loader from '../components/Loader/Loader'
+import Alert from '../components/Alert/Alert'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const adminLoader = useSelector((state) => state.orders.adminloader)
   const orderloader = useSelector((state) => state.orders.orderloader)
   const AdminCard = useSelector((state) => state.orders.adminCard)
+  const error = useSelector((state) => state.orders.error.error)
 
   useEffect(() => {
     //BreadCrumb
@@ -40,6 +42,7 @@ export default function Dashboard() {
   return (
     showLoader ? <Loader /> :
       <section>
+        {error && Alert({ icon: 'error', title: error })}
         <div className={`${toggle ? 'bg-dark3' : 'bg-gray-100'} min-h-screen pb-4 pt-20`}>
           <div className='container mx-auto px-5 pt-5'>
             <div className='grid gap-6 mb-5 md:grid-cols-2'>
