@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Table from "../components/Table/InventoryTable";
+import Table from "../components/Table/Table";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button/Button";
 import Searchbar from "../components/SearchBar/Searchbar";
@@ -12,7 +12,7 @@ import Alert from "../components/Alert/Alert";
 export default function Inventory() {
     const dispatch = useDispatch()
     //Table Headers
-    const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock"]
+    const Headers = ["Name", "Brand", "Price In", "Price Out", "Category", "Stock", "Action"]
 
     const [searchValue1, setSearchValue1] = useState('');
     const [showLoader, setShowLoader] = useState(true)
@@ -57,7 +57,7 @@ export default function Inventory() {
                                 </Link>
                                 <Searchbar placeholder="Search By Name" value={searchValue1} onChange={handleSearch1} />
                             </div>
-                            <Table tableHeader={Headers} tableData={tableData} />
+                            <Table tableHeader={Headers} tableData={tableData} dataArr={['itemName','brand','priceIn','priceOut','category','stock']} updateLink={'update_Item'}  name={'Inventory'}/>
                         </div>
                     </div>
                 </div>

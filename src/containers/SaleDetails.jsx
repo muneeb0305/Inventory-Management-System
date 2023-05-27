@@ -5,7 +5,7 @@ import SaleBarChart from '../components/Charts/SaleBarChart';
 import SaleAreaChart from '../components/Charts/SaleAreaChart';
 import SaleBarChart2 from '../components/Charts/SaleBarChart2';
 import { DocumentIcon } from '@heroicons/react/24/solid';
-import CityTable from '../components/Table/CityTable';
+import CityTable from '../components/Table/Table';
 import RevenueData from '../data/RevenueData';
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData';
 import TargetRealityData from '../data/TargetRealityData';
@@ -110,7 +110,7 @@ export default function SaleDetails() {
                   <DocumentIcon className={`h-7 w-7  ${toggle ? 'text-dark2' : 'text-blue-500'} `} />
                   <h2 className='text-xl pl-3'>Sales By Cities</h2>
                 </div>
-                <CityTable tableData={_cityOrders} tableHeader={tableHeader} />
+                <CityTable tableData={_cityOrders} tableHeader={tableHeader} dataArr={['City', 'Clients', 'ProductSold', 'Sale']} />
               </div>
             </div>
           </div>

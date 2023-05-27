@@ -31,7 +31,7 @@ export default function ViewItem() {
             <section>
                 <div className={`${toggle ? "bg-dark3 pt-20" : 'bg-gray-100 pt-20'} min-h-screen `}>
                     <div className="container mx-auto px-5 pt-5">
-                        <div className={`${toggle ? 'bg-dark7 border-dark2' : 'bg-white'} border-2 shadow-xl w-4/6 mx-auto`}>
+                        <div className={`${toggle ? 'bg-dark7 border-dark2' : 'bg-white'} border-2 shadow-xl mx-auto`}>
                             {item &&
                                 <div className='grid md:grid-cols-2 gap-5'>
                                     <div className='flex justify-center m-10'>

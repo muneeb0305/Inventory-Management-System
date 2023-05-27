@@ -1,6 +1,6 @@
 import { CheckCircleIcon, ClipboardDocumentCheckIcon, DocumentCheckIcon, GiftIcon, ShoppingCartIcon, TruckIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react";
-import Table from "../components/Table/OrderTable";
+import Table from "../components/Table/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { changeName } from "../features/App/AppSlice";
 import { showOrders } from "../features/Orders/OrderSlice";
@@ -99,32 +99,32 @@ export default function OrderDetails() {
                     <div className="tab-content tab-space">
                       <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                         <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                          <Table color="bg-red-500" tableData={Orders.orderPlaced} tableHeader={Headers} name="orderDetails" />
+                        <Table color="bg-red-500" tableData={Orders.orderPlaced} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                       <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                          <Table color="bg-green-500" tableData={Orders.orderReceived} tableHeader={Headers} name="orderDetails" />
+                        <div className={`${toggle ? 'bg-dark4 border-orderReceived' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                        <Table color="bg-green-500" tableData={Orders.orderPlaced} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                       <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                         <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                          <Table color="bg-purple-500" tableData={Orders.orderPicked} tableHeader={Headers} name="orderDetails" />
+                        <Table color="bg-purple-500" tableData={Orders.orderPicked} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                       <div className={openTab === 4 ? "block" : "hidden"} id="link3">
                         <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                          <Table color="bg-orange-500" tableData={Orders.orderPackaged} tableHeader={Headers} name="orderDetails" />
-                        </div>.
+                          <Table color="bg-orange-500" tableData={Orders.orderPackaged} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
+                        </div>
                       </div>
                       <div className={openTab === 5 ? "block" : "hidden"} id="link3">
                         <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                          <Table color="bg-green-500" tableData={Orders.orderShipped} tableHeader={Headers} name="orderDetails" />
+                          <Table color="bg-green-500" tableData={Orders.orderShipped} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                       <div className={openTab === 6 ? "block" : "hidden"} id="link3">
                         <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                          <Table color="bg-green-500" tableData={Orders.orderDelivered} tableHeader={Headers} name="orderDetails" />
+                          <Table color="bg-green-500" tableData={Orders.orderDelivered} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                     </div>

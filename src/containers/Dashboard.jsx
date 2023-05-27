@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import DashboardCardData from '../data/DashboardCardData'
 import BarChart from '../components/Charts/BarChartComponent'
 import { CalendarDaysIcon, ClipboardDocumentCheckIcon, HandThumbUpIcon } from '@heroicons/react/24/solid'
-import Table from '../components/Table/OrderTable'
+import Table from '../components/Table/Table'
 import TotalOrderData from '../data/TotalOrderData'
 import SaleAreaChart from '../components/Charts/SaleAreaChart'
 import CustomerSatisfactionData from '../data/CustomerSatisfactionData'
@@ -19,7 +19,7 @@ export default function Dashboard() {
   const dispatch = useDispatch()
   const [showLoader, setShowLoader] = useState(true)
   //Table Headers
-  const Headers = ["Order ID", "Date", "Customer Name", "Product", "Quantity", "Status", "Amount"]
+  const Headers = ["Date", "Customer Name", "Product", "Quantity", "Amount", "Status", "Action"]
   //Redux States
   const data = useSelector((state) => state.orders.orders)
   const toggle = useSelector(state => state.appState.darkMode)
@@ -95,7 +95,7 @@ export default function Dashboard() {
                 <ClipboardDocumentCheckIcon className={`h-7 w-7  ${toggle ? 'text-dark2' : 'text-blue-500'} `} />
                 <h2 className='text-xl pl-3'>Recent Orders</h2>
               </div>
-              <Table color="bg-red-500" tableData={data} tableHeader={Headers} name="recentOrders" />
+              <Table color="bg-red-500" tableData={data} tableHeader={Headers} updateLink={'update_order'} name="recentOrders" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
             </div>
             <div className='mt-5  md:grid-cols-2 lg:grid-cols-2 grid  gap-5'>
               <TopSelling />
