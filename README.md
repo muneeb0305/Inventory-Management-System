@@ -9,10 +9,6 @@ Technologies
 
 Installation
 
-Usage
-
-Contributing
-
 License
 
 ## Introduction
@@ -40,7 +36,9 @@ Update Inventory Item
 
 Delete Inventory Item
 
-City based Orders delivered and Clients
+View Inventory Item
+
+View City based Orders delivered and Clients
 
 View Sales, Product Sold, Customers
 
