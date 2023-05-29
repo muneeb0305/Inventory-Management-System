@@ -31,7 +31,15 @@ export default function OrderDetails() {
     }, 500);
     // eslint-disable-next-line
   }, [])
-
+  const mergedOrders = [].concat(
+    Orders.orderPlaced,
+    Orders.orderReceived,
+    Orders.orderPicked,
+    Orders.orderPackaged,
+    Orders.orderShipped,
+    Orders.orderDelivered
+  );
+  
   return (
     showLoader ? <Loader /> :
       <section>
@@ -40,7 +48,7 @@ export default function OrderDetails() {
           <div className="container mx-auto px-5 pt-5">
             <div className="flex flex-wrap">
               <div className="w-full">
-                <ul className={`grid lg:grid-cols-6 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 ${toggle ? 'border-b-4 border-dark5' : 'border-b-4'} pb`} role="tablist">
+                <ul className={`grid lg:grid-cols-7 pt-3 pb-4 md:grid-cols-4 gap-2 sm:grid-cols-3 ${toggle ? 'border-b-4 border-dark5' : 'border-b-4'} pb`} role="tablist">
                   <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                     <a className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded leading-normal " +
                       (openTab === 1 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
@@ -93,6 +101,15 @@ export default function OrderDetails() {
                       <DocumentCheckIcon className="h-5 w-5" /><span className="mx-2 ">Order Delivered</span>
                     </a>
                   </li>
+                  <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                    <a
+                      className={"flex justify-center items-center text-xs font-bold uppercase px-3 py-3 shadow-lg rounded  leading-normal " +
+                        (openTab === 7 ? `${toggle ? 'bg-dark5 text-dark2' : 'text-white bg-blue-600'} ` : `${toggle ? 'bg-dark2 text-dark5' : 'text-black bg-white'} `)}
+                      onClick={e => { e.preventDefault(); setOpenTab(7); }}
+                      data-toggle="tab" href="#link3" role="tablist">
+                      <DocumentCheckIcon className="h-5 w-5" /><span className="mx-2 ">All Orders</span>
+                    </a>
+                  </li>
                 </ul>
                 <div className="relative flex flex-col min-w-0 break-words w-full pt-5 ">
                   <div className="flex-auto">
@@ -125,6 +142,11 @@ export default function OrderDetails() {
                       <div className={openTab === 6 ? "block" : "hidden"} id="link3">
                         <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
                           <Table color="bg-green-500" tableData={Orders.orderDelivered} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
+                        </div>
+                      </div>
+                      <div className={openTab === 7 ? "block" : "hidden"} id="link3">
+                        <div className={`${toggle ? 'bg-dark4 border-dark2' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
+                          <Table color="bg-green-500" tableData={mergedOrders} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                     </div>

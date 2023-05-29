@@ -4,7 +4,7 @@ import Modal from '../Modal/Model'
 
 export default function Table({ tableData, tableHeader, dataArr, name, color, updateLink }) {
   const toggle = useSelector(state => state.appState.darkMode)
-
+  
   return (
     <section >
       <div className='w-full'>
@@ -37,8 +37,31 @@ export default function Table({ tableData, tableHeader, dataArr, name, color, up
                             }
                             {color &&
                               <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900">
-                                <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
-                              </td>
+                              {
+                                  data.status === 'Order Delivered' ? (
+                                      color = "bg-green-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  ) : data.status === 'Order Placed' ? (
+                                      color = "bg-red-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  ) : data.status === 'Order Received' ? (
+                                      color = "bg-green-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  ) : data.status === 'Order Picked' ? (
+                                      color = "bg-purple-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  ) : data.status === 'Order Packaged' ? (
+                                      color = "bg-orange-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  ) : data.status === 'Order Shipped' ? (
+                                      color = "bg-green-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  ) : (
+                                      color = "bg-blue-500",
+                                      <span className={`${color} rounded-full p-2 shadow-md text-white font-normal whitespace-nowrap`}>{data.status}</span>
+                                  )
+                              }
+                          </td>
                             }
                             {name &&
                               <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 ">

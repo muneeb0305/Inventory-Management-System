@@ -18,11 +18,12 @@ export default function LoginPage() {
     const [Form, setForm] = useState({
         email: '',
         password: '',
-        type: ''
+        type: User[0]
     })
     const handleChange = (e) => {
         setForm({ ...Form, [e.target.name]: e.target.value })
     }
+    console.log(Form)
     const handleSubmit = (e) => {
         e.preventDefault();
         //check responce of api and navigate to there role
