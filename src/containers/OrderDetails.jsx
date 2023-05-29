@@ -121,7 +121,7 @@ export default function OrderDetails() {
                       </div>
                       <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                         <div className={`${toggle ? 'bg-dark4 border-orderReceived' : 'bg-white'} rounded-lg border-2 shadow-lg p-3`}>
-                        <Table color="bg-green-500" tableData={Orders.orderPlaced} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
+                        <Table color="bg-green-500" tableData={Orders.orderReceived} tableHeader={Headers} updateLink={'update_order'} name="orderDetails" dataArr={['date', 'customer_Name', 'product', 'quantity', 'amount']} />
                         </div>
                       </div>
                       <div className={openTab === 3 ? "block" : "hidden"} id="link3">

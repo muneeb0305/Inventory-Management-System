@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteItem, showItems } from '../../features/Inventory/InventorySlice';
 import { adminCard, deleteOrder, recentOrders, showOrders } from '../../features/Orders/OrderSlice';
-export default function Modal({ ID, updateLink, name }) {
+export default function Modal({ ID, updateLink, name, pagePagination }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch()
@@ -24,12 +24,16 @@ export default function Modal({ ID, updateLink, name }) {
         .unwrap()
         .then(() => {
           dispatch(showOrders())
+          pagePagination()
         })
         .catch(err => console.log(err))
     } else
       dispatch(deleteItem(id))
         .unwrap()
-        .then(() => dispatch(showItems()))
+        .then(() => {
+          dispatch(showItems())
+          pagePagination()
+        })
         .catch(err => console.log(err))
     closeModal()
   }
